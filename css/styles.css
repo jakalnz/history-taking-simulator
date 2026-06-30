@@ -445,6 +445,21 @@ body {
 .send-btn:hover { background: var(--teal-700); }
 .send-btn:disabled { opacity: .5; cursor: not-allowed; }
 
+.tts-toggle {
+  width: 34px; height: 34px;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--slate-400);
+  border: 1px solid rgba(255,255,255,.15);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background .12s, color .12s;
+  margin-left: auto;
+}
+.tts-toggle:hover { background: rgba(255,255,255,.1); color: #fff; }
+.tts-toggle.active { color: var(--teal-400); border-color: var(--teal-500); background: rgba(20,184,166,.15); }
+
 .mic-btn {
   width: 40px; height: 40px;
   border-radius: 8px;

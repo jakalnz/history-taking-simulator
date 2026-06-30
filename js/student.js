@@ -1,6 +1,61 @@
 import { getCases, loadBundledCases, saveCase, buildSystemPrompt } from './cases.js';
 import { sendMessage, getSessionToken, setSessionToken, getProxyUrl, setProxyUrl } from './api.js';
 
+// ── Text to speech ──
+let ttsEnabled = false;
+let ttsVoice = null;
+
+function initTTS() {
+  if (!window.speechSynthesis) return;
+
+  const btn = document.getElementById('ttsToggle');
+  if (btn) btn.style.display = 'flex';
+
+  // Pick the best available voice: prefer a natural-sounding en-AU or en-GB female
+  function pickVoice() {
+    const voices = speechSynthesis.getVoices();
+    if (!voices.length) return;
+    const preferred = [
+      v => v.name.includes('Karen'),           // macOS/iOS Australian
+      v => v.name.includes('Samantha'),        // macOS US natural
+      v => v.lang === 'en-AU' && !v.name.includes('Google'),
+      v => v.lang === 'en-GB' && !v.name.includes('Google'),
+      v => v.lang.startsWith('en-AU'),
+      v => v.lang.startsWith('en-GB'),
+      v => v.lang.startsWith('en'),
+    ];
+    for (const match of preferred) {
+      const found = voices.find(match);
+      if (found) { ttsVoice = found; return; }
+    }
+    ttsVoice = voices[0];
+  }
+
+  pickVoice();
+  speechSynthesis.onvoiceschanged = pickVoice;
+
+  btn?.addEventListener('click', () => {
+    ttsEnabled = !ttsEnabled;
+    btn.classList.toggle('active', ttsEnabled);
+    btn.title = ttsEnabled ? 'Patient voice on — click to mute' : 'Toggle patient voice';
+    if (!ttsEnabled) speechSynthesis.cancel();
+  });
+}
+
+function speakPatient(text) {
+  if (!ttsEnabled || !window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  if (ttsVoice) utter.voice = ttsVoice;
+  utter.rate = 0.95;
+  utter.pitch = 1.05;
+  speechSynthesis.speak(utter);
+}
+
+function stopSpeaking() {
+  if (window.speechSynthesis) speechSynthesis.cancel();
+}
+
 // ── Speech recognition ──
 let recognition = null;
 let isRecording = false;
@@ -123,6 +178,7 @@ let coveredSections = new Set();
 document.addEventListener('DOMContentLoaded', async () => {
   // Auth
   checkAuth();
+  initTTS();
   initSpeech();
 
   // Load cases for selection
@@ -292,6 +348,7 @@ async function handleSend() {
     const reply = await sendMessage(systemPrompt, conversation);
     conversation.push({ role: 'assistant', content: reply });
     appendMessage('patient', reply);
+    speakPatient(reply);
   } catch (err) {
     appendMessage('system', `Error: ${err.message}`);
   } finally {
@@ -376,6 +433,7 @@ function renderCoverage() {
 
 // ── End session / report ──
 function endSession() {
+  stopSpeaking();
   const overlay = document.getElementById('reportOverlay');
   if (!overlay) return;
 
