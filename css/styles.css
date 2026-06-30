@@ -541,7 +541,7 @@ body {
 }
 
 /* coverage checklist */
-.coverage-list { display: flex; flex-direction: column; gap: .4rem; }
+.coverage-list { display: flex; flex-direction: column; gap: .25rem; }
 .coverage-item {
   display: flex;
   align-items: center;
@@ -554,8 +554,18 @@ body {
 }
 .coverage-item.covered { color: var(--green-600); }
 .coverage-item .ci-icon { width: 16px; height: 16px; flex-shrink: 0; }
+.coverage-sub {
+  font-size: .73rem;
+  padding: .15rem .5rem .15rem 1.75rem;
+  color: var(--slate-500);
+}
+.coverage-sub.covered { color: var(--green-600); opacity: .85; }
 .coverage-progress { height: 5px; background: var(--slate-200); border-radius: 3px; margin-bottom: .75rem; overflow: hidden; }
 .coverage-bar { height: 100%; background: var(--teal-500); border-radius: 3px; transition: width .4s; }
+
+/* report sub-items */
+.report-sub-list { display: flex; flex-wrap: wrap; gap: .2rem .5rem; margin-top: .2rem; }
+.report-sub { font-size: .78rem; color: var(--green-600); opacity: .8; }
 
 /* ── AI REVIEW ── */
 .ai-review {
@@ -686,13 +696,71 @@ body {
 .text-muted { color: var(--slate-500); }
 .divider { border: none; border-top: 1px solid var(--slate-200); margin: 1.25rem 0; }
 
+/* ── SIDEBAR TOGGLE (mobile only) ── */
+.sidebar-toggle-btn {
+  display: none;
+  width: 34px; height: 34px;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--slate-400);
+  border: 1px solid rgba(255,255,255,.15);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .12s, color .12s;
+}
+.sidebar-toggle-btn:hover { background: rgba(255,255,255,.1); color: #fff; }
+.sidebar-toggle-btn.active { color: var(--teal-400); border-color: var(--teal-500); background: rgba(20,184,166,.15); }
+
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  top: 56px; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 149;
+}
+.sidebar-backdrop.visible { display: block; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .mode-cards { grid-template-columns: 1fr; }
   .form-grid { grid-template-columns: 1fr; }
   .form-grid-3 { grid-template-columns: 1fr; }
-  .student-layout { grid-template-columns: 1fr; height: auto; }
-  .sidebar { display: none; }
+
+  .student-layout {
+    grid-template-columns: 1fr;
+    height: calc(100vh - 56px - 2rem);
+  }
+
+  /* Sidebar becomes a slide-in overlay on mobile */
+  .sidebar {
+    display: flex;
+    position: fixed;
+    top: 56px; right: 0; bottom: 0;
+    width: 85%;
+    max-width: 300px;
+    background: var(--slate-100);
+    z-index: 150;
+    padding: 1rem;
+    overflow-y: auto;
+    box-shadow: -4px 0 24px rgba(0,0,0,.2);
+    transform: translateX(100%);
+    transition: transform .25s ease;
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  .sidebar-toggle-btn { display: flex; }
+
+  /* Prevent iOS font size zoom on focus */
+  .chat-input { font-size: 16px; }
+
+  /* Tighter input area on small screens */
+  .chat-input-area { padding: .5rem .6rem; gap: .4rem; }
+
+  /* Slightly smaller header on mobile */
+  .chat-header { padding: .75rem 1rem; gap: .6rem; }
+  .patient-avatar { width: 34px; height: 34px; font-size: .85rem; }
 }
 
 /* ── SETUP SCREEN ── */

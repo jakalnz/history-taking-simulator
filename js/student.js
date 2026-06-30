@@ -211,51 +211,167 @@ function initSpeech() {
   });
 }
 
+function stopRecordingIfActive() {
+  if (isRecording && recognition) recognition.stop();
+}
+
 // ── State ──
 let activeCase = null;
 let systemPrompt = '';
 let conversation = []; // [{role, content}]
 let isWaiting = false;
 
-// Sections we track for coverage — mirrors the history template
+// Sections we track for coverage — mirrors the history template.
+// Each section has top-level keywords (any hit marks the parent covered) and
+// optional subs (shown once the parent is touched, each individually tracked).
 const COVERAGE_SECTIONS = [
-  { key: 'reasonForAppointment', label: 'Reason for appointment' },
-  { key: 'previousHearingTest',  label: 'Previous hearing test' },
-  { key: 'hearingDetails',       label: 'Hearing details & decline' },
-  { key: 'hearingAids',          label: 'Hearing aid use' },
-  { key: 'tinnitus',             label: 'Tinnitus' },
-  { key: 'soundSensitivity',     label: 'Sound sensitivity' },
-  { key: 'balance',              label: 'Balance / vertigo' },
-  { key: 'earHealth',            label: 'Ear health' },
-  { key: 'entHistory',           label: 'ENT history' },
-  { key: 'generalHealth',        label: 'General health & hospitalisations' },
-  { key: 'headInjuries',         label: 'Head injuries' },
-  { key: 'pastInfections',       label: 'Past infections / medical conditions' },
-  { key: 'medications',          label: 'Medications' },
-  { key: 'noiseHistory',         label: 'Noise history' },
-  { key: 'familyHistory',        label: 'Family history of hearing loss' },
-  { key: 'otherConcerns',        label: 'Other concerns' },
+  {
+    key: 'reasonForAppointment',
+    label: 'Reason for appointment',
+    keywords: ['reason','why','today','appointment','come in','referred','concern','problem','issue','brought you'],
+    subs: []
+  },
+  {
+    key: 'previousHearingTest',
+    label: 'Previous hearing test',
+    keywords: ['previous','before','test','tested','audiogram','checked','prior','past test','hearing test'],
+    subs: [
+      { key: 'prev_when',     label: 'When / results',   keywords: ['when','result','outcome','say','show','find','told','score','threshold'] },
+      { key: 'prev_followup', label: 'Follow-up care',   keywords: ['follow','follow-up','refer','next','recommend','care','action','after'] },
+    ]
+  },
+  {
+    key: 'hearingDetails',
+    label: 'Hearing details',
+    keywords: ['hear','hearing','worse','better','ear','decline','gradual','sudden','when did','quiet','side'],
+    subs: [
+      { key: 'hear_betterEar', label: 'Better / worse ear',     keywords: ['better ear','worse ear','which ear','one side','left ear','right ear','both ear','both sides'] },
+      { key: 'hear_decline',   label: 'Gradual or sudden',      keywords: ['gradual','sudden','overnight','quickly','slow','over time','decline','came on'] },
+      { key: 'hear_onset',     label: 'When first noticed',     keywords: ['when','how long','first notice','start','began','ago','years','months'] },
+    ]
+  },
+  {
+    key: 'hearingAids',
+    label: 'Hearing aid use',
+    keywords: ['aid','aids','hearing aid','device','amplif','wear','wearing'],
+    subs: [
+      { key: 'aid_type',         label: 'Type / age of aids',  keywords: ['type','style','behind','in the ear','bte','ite','old','how long','model','make'] },
+      { key: 'aid_satisfaction', label: 'Satisfaction / benefit', keywords: ['like','happy','work','help','benefit','dislike','trouble','problem','useful','satisfied'] },
+    ]
+  },
+  {
+    key: 'tinnitus',
+    label: 'Tinnitus',
+    keywords: ['tinnitus','ringing','buzzing','hissing','noise in','sound in','ear noise','noises in','hear a noise','any noise','sounds in your ear','sound in your ear','noise in your ear','noises in your ear','clicking','roaring','whooshing','hear anything'],
+    subs: [
+      { key: 'tin_location',    label: 'Location (ear / head)',    keywords: ['which ear','left','right','both','head','where','location'] },
+      { key: 'tin_description', label: 'Description / pattern',    keywords: ['sound like','describe','constant','intermittent','come and go','pulsating','pulse','beat','always','sometimes'] },
+      { key: 'tin_annoyance',   label: 'Level of annoyance',       keywords: ['bother','annoy','affect','distress','impact','sleep','concentrate','worry','upset','disturb'] },
+      { key: 'tin_onset',       label: 'Onset',                    keywords: ['when','how long','start','began','ago','first','started'] },
+    ]
+  },
+  {
+    key: 'soundSensitivity',
+    label: 'Sound sensitivity',
+    keywords: ['sensitiv','hyperacusis','uncomfortable','tolerate','sound bother','bothered by','sounds too loud','painful sounds','startle','loud sounds'],
+    subs: [
+      { key: 'ss_everyday',  label: 'Everyday sounds',     keywords: ['door','cutlery','traffic','everyday','normal sound','ordinary','dishes','voices','television','tv'] },
+      { key: 'ss_annoyance', label: 'Level of annoyance',  keywords: ['bother','annoy','affect','distress','impact','avoid','cope','manage'] },
+    ]
+  },
+  {
+    key: 'balance',
+    label: 'Balance / vertigo',
+    keywords: ['balance','dizzy','dizziness','vertigo','spinning','fall','unstead','imbalance'],
+    subs: [
+      { key: 'bal_type',     label: 'Vertigo vs imbalance',   keywords: ['spinning','room spin','vertigo','imbalance','unstead','off balance','lightheaded','woozy'] },
+      { key: 'bal_triggers', label: 'Triggers / duration',    keywords: ['trigger','cause','when','how long','last','movement','lie down','roll over','turn head','get up'] },
+      { key: 'bal_gp',       label: 'Seen GP / diagnosed',    keywords: ['gp','doctor','diagnos','told','seen anyone','referr','treat','investigated'] },
+    ]
+  },
+  {
+    key: 'earHealth',
+    label: 'Ear health',
+    keywords: ['ear health','pressure','pain','ache','drainage','discharge','infection','wax','itchy','blocked','ears feel'],
+    subs: [
+      { key: 'ear_pressure',   label: 'Pressure / fullness',  keywords: ['pressure','full','blocked','plugged','stuffy','muffled'] },
+      { key: 'ear_pain',       label: 'Pain',                  keywords: ['pain','ache','hurt','sore','throb'] },
+      { key: 'ear_discharge',  label: 'Drainage / discharge',  keywords: ['drain','discharg','fluid','leak','wet','weep','ooze'] },
+      { key: 'ear_infection',  label: 'Ear infections',        keywords: ['infection','infect','otitis','grommets','tubes','glue ear','perforat'] },
+      { key: 'ear_wax',        label: 'Wax',                   keywords: ['wax','cerumen','syringe','micro','clean','remov','build up'] },
+    ]
+  },
+  {
+    key: 'entHistory',
+    label: 'ENT history',
+    keywords: ['ent','ear nose','specialist','surgeon','surgery','operation','scans','referr'],
+    subs: [
+      { key: 'ent_surgery', label: 'Surgery / treatment',      keywords: ['surgery','operation','operat','procedure','treat','myringoplasty','grommets','stapedectomy','repair'] },
+      { key: 'ent_scans',   label: 'Scans / investigations',   keywords: ['scan','mri','ct','xray','x-ray','imag','investig','test','audiolog'] },
+    ]
+  },
+  {
+    key: 'generalHealth',
+    label: 'General health',
+    keywords: ['general health','hospital','hospitalised','admitted','health condition','overall health','health generally'],
+    subs: [
+      { key: 'gh_hosp',     label: 'Hospitalisations',    keywords: ['hospital','admitted','admission','stay','ward','inpatient','operation','surgery'] },
+      { key: 'gh_illness',  label: 'Major illnesses',      keywords: ['illness','condition','disease','chronic','ongoing','health problem','diagnosis','diagnosed'] },
+    ]
+  },
+  {
+    key: 'headInjuries',
+    label: 'Head injuries',
+    keywords: ['head injur','head trauma','concussion','hit your head','knock','accident','bump'],
+    subs: [
+      { key: 'hi_details', label: 'When / cause',              keywords: ['when','what happen','cause','how','accident','sport','fall','ago','years'] },
+      { key: 'hi_hearing', label: 'Change in hearing after',   keywords: ['hearing change','after','since','follow','affect hearing','worse after','notice after'] },
+    ]
+  },
+  {
+    key: 'pastInfections',
+    label: 'Past infections / illnesses',
+    keywords: ['meningitis','measles','mumps','chicken pox','chickenpox','diabetes','cancer','cardiovascular','heart disease','past infection','childhood illness'],
+    subs: [
+      { key: 'pi_childhood', label: 'Childhood infections',    keywords: ['measles','mumps','chicken pox','chickenpox','rubella','meningitis','childhood'] },
+      { key: 'pi_systemic',  label: 'Systemic conditions',     keywords: ['diabetes','cancer','cardiovascular','heart','kidney','autoimmune','thyroid','stroke'] },
+    ]
+  },
+  {
+    key: 'medications',
+    label: 'Medications',
+    keywords: ['medication','medicine','tablets','drugs','prescription','taking','pills','on anything'],
+    subs: [
+      { key: 'med_current',   label: 'Current medications',         keywords: ['current','taking','on','prescribed','regular','any medication','what medication'] },
+      { key: 'med_ototoxic',  label: 'Ototoxic / chemotherapy',     keywords: ['chemo','chemotherapy','cisplatin','aminoglycoside','aspirin','quinine','furosemide','ototoxic','antibiotic','gentamicin'] },
+    ]
+  },
+  {
+    key: 'noiseHistory',
+    label: 'Noise history',
+    keywords: ['noise','loud work','factory','machinery','concert','music','headphone','earphone','occupational','recreational','noise exposure'],
+    subs: [
+      { key: 'noise_occ',        label: 'Occupational noise',    keywords: ['work','occupational','job','factory','machinery','construction','military','farm','workshop','workplace','industrial'] },
+      { key: 'noise_rec',        label: 'Recreational noise',    keywords: ['concert','music','headphone','earphone','sport','hunting','shooting','band','club','gig','recreational','leisure','hobby'] },
+      { key: 'noise_protection', label: 'Hearing protection',    keywords: ['protect','earmuff','earplug','plug','muff','ppe','prevention','hearing protection'] },
+    ]
+  },
+  {
+    key: 'familyHistory',
+    label: 'Family history',
+    keywords: ['family','parent','mother','father','sibling','relative','hereditary','inherited','genetic','family history'],
+    subs: [
+      { key: 'fam_who',  label: 'Which relative',       keywords: ['who','which','parent','mother','father','sibling','brother','sister','grandparent','relative','aunt','uncle','children','kids'] },
+      { key: 'fam_aids', label: 'Wears hearing aids',   keywords: ['hearing aid','aid','amplif','wear','device','fitted','trial'] },
+    ]
+  },
+  {
+    key: 'otherConcerns',
+    label: 'Other concerns',
+    keywords: ['anything else','other concern','other question','anything further','is there anything','what else','any other','missed anything','cover everything'],
+    subs: []
+  },
 ];
-
-// Simple keyword matching to detect which sections a student message touches
-const SECTION_KEYWORDS = {
-  reasonForAppointment: ['reason','why','today','appointment','come in','referred','concern','problem','issue','brought you'],
-  previousHearingTest:  ['previous','before','test','tested','audiogram','checked','prior','past test','hearing test'],
-  hearingDetails:       ['hear','hearing','worse','better','ear','decline','gradual','sudden','when did','loud','quiet','side','both'],
-  hearingAids:          ['aid','aids','hearing aid','device','amplif','wear','wearing'],
-  tinnitus:             ['tinnitus','ringing','buzzing','hissing','noise in','sound in','ear noise'],
-  soundSensitivity:     ['sensitiv','loud','painful','hyperacusis','uncomfortable','tolerate','sound bother'],
-  balance:              ['balance','dizzy','dizziness','vertigo','spinning','fall','unstead','imbalance'],
-  earHealth:            ['ear health','pressure','pain','ache','drainage','discharge','infection','wax','itchy','blocked'],
-  entHistory:           ['ent','ear nose','specialist','surgeon','surgery','operation','scans','referr'],
-  generalHealth:        ['general health','hospital','hospitalised','admitted','health condition','overall health'],
-  headInjuries:         ['head injur','head trauma','concussion','knock','accident'],
-  pastInfections:       ['meningitis','measles','mumps','chicken pox','diabetes','cancer','cardiovascular','heart','infection'],
-  medications:          ['medication','medicine','tablets','drugs','prescription','taking','pills'],
-  noiseHistory:         ['noise','loud work','factory','machinery','concert','music','headphone','earphone','occupational','recreational'],
-  familyHistory:        ['family','parent','mother','father','sibling','relative','hereditary','inherited','genetic'],
-  otherConcerns:        ['anything else','other concern','other question','anything further','is there','what else'],
-};
 
 let coveredSections = new Set();
 
@@ -286,6 +402,34 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   document.getElementById('btnAiReview')?.addEventListener('click', handleAiReview);
   document.getElementById('btnSaveToken')?.addEventListener('click', saveSettings);
+
+  // Sidebar toggle (mobile)
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+  const backdrop = document.getElementById('sidebarBackdrop');
+  function closeSidebar() {
+    sidebar?.classList.remove('open');
+    backdrop?.classList.remove('visible');
+    sidebarToggle?.classList.remove('active');
+  }
+  sidebarToggle?.addEventListener('click', () => {
+    const isOpen = sidebar?.classList.toggle('open');
+    backdrop?.classList.toggle('visible', isOpen);
+    sidebarToggle?.classList.toggle('active', isOpen);
+  });
+  backdrop?.addEventListener('click', closeSidebar);
+
+  // Spacebar shortcut to toggle TTS (when not typing in input)
+  document.addEventListener('keydown', e => {
+    if (e.code !== 'Space') return;
+    const tag = document.activeElement?.tagName;
+    if (tag === 'TEXTAREA' || tag === 'INPUT') return;
+    const ttsBtn = document.getElementById('ttsToggle');
+    if (ttsBtn && ttsBtn.style.display !== 'none') {
+      e.preventDefault();
+      ttsBtn.click();
+    }
+  });
   document.getElementById('settingsModal')?.addEventListener('click', e => {
     if (e.target === document.getElementById('settingsModal') && getSessionToken()) {
       e.target.style.display = 'none';
@@ -417,6 +561,9 @@ async function handleSend() {
   const text = input?.value?.trim();
   if (!text || isWaiting) return;
 
+  // Stop microphone before sending so it doesn't pick up the patient response
+  stopRecordingIfActive();
+
   input.value = '';
   input.style.height = '';
 
@@ -485,13 +632,23 @@ function autoResize() {
 // ── Coverage tracking ──
 function trackCoverage(text) {
   const lower = text.toLowerCase();
-  Object.entries(SECTION_KEYWORDS).forEach(([key, keywords]) => {
-    if (!coveredSections.has(key) && keywords.some(kw => lower.includes(kw))) {
-      coveredSections.add(key);
+  COVERAGE_SECTIONS.forEach(section => {
+    if (!coveredSections.has(section.key) && section.keywords.some(kw => lower.includes(kw))) {
+      coveredSections.add(section.key);
     }
+    section.subs.forEach(sub => {
+      if (!coveredSections.has(sub.key) && sub.keywords.some(kw => lower.includes(kw))) {
+        coveredSections.add(sub.key);
+        // Parent section is also touched if a sub is hit
+        coveredSections.add(section.key);
+      }
+    });
   });
   renderCoverage();
 }
+
+const CHECK_ICON = '<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>';
+const CIRCLE_ICON = '<circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="2" fill="none"/>';
 
 function renderCoverage() {
   const list = document.getElementById('coverageList');
@@ -500,22 +657,33 @@ function renderCoverage() {
   if (!list) return;
 
   const total = COVERAGE_SECTIONS.length;
-  const covered = coveredSections.size;
+  const covered = COVERAGE_SECTIONS.filter(s => coveredSections.has(s.key)).length;
   const percent = Math.round((covered / total) * 100);
 
   if (bar) bar.style.width = percent + '%';
   if (pct) pct.textContent = `${covered}/${total} areas`;
 
-  list.innerHTML = COVERAGE_SECTIONS.map(s => `
-    <div class="coverage-item ${coveredSections.has(s.key) ? 'covered' : ''}">
-      <svg class="ci-icon" viewBox="0 0 20 20" fill="currentColor">
-        ${coveredSections.has(s.key)
-          ? '<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>'
-          : '<circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="2" fill="none"/>'}
-      </svg>
-      ${esc(s.label)}
-    </div>
-  `).join('');
+  list.innerHTML = COVERAGE_SECTIONS.map(section => {
+    const parentCovered = coveredSections.has(section.key);
+    const subsHtml = (parentCovered && section.subs.length) ? section.subs.map(sub => {
+      const subCovered = coveredSections.has(sub.key);
+      return `
+        <div class="coverage-item coverage-sub ${subCovered ? 'covered' : ''}">
+          <svg class="ci-icon" viewBox="0 0 20 20" fill="currentColor">
+            ${subCovered ? CHECK_ICON : CIRCLE_ICON}
+          </svg>
+          ${esc(sub.label)}
+        </div>`;
+    }).join('') : '';
+
+    return `
+      <div class="coverage-item ${parentCovered ? 'covered' : ''}">
+        <svg class="ci-icon" viewBox="0 0 20 20" fill="currentColor">
+          ${parentCovered ? CHECK_ICON : CIRCLE_ICON}
+        </svg>
+        ${esc(section.label)}
+      </div>${subsHtml}`;
+  }).join('');
 }
 
 // ── End session / report ──
@@ -526,7 +694,7 @@ function endSession() {
   if (!overlay) return;
 
   const total = COVERAGE_SECTIONS.length;
-  const covered = coveredSections.size;
+  const covered = COVERAGE_SECTIONS.filter(s => coveredSections.has(s.key)).length;
   const percent = Math.round((covered / total) * 100);
 
   const mins = Math.floor(timerSeconds / 60);
@@ -542,7 +710,13 @@ function endSession() {
 
   hitList.innerHTML = COVERAGE_SECTIONS
     .filter(s => coveredSections.has(s.key))
-    .map(s => `<div class="report-item hit">✓ ${esc(s.label)}</div>`)
+    .map(s => {
+      const coveredSubs = s.subs.filter(sub => coveredSections.has(sub.key));
+      const subsHtml = coveredSubs.length
+        ? `<div class="report-sub-list">${coveredSubs.map(sub => `<span class="report-sub">· ${esc(sub.label)}</span>`).join('')}</div>`
+        : '';
+      return `<div class="report-item hit">✓ ${esc(s.label)}${subsHtml}</div>`;
+    })
     .join('') || '<div class="report-item hit">None yet</div>';
 
   missList.innerHTML = COVERAGE_SECTIONS
