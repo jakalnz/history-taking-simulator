@@ -445,6 +445,29 @@ body {
 .send-btn:hover { background: var(--teal-700); }
 .send-btn:disabled { opacity: .5; cursor: not-allowed; }
 
+.mic-btn {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  background: var(--slate-100);
+  color: var(--slate-600);
+  border: 1px solid var(--slate-300);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background .12s, color .12s, border-color .12s;
+}
+.mic-btn:hover { background: var(--slate-200); }
+.mic-btn.recording {
+  background: #fee2e2;
+  color: var(--red-500);
+  border-color: var(--red-500);
+  animation: mic-pulse 1.2s infinite;
+}
+@keyframes mic-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,.4); }
+  50% { box-shadow: 0 0 0 6px rgba(239,68,68,0); }
+}
+
 /* ── SIDEBAR ── */
 .sidebar {
   display: flex;

@@ -1,6 +1,76 @@
 import { getCases, loadBundledCases, saveCase, buildSystemPrompt } from './cases.js';
 import { sendMessage, getSessionToken, setSessionToken, getProxyUrl, setProxyUrl } from './api.js';
 
+// ── Speech recognition ──
+let recognition = null;
+let isRecording = false;
+let interimText = '';
+
+function initSpeech() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) return;
+
+  const micBtn = document.getElementById('micBtn');
+  if (micBtn) micBtn.style.display = 'flex';
+
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-AU';
+
+  recognition.onstart = () => {
+    isRecording = true;
+    interimText = '';
+    micBtn?.classList.add('recording');
+    const input = document.getElementById('chatInput');
+    if (input) input.placeholder = 'Listening…';
+  };
+
+  recognition.onresult = e => {
+    let interim = '';
+    let final = '';
+    for (const result of e.results) {
+      if (result.isFinal) final += result[0].transcript;
+      else interim += result[0].transcript;
+    }
+    const input = document.getElementById('chatInput');
+    if (input) {
+      input.value = final || interim;
+      autoResize();
+    }
+    interimText = interim;
+  };
+
+  recognition.onend = () => {
+    isRecording = false;
+    micBtn?.classList.remove('recording');
+    const input = document.getElementById('chatInput');
+    if (input) {
+      input.placeholder = 'Type your question… (Enter to send, Shift+Enter for new line)';
+      input.focus();
+    }
+  };
+
+  recognition.onerror = e => {
+    isRecording = false;
+    micBtn?.classList.remove('recording');
+    if (e.error !== 'no-speech' && e.error !== 'aborted') {
+      toast(`Microphone error: ${e.error}`, 'error');
+    }
+    const input = document.getElementById('chatInput');
+    if (input) input.placeholder = 'Type your question… (Enter to send, Shift+Enter for new line)';
+  };
+
+  micBtn?.addEventListener('click', () => {
+    if (isRecording) {
+      recognition.stop();
+    } else {
+      document.getElementById('chatInput').value = '';
+      recognition.start();
+    }
+  });
+}
+
 // ── State ──
 let activeCase = null;
 let systemPrompt = '';
@@ -53,6 +123,7 @@ let coveredSections = new Set();
 document.addEventListener('DOMContentLoaded', async () => {
   // Auth
   checkAuth();
+  initSpeech();
 
   // Load cases for selection
   await populateCaseList();
