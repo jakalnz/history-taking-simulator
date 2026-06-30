@@ -722,15 +722,40 @@ body {
 }
 .sidebar-backdrop.visible { display: block; }
 
+/* Default: show full label, hide short */
+.label-short { display: none; }
+
+/* Desktop session screen padding */
+.session-screen-wrap { padding: 1rem; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .mode-cards { grid-template-columns: 1fr; }
   .form-grid { grid-template-columns: 1fr; }
   .form-grid-3 { grid-template-columns: 1fr; }
 
+  /* Full-screen chat: no padding, flush to nav and edges */
+  .session-screen-wrap {
+    padding: 0;
+    height: calc(100vh - 56px);
+    display: flex;
+    flex-direction: column;
+  }
   .student-layout {
     grid-template-columns: 1fr;
-    height: calc(100vh - 56px - 2rem);
+    height: 100%;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0;
+    gap: 0;
+  }
+  .chat-panel {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    flex: 1;
+    min-height: 0; /* allow shrink inside flex */
   }
 
   /* Sidebar becomes a slide-in overlay on mobile */
@@ -770,8 +795,33 @@ body {
   .label-short { display: inline; }
 }
 
-/* Default: show full label, hide short */
-.label-short { display: none; }
+/* ── PRINT / PDF ── */
+@media print {
+  /* Hide everything except the report modal content */
+  body > *:not(.report-overlay) { display: none !important; }
+  .report-overlay {
+    display: block !important;
+    position: static !important;
+    background: none !important;
+    padding: 0 !important;
+  }
+  .report-modal {
+    max-width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 1.5rem !important;
+  }
+  /* Hide buttons in print */
+  .btn-group, #btnAiReview { display: none !important; }
+  /* Show AI review result if present */
+  #aiReviewResult { display: block !important; }
+  /* Ensure colour prints reasonably */
+  .report-item.hit { color: #16a34a !important; }
+  .report-item.miss { color: #64748b !important; }
+  .report-score { color: #0d9488 !important; }
+}
 
 /* ── SETUP SCREEN ── */
 .setup-screen {
