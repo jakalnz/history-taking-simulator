@@ -1,6 +1,11 @@
 import { getCases, loadBundledCases, saveCase, buildSystemPrompt } from './cases.js';
 import { sendMessage, getAiReview, getSuggestedQuestions, getSessionToken, setSessionToken, getProxyUrl, setProxyUrl } from './api.js';
 
+// Matches the mobile breakpoint in css/styles.css (@media max-width: 768px).
+function isMobileViewport() {
+  return window.matchMedia('(max-width: 768px)').matches;
+}
+
 // ── Session timer ──
 let timerInterval = null;
 let timerSeconds = 0;
@@ -630,15 +635,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   backdrop?.addEventListener('click', closeSidebar);
 
-  // Spacebar shortcut to toggle TTS (when not typing in input)
+  // Spacebar shortcut to toggle the microphone/STT (when not typing in input)
   document.addEventListener('keydown', e => {
     if (e.code !== 'Space') return;
     const tag = document.activeElement?.tagName;
     if (tag === 'TEXTAREA' || tag === 'INPUT') return;
-    const ttsBtn = document.getElementById('ttsToggle');
-    if (ttsBtn && ttsBtn.style.display !== 'none') {
+    const micBtn = document.getElementById('micBtn');
+    if (micBtn && micBtn.style.display !== 'none') {
       e.preventDefault();
-      ttsBtn.click();
+      micBtn.click();
     }
   });
   document.getElementById('settingsModal')?.addEventListener('click', e => {
@@ -791,8 +796,8 @@ function startSession() {
   renderCoverage();
   startTimer();
 
-  // Focus input
-  document.getElementById('chatInput')?.focus();
+  // Focus input (skip on mobile so the keyboard doesn't cover the chat)
+  if (!isMobileViewport()) document.getElementById('chatInput')?.focus();
 }
 
 function showSetup() {
@@ -845,7 +850,10 @@ async function handleSend(fromMc = false) {
     showTyping(false);
     isWaiting = false;
     document.getElementById('sendBtn').disabled = false;
-    document.getElementById('chatInput')?.focus();
+    // Don't auto-focus on mobile — it pops the keyboard over the patient's
+    // reply right as the student wants to read it. Desktop keeps the focus
+    // so typing/Enter still works without an extra click.
+    if (!isMobileViewport()) document.getElementById('chatInput')?.focus();
   }
 }
 
