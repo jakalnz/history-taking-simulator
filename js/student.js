@@ -1,5 +1,5 @@
 import { getCases, loadBundledCases, saveCase, buildSystemPrompt } from './cases.js';
-import { sendMessage, getSessionToken, setSessionToken, getProxyUrl, setProxyUrl } from './api.js';
+import { sendMessage, getAiReview, getSessionToken, setSessionToken, getProxyUrl, setProxyUrl } from './api.js';
 
 // ── Text to speech ──
 let ttsEnabled = false;
@@ -235,6 +235,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('reportOverlay').classList.remove('visible');
     showSetup();
   });
+  document.getElementById('btnAiReview')?.addEventListener('click', handleAiReview);
   document.getElementById('btnSaveToken')?.addEventListener('click', saveSettings);
   document.getElementById('settingsModal')?.addEventListener('click', e => {
     if (e.target === document.getElementById('settingsModal') && getSessionToken()) {
@@ -494,7 +495,53 @@ function endSession() {
     .map(s => `<div class="report-item miss">○ ${esc(s.label)}</div>`)
     .join('') || '<div class="report-item miss">All areas covered!</div>';
 
+  // Reset AI review panel
+  const reviewBtn = document.getElementById('btnAiReview');
+  const reviewResult = document.getElementById('aiReviewResult');
+  if (reviewBtn) { reviewBtn.style.display = ''; reviewBtn.disabled = false; reviewBtn.textContent = '✦ Get AI Feedback on my technique'; }
+  if (reviewResult) { reviewResult.classList.add('hidden'); reviewResult.innerHTML = ''; }
+
   overlay.classList.add('visible');
+}
+
+// ── AI Review ──
+async function handleAiReview() {
+  const btn = document.getElementById('btnAiReview');
+  const result = document.getElementById('aiReviewResult');
+  if (!btn || !result) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Generating feedback…';
+  result.classList.remove('hidden');
+  result.innerHTML = `<div class="ai-review-loading"><div class="ai-review-spinner"></div>Analysing your session…</div>`;
+
+  const coveredLabels = COVERAGE_SECTIONS.filter(s => coveredSections.has(s.key)).map(s => s.label);
+  const missedLabels  = COVERAGE_SECTIONS.filter(s => !coveredSections.has(s.key)).map(s => s.label);
+
+  try {
+    const text = await getAiReview(
+      activeCase?.patient?.name || 'the patient',
+      conversation,
+      coveredLabels,
+      missedLabels
+    );
+    result.innerHTML = `<div class="ai-review">${renderReviewMarkdown(text)}</div>`;
+    btn.style.display = 'none';
+  } catch (err) {
+    result.innerHTML = `<p class="text-sm" style="color:var(--red-500)">Could not generate feedback: ${esc(err.message)}</p>`;
+    btn.disabled = false;
+    btn.textContent = '✦ Try again';
+  }
+}
+
+function renderReviewMarkdown(text) {
+  // Render **headings** as <h4> and bullet points as <ul><li>
+  return text
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\*\*(.+?)\*\*/g, '<h4>$1</h4>')
+    .replace(/^[-•]\s+(.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>(\n|$))+/g, m => `<ul>${m}</ul>`)
+    .replace(/\n{2,}/g, '\n');
 }
 
 // ── Helpers ──

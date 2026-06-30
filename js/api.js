@@ -63,6 +63,57 @@ export async function sendMessage(systemPrompt, messages) {
 }
 
 /**
+ * Request an AI review of a completed history-taking session.
+ * @param {string} patientName
+ * @param {Array} conversation - [{role, content}]
+ * @param {Array} covered - section keys covered
+ * @param {Array} missed - section keys missed
+ * @returns {Promise<string>}
+ */
+export async function getAiReview(patientName, conversation, covered, missed) {
+  const transcript = conversation
+    .map(m => `${m.role === 'user' ? 'STUDENT' : 'PATIENT'}: ${m.content}`)
+    .join('\n\n');
+
+  const system = `You are a clinical educator reviewing an audiology student's history-taking practice session.
+Provide concise, constructive feedback. Be specific and reference actual exchanges from the transcript where possible.
+Format your response with exactly these four sections using these exact headings:
+**Strengths**
+**Areas to Improve**
+**Questioning Technique**
+**Tips for Next Time**
+Keep each section to 2-4 bullet points. Be encouraging but honest.`;
+
+  const prompt = `The student just completed a history-taking session with a simulated patient called ${patientName}.
+
+History areas covered (${covered.length}): ${covered.join(', ') || 'none'}
+History areas missed (${missed.length}): ${missed.join(', ') || 'none'}
+
+TRANSCRIPT:
+${transcript}
+
+Please review this session and provide feedback.`;
+
+  const proxyUrl = getProxyUrl();
+  const sessionToken = getSessionToken();
+
+  const response = await fetch(proxyUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-Session-Token': sessionToken },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 1024,
+      system,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+
+  if (!response.ok) throw new Error(`Review request failed (${response.status})`);
+  const data = await response.json();
+  return data.content?.[0]?.text || '';
+}
+
+/**
  * Test the proxy connection with a minimal request.
  */
 export async function testConnection() {

@@ -522,6 +522,42 @@ body {
 .coverage-progress { height: 5px; background: var(--slate-200); border-radius: 3px; margin-bottom: .75rem; overflow: hidden; }
 .coverage-bar { height: 100%; background: var(--teal-500); border-radius: 3px; transition: width .4s; }
 
+/* ── AI REVIEW ── */
+.ai-review {
+  background: var(--navy-800);
+  color: #e2e8f0;
+  border-radius: 8px;
+  padding: 1.25rem;
+  font-size: .875rem;
+  line-height: 1.7;
+}
+.ai-review h4 {
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--teal-400);
+  margin: 1rem 0 .4rem;
+}
+.ai-review h4:first-child { margin-top: 0; }
+.ai-review ul { padding-left: 1.2rem; display: flex; flex-direction: column; gap: .3rem; }
+.ai-review li { color: #cbd5e1; }
+.ai-review .strength { color: #86efac; }
+.ai-review .improve { color: #fca5a5; }
+.ai-review-loading {
+  display: flex; align-items: center; gap: .75rem;
+  color: var(--slate-400); font-size: .875rem; padding: .75rem 0;
+}
+.ai-review-spinner {
+  width: 18px; height: 18px;
+  border: 2px solid var(--slate-200);
+  border-top-color: var(--teal-500);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
 /* ── SESSION REPORT ── */
 .report-overlay {
   position: fixed; inset: 0;
