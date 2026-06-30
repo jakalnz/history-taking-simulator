@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinician — Audiology Sim</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">Audiology<span>Sim</span></a>
+  <span class="nav-subtitle">Case Manager</span>
+  <span class="nav-mode-badge clinician">Clinician</span>
+</nav>
+
+<div class="page" style="padding-top:1.5rem">
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" data-tab="library">Case Library</button>
+    <button class="tab" data-tab="builder">Case Builder</button>
+    <button class="tab" data-tab="settings">Settings</button>
+  </div>
+
+  <!-- ── LIBRARY PANEL ── -->
+  <div data-panel="library">
+    <div class="section-header">
+      <div>
+        <h1>Patient Cases</h1>
+        <p>Create and manage audiological patient case histories</p>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-secondary" id="btnLoadBundled">Load Sample Cases</button>
+        <label class="btn btn-secondary" style="cursor:pointer">
+          Import JSON
+          <input type="file" id="importFile" accept=".json" class="hidden">
+        </label>
+        <button class="btn btn-secondary" id="btnExportAll">Export All</button>
+        <button class="btn btn-primary" id="btnNewCase">+ New Case</button>
+      </div>
+    </div>
+
+    <div class="case-grid" id="caseGrid"></div>
+  </div>
+
+  <!-- ── BUILDER PANEL ── -->
+  <div data-panel="builder" class="hidden">
+    <div class="section-header">
+      <div>
+        <h1 id="builderTitle">New Patient Case</h1>
+        <p>Fill in the patient details and clinical history</p>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-secondary" id="btnCancelEdit">Cancel</button>
+        <button class="btn btn-secondary" id="btnExportCase">Export JSON</button>
+        <button class="btn btn-primary" id="btnSaveCase">Save Case</button>
+      </div>
+    </div>
+
+    <!-- ── PATIENT PROFILE ── -->
+    <div class="card">
+      <div class="card-title">Patient Profile</div>
+      <div class="form-grid">
+        <div class="field">
+          <label for="patientName">Full Name *</label>
+          <input type="text" id="patientName" placeholder="e.g. Margaret Thompson">
+        </div>
+        <div class="field">
+          <label for="patientAge">Age</label>
+          <input type="number" id="patientAge" placeholder="e.g. 72" min="1" max="120">
+        </div>
+        <div class="field">
+          <label for="patientOccupation">Occupation / Role</label>
+          <input type="text" id="patientOccupation" placeholder="e.g. Retired teacher">
+        </div>
+        <div class="field">
+          <label for="patientPronoun">Pronouns</label>
+          <select id="patientPronoun">
+            <option value="she/her">she/her</option>
+            <option value="he/him">he/him</option>
+            <option value="they/them">they/them</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="patientKnowledge">Medical Knowledge Level</label>
+          <select id="patientKnowledge">
+            <option value="none">None — uses everyday language only</option>
+            <option value="basic" selected>Basic — knows common terms</option>
+            <option value="moderate">Moderate — works in/near healthcare</option>
+            <option value="high">High — healthcare professional</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="patientPersonality">Personality</label>
+          <select id="patientPersonality">
+            <option value="neutral">Neutral — calm and cooperative</option>
+            <option value="anxious">Anxious — worried, asks for reassurance</option>
+            <option value="relaxed">Relaxed — easy-going, slightly dismissive</option>
+            <option value="defensive">Defensive — initially reluctant to share</option>
+            <option value="confused">Confused — uncertain of timelines/details</option>
+            <option value="chatty">Chatty — sociable, goes off on tangents</option>
+            <option value="stoic">Stoic — downplays symptoms</option>
+          </select>
+        </div>
+        <div class="field form-full">
+          <label for="patientChattiness">Chattiness: <span id="chattinessLabel">Normal</span></label>
+          <input type="range" id="patientChattiness" min="1" max="5" value="3">
+          <div class="range-labels">
+            <span>Very brief</span><span>Reserved</span><span>Normal</span><span>Chatty</span><span>Very talkative</span>
+          </div>
+        </div>
+        <div class="field form-full">
+          <label for="patientNotes">Additional Character Notes (optional)</label>
+          <textarea id="patientNotes" placeholder="e.g. Tends to mention her garden. Refers to husband who also has hearing loss. Gets frustrated if asked to repeat herself."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── REASON FOR APPOINTMENT ── -->
+    <div class="card">
+      <div class="card-title">Reason for Appointment</div>
+      <div class="field">
+        <label for="reasonForAppointment">Why is this patient attending today?</label>
+        <textarea id="reasonForAppointment" placeholder="e.g. Referred by GP following complaints of difficulty hearing in noisy environments. Family members have noticed and encouraged her to seek help."></textarea>
+      </div>
+      <div class="mt-1">
+        <div class="field">
+          <label>Previous hearing test?</label>
+          <div class="radio-group horizontal">
+            <label class="radio-item"><input type="radio" name="prevTest" id="prevTestYes" value="yes"> Yes</label>
+            <label class="radio-item"><input type="radio" name="prevTest" id="prevTestNo" value="no" checked> No</label>
+          </div>
+        </div>
+        <div class="sub-field hidden" id="subPrevTestDetails">
+          <div class="field">
+            <label for="prevTestDetails">Details (when, results, follow-up care)</label>
+            <textarea id="prevTestDetails" placeholder="e.g. 5 years ago at GP, told mild loss, advised to monitor, no follow-up arranged"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── HEARING DETAILS ── -->
+    <div class="card">
+      <div class="card-title">Hearing Details</div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Better ear</label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="betterEar" value="right" checked> Right</label>
+            <label class="radio-item"><input type="radio" name="betterEar" value="left"> Left</label>
+            <label class="radio-item"><input type="radio" name="betterEar" value="same"> Both ears the same</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Decline of hearing loss</label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="hearingDecline" value="gradual" checked> Gradual</label>
+            <label class="radio-item"><input type="radio" name="hearingDecline" value="sudden"> Sudden</label>
+            <label class="radio-item"><input type="radio" name="hearingDecline" value="none"> No decline</label>
+          </div>
+        </div>
+        <div class="field form-full">
+          <label for="hearingDeclineDetails">Details of hearing decline</label>
+          <textarea id="hearingDeclineDetails" placeholder="e.g. First noticed difficulty 3 years ago in restaurants and group conversations. No identifiable cause."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── HEARING AIDS ── -->
+    <div class="card">
+      <div class="card-title">Current Hearing Aid Use</div>
+      <div class="field">
+        <div class="radio-group horizontal">
+          <label class="radio-item"><input type="radio" name="hearingAid" id="hearingAidYes" value="yes"> Yes</label>
+          <label class="radio-item"><input type="radio" name="hearingAid" id="hearingAidNo" value="no" checked> No</label>
+        </div>
+      </div>
+      <div class="sub-field hidden" id="subHearingAidDetails">
+        <div class="field">
+          <label for="hearingAidDetails">Details (type, age of aids, likes/dislikes)</label>
+          <textarea id="hearingAidDetails" placeholder="e.g. NHS BTE aids fitted 2 years ago. Wears them inconsistently. Dislikes the whistling."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TINNITUS ── -->
+    <div class="card">
+      <div class="card-title">Tinnitus</div>
+      <div class="field">
+        <label class="check-item"><input type="checkbox" id="tinnitusPresent"> Patient experiences tinnitus</label>
+      </div>
+      <div class="sub-field hidden" id="subTinnitusDetails">
+        <div class="form-grid mt-1">
+          <div class="field">
+            <label>Location</label>
+            <div class="radio-group">
+              <label class="radio-item"><input type="radio" name="tinnitusLocation" value="right"> Right ear only</label>
+              <label class="radio-item"><input type="radio" name="tinnitusLocation" value="left"> Left ear only</label>
+              <label class="radio-item"><input type="radio" name="tinnitusLocation" value="both"> Both ears</label>
+              <label class="radio-item"><input type="radio" name="tinnitusLocation" value="bothWorseRight"> Both, worse right</label>
+              <label class="radio-item"><input type="radio" name="tinnitusLocation" value="bothWorseLeft"> Both, worse left</label>
+              <label class="radio-item"><input type="radio" name="tinnitusLocation" value="central"> Central / in the head</label>
+              <label class="radio-item"><input type="radio" name="tinnitusLocation" value="bothAndCentral"> Both ears and head</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="tinnitusDetails">Details (onset, description, constant/intermittent/pulsatile, level of annoyance)</label>
+            <textarea id="tinnitusDetails" placeholder="e.g. High-pitched ringing, bilateral, started 2 years ago, intermittent, rates annoyance 4/10, worse at night"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SOUND SENSITIVITY ── -->
+    <div class="card">
+      <div class="card-title">Sensitivity to Sound</div>
+      <div class="field">
+        <label class="check-item"><input type="checkbox" id="sensitivityPresent"> Patient has sensitivity to sound (hyperacusis/loudness discomfort)</label>
+      </div>
+      <div class="sub-field hidden" id="subSensitivityDetails">
+        <div class="form-grid mt-1">
+          <div class="field">
+            <label>Affects</label>
+            <div class="radio-group">
+              <label class="radio-item"><input type="radio" name="sensitivityLocation" value="right"> Right ear only</label>
+              <label class="radio-item"><input type="radio" name="sensitivityLocation" value="left"> Left ear only</label>
+              <label class="radio-item"><input type="radio" name="sensitivityLocation" value="both"> Both ears</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="sensitivityDetails">Details (onset, triggers e.g. everyday sounds, level of annoyance)</label>
+            <textarea id="sensitivityDetails" placeholder="e.g. Startles at slamming doors and cutlery dropping. Rates 6/10 annoyance. Started 6 months ago."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BALANCE ── -->
+    <div class="card">
+      <div class="card-title">Vertigo / Balance Concerns</div>
+      <div class="field">
+        <label>Balance concerns</label>
+        <div class="radio-group horizontal">
+          <label class="radio-item"><input type="radio" name="balanceConcern" value="none" id="balanceConcernNone" checked> No concerns</label>
+          <label class="radio-item"><input type="radio" name="balanceConcern" value="vertigo"> Vertigo</label>
+          <label class="radio-item"><input type="radio" name="balanceConcern" value="imbalance"> Imbalance</label>
+          <label class="radio-item"><input type="radio" name="balanceConcern" value="both"> Vertigo &amp; imbalance</label>
+        </div>
+      </div>
+      <div class="sub-field hidden" id="subBalanceDetails">
+        <div class="field">
+          <label for="balanceDetails">Details (onset, type, duration, triggers, GP discussion, diagnoses)</label>
+          <textarea id="balanceDetails" placeholder="e.g. Episodic vertigo with spinning sensation lasting minutes. Triggered by head movement. GP aware, referred to ENT, awaiting appointment."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── EAR HEALTH ── -->
+    <div class="card">
+      <div class="card-title">Ear Health</div>
+      <div class="field">
+        <label>Experiences (tick all that apply)</label>
+        <div class="check-group horizontal">
+          <label class="check-item"><input type="checkbox" id="earExp_auralPressure"> Aural pressure</label>
+          <label class="check-item"><input type="checkbox" id="earExp_auralPain"> Aural pain</label>
+          <label class="check-item"><input type="checkbox" id="earExp_auralDrainage"> Aural drainage</label>
+          <label class="check-item"><input type="checkbox" id="earExp_earInfections"> History of ear infections</label>
+          <label class="check-item"><input type="checkbox" id="earExp_earWax"> Ear wax removal</label>
+          <label class="check-item"><input type="checkbox" id="earExp_noConcerns"> No concerns</label>
+        </div>
+      </div>
+      <div class="field mt-1">
+        <label for="earHealthDetails">Details (onset, constant/intermittent, last experienced, possible cause)</label>
+        <textarea id="earHealthDetails" placeholder="e.g. Wax removal by GP microsuction 1 year ago. No recurrence since."></textarea>
+      </div>
+
+      <hr class="divider">
+
+      <div class="field">
+        <label>Seen an ENT specialist?</label>
+        <div class="radio-group horizontal">
+          <label class="radio-item"><input type="radio" name="entSeen" id="entYes" value="yes"> Yes</label>
+          <label class="radio-item"><input type="radio" name="entSeen" id="entNo" value="no" checked> No</label>
+        </div>
+      </div>
+      <div class="sub-field hidden" id="subEntDetails">
+        <div class="field">
+          <label>ENT history (tick all that apply)</label>
+          <div class="check-group horizontal">
+            <label class="check-item"><input type="checkbox" id="entHist_surgery"> Surgery</label>
+            <label class="check-item"><input type="checkbox" id="entHist_treatment"> Treatment</label>
+            <label class="check-item"><input type="checkbox" id="entHist_scans"> Scans</label>
+            <label class="check-item"><input type="checkbox" id="entHist_noneRelated"> None ear-related</label>
+          </div>
+        </div>
+        <div class="field mt-1">
+          <label for="entDetails">ENT details (when, diagnoses, prognosis, ongoing care)</label>
+          <textarea id="entDetails" placeholder="e.g. Seen ENT 2019 for grommets — right ear. Resolved. No ongoing care."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GENERAL HEALTH ── -->
+    <div class="card">
+      <div class="card-title">General Health</div>
+      <div class="form-grid">
+        <div class="field form-full">
+          <label for="hospitalisations">Hospitalisations (when, reason, prognosis, any change in hearing)</label>
+          <textarea id="hospitalisations" placeholder="e.g. Hip replacement surgery 2019, uneventful recovery. No change in hearing noted."></textarea>
+        </div>
+
+        <div class="field form-full">
+          <label>Head injuries?</label>
+          <div class="radio-group horizontal">
+            <label class="radio-item"><input type="radio" name="headInjury" id="headInjuryYes" value="yes"> Yes</label>
+            <label class="radio-item"><input type="radio" name="headInjury" id="headInjuryNo" value="no" checked> No</label>
+          </div>
+          <div class="sub-field hidden" id="subHeadInjuryDetails">
+            <div class="field mt-1">
+              <label for="headInjuryDetails">Details (when, cause, medical management, change in hearing)</label>
+              <textarea id="headInjuryDetails" placeholder="e.g. Road traffic accident 1995, mild concussion. Hearing unchanged after."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="field form-full">
+          <label>Past infections / conditions (tick all that apply)</label>
+          <div class="check-group horizontal">
+            <label class="check-item"><input type="checkbox" id="infection_measles"> Measles</label>
+            <label class="check-item"><input type="checkbox" id="infection_mumps"> Mumps</label>
+            <label class="check-item"><input type="checkbox" id="infection_chickenPox"> Chicken pox</label>
+            <label class="check-item"><input type="checkbox" id="infection_meningitis"> Meningitis</label>
+            <label class="check-item"><input type="checkbox" id="infection_diabetes"> Diabetes</label>
+            <label class="check-item"><input type="checkbox" id="infection_cancer"> Cancer</label>
+            <label class="check-item"><input type="checkbox" id="infection_cardiovascular"> Cardiovascular</label>
+            <label class="check-item"><input type="checkbox" id="infection_other"> Other</label>
+          </div>
+          <div class="field mt-1">
+            <label for="infectionDetails">Details (when, ongoing management, change in hearing)</label>
+            <textarea id="infectionDetails" placeholder="e.g. Type 2 diabetes diagnosed 2010, managed with Metformin 500mg BD. No known impact on hearing."></textarea>
+          </div>
+        </div>
+
+        <div class="field form-full">
+          <label for="majorIllnesses">Major illnesses / ongoing health concerns</label>
+          <textarea id="majorIllnesses" placeholder="e.g. Hypertension managed with Amlodipine 5mg daily. Osteoarthritis affecting both knees."></textarea>
+        </div>
+
+        <div class="field form-full">
+          <label for="medications">Current medications</label>
+          <textarea id="medications" placeholder="e.g. Metformin 500mg twice daily, Amlodipine 5mg daily, Aspirin 75mg daily"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── NOISE HISTORY ── -->
+    <div class="card">
+      <div class="card-title">Noise History</div>
+      <div class="field">
+        <label>Type of noise exposure (tick all that apply)</label>
+        <div class="check-group horizontal">
+          <label class="check-item"><input type="checkbox" id="noise_occupational"> Occupational</label>
+          <label class="check-item"><input type="checkbox" id="noise_recreational"> Recreational</label>
+          <label class="check-item"><input type="checkbox" id="noise_none"> None</label>
+        </div>
+      </div>
+      <div class="field mt-1">
+        <label for="noiseDetails">Details (when, period of exposure, hearing protection worn)</label>
+        <textarea id="noiseDetails" placeholder="e.g. Worked in a textile factory 1970–1990. Loud machinery. No hearing protection provided or worn."></textarea>
+      </div>
+    </div>
+
+    <!-- ── FAMILY HISTORY ── -->
+    <div class="card">
+      <div class="card-title">Family History of Hearing Loss</div>
+      <div class="field">
+        <div class="radio-group horizontal">
+          <label class="radio-item"><input type="radio" name="familyHist" id="familyHistYes" value="yes"> Yes</label>
+          <label class="radio-item"><input type="radio" name="familyHist" id="familyHistNo" value="no" checked> No</label>
+        </div>
+      </div>
+      <div class="sub-field hidden" id="subFamilyHistDetails">
+        <div class="field">
+          <label for="familyHistDetails">Details (relative, onset, cause, hearing aids)</label>
+          <textarea id="familyHistDetails" placeholder="e.g. Mother wore hearing aids from age 68. Father had significant hearing loss, cause unknown. Did not wear aids."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── OTHER CONCERNS ── -->
+    <div class="card">
+      <div class="card-title">Other Concerns</div>
+      <div class="field">
+        <label for="otherConcerns">Any other concerns related to hearing or ear health not discussed above</label>
+        <textarea id="otherConcerns" placeholder="e.g. Worried about going deaf like her mother. Asks about hearing aid cost."></textarea>
+      </div>
+    </div>
+
+    <div class="btn-group" style="margin-bottom:2rem">
+      <button class="btn btn-secondary" id="btnCancelEdit2">Cancel</button>
+      <button class="btn btn-primary" id="btnSaveCase2">Save Case</button>
+    </div>
+  </div>
+
+  <!-- ── SETTINGS PANEL ── -->
+  <div data-panel="settings" class="hidden">
+    <div class="card" style="max-width:600px">
+      <div class="card-title">Proxy Configuration</div>
+      <p class="text-sm text-muted" style="margin-bottom:1rem">
+        The Cloudflare Worker URL that proxies requests to the Anthropic API.
+        See <code>worker/README.md</code> for deployment instructions.
+      </p>
+      <div class="field">
+        <label for="proxyUrl">Cloudflare Worker URL</label>
+        <input type="text" id="proxyUrl" placeholder="https://audiology-sim.your-subdomain.workers.dev">
+      </div>
+      <p class="text-sm text-muted" style="margin-top:.75rem">
+        This URL is shared with students — it does <strong>not</strong> contain the API key.
+        The session password (set in the Worker) is what protects against unauthorised use.
+      </p>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script type="module" src="js/clinician.js"></script>
+<script>
+  // Wire up duplicate save/cancel buttons at bottom of form
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('btnCancelEdit2')?.addEventListener('click', () => {
+      document.getElementById('btnCancelEdit').click();
+    });
+    document.getElementById('btnSaveCase2')?.addEventListener('click', () => {
+      document.getElementById('btnSaveCase').click();
+    });
+  });
+</script>
+</body>
+</html>

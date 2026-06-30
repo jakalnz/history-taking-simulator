@@ -1,0 +1,72 @@
+{
+  "id": "case-david-chen-001",
+  "version": "1.0",
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "patient": {
+    "name": "David Chen",
+    "age": "38",
+    "occupation": "Factory floor supervisor at an engineering firm",
+    "pronoun": "he/him",
+    "medicalKnowledge": "basic",
+    "personality": "stoic",
+    "chattiness": 2,
+    "additionalNotes": "David is reluctant to admit the impact his hearing has on his daily life. He downplays symptoms and is a bit dismissive — 'it's not that bad'. He came at his wife's insistence. He is slightly defensive if pushed too hard. Short answers unless probed. He is worried about losing his job if his employer finds out."
+  },
+  "history": {
+    "reasonForAppointment": "Self-referred, though prompted strongly by his wife who has noticed he asks people to repeat themselves constantly. He is also concerned after a recent near-miss safety incident at work where he did not hear a warning being called out.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "Had an occupational health hearing test at work 3 years ago as part of routine monitoring. Was told his hearing was 'a bit down' at high frequencies but within acceptable limits for his role. No follow-up recommended at that time."
+    },
+    "hearing": {
+      "betterEar": "right",
+      "decline": "gradual",
+      "declineDetails": "Believes he has had hearing difficulty for about 5–6 years, gradually getting worse. Both ears affected but left worse than right. Notices difficulty in noisy environments and understanding speech clearly, particularly higher-pitched voices. Has recently started struggling to hear his children clearly."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "bothWorseLeft",
+      "details": "Constant high-pitched ringing in both ears, worse in the left. Has been present for at least 4 years — he had become so used to it he initially didn't mention it. Rates annoyance as 3/10 normally but 7/10 after a noisy shift. Describes it as a 'hissing' more than ringing. Does not affect sleep."
+    },
+    "soundSensitivity": {
+      "present": true,
+      "location": "left",
+      "details": "Occasional discomfort from sudden loud sounds, primarily in the left ear. For example, if someone shouts near him or drops something metal. Rates annoyance 5/10. Has been present for about 2 years. Not a major concern for him but he is aware of it."
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": ["noConcerns"],
+      "details": "No history of ear pain, pressure, infections, drainage, or wax. Ears have been healthy throughout his life."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "Appendectomy in 2015. Routine procedure, no complications. Three days in hospital.",
+      "headInjuries": true,
+      "headInjuriesDetails": "Minor concussion from a workplace accident in 2018 — a metal component struck his left temple. He was assessed in A&E, had a CT scan which was normal, and was discharged the same day with a 2-week rest period. He notices his left ear has been 'slightly worse' since then but is uncertain if this is related.",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "No major ongoing health concerns. Slightly overweight (BMI ~27). Mild hypertension — on watchful waiting, not yet on medication.",
+      "medications": "No regular medications. Occasional ibuprofen for back pain after physically demanding shifts."
+    },
+    "noiseHistory": {
+      "type": ["occupational", "recreational"],
+      "details": "Has worked on or near factory floors for 15 years. Significant machinery noise. Mandatory hearing protection (foam earplugs) is provided and he wears it about 70% of the time — admits to sometimes not wearing it when it is 'inconvenient' or when he needs to hear instructions. Recreational: was in a band in his 20s, played drums for about 8 years with minimal hearing protection."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": ""
+    },
+    "otherConcerns": "David is concerned about whether his employer needs to be informed and whether he could lose his job. He wants to know if his hearing can be 'fixed'. He is also concerned about what hearing aids look like and whether they would be visible at work."
+  }
+}

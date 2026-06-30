@@ -1,0 +1,72 @@
+{
+  "id": "case-margaret-thompson-001",
+  "version": "1.0",
+  "createdAt": "2025-01-01T00:00:00.000Z",
+  "patient": {
+    "name": "Margaret Thompson",
+    "age": "72",
+    "occupation": "Retired primary school teacher",
+    "pronoun": "she/her",
+    "medicalKnowledge": "basic",
+    "personality": "anxious",
+    "chattiness": 4,
+    "additionalNotes": "Margaret tends to talk about her garden and her late husband Eric, who also had hearing difficulties. She is worried about ending up like her mother who was 'completely deaf'. She uses phrases like 'pardon?' frequently. She occasionally mishears questions and answers something different."
+  },
+  "history": {
+    "reasonForAppointment": "GP referral following complaints of difficulty hearing in noisy environments, particularly at family dinners and in restaurants. Her daughter Sarah encouraged her to seek help after noticing she had the television very loud.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "Had a hearing test about 5 years ago at the GP surgery. Was told she had 'a bit of age-related hearing loss' and to come back if it got worse. No formal audiogram given to her and no follow-up was arranged."
+    },
+    "hearing": {
+      "betterEar": "right",
+      "decline": "gradual",
+      "declineDetails": "First noticed difficulty about 3–4 years ago, primarily in group settings and noisy environments. Has gradually worsened. Left ear noticeably worse than right. No identifiable cause — gradual onset. Struggles most in restaurants, at family gatherings, and when there is background noise on the television."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "both",
+      "details": "High-pitched ringing in both ears, present for about 2 years. Intermittent — tends to be worse at night and when in quiet environments. She rates her annoyance at about 4 out of 10. It does not disrupt her sleep significantly but she notices it more when she tries to fall asleep."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": ["earWax"],
+      "details": "Had ear wax removed by microsuction at the GP surgery approximately 18 months ago. Right ear only. No recurrence since. No history of aural pain, pressure, or drainage."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "Hip replacement surgery on right hip in 2019. Uneventful recovery. Stayed in hospital for 4 days. No change in hearing noted around that time.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": ["diabetes"],
+      "pastInfectionsDetails": "Type 2 diabetes, diagnosed 2010. Managed with Metformin 500mg twice daily. Well controlled, last HbA1c was within target. She does not believe it has affected her hearing.",
+      "majorIllnesses": "Hypertension — managed with Amlodipine 5mg daily. Diagnosed around 2008. Osteoarthritis affecting both knees and right hip (hence the hip replacement).",
+      "medications": "Metformin 500mg twice daily, Amlodipine 5mg once daily, Paracetamol 1g as needed for joint pain, Atorvastatin 20mg nightly"
+    },
+    "noiseHistory": {
+      "type": ["none"],
+      "details": "Worked as a primary school teacher for 35 years — some noise exposure from classrooms but not at industrial levels. No recreational noise exposure of significance. Never wore hearing protection as it was not considered necessary."
+    },
+    "familyHistory": {
+      "has": true,
+      "details": "Mother developed significant hearing loss in her late 60s and wore hearing aids from age 70 until she died at 85. Margaret describes her as 'completely deaf by the end'. Father had some hearing difficulties in his 70s but never sought help. One older brother (aged 76) has recently started wearing hearing aids."
+    },
+    "otherConcerns": "Margaret is worried about 'going completely deaf' like her mother. She is also concerned about the cost of hearing aids and whether she would qualify for NHS aids. She asks whether her diabetes or blood pressure medications could be causing her hearing problems."
+  }
+}
