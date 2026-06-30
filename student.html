@@ -93,6 +93,26 @@
           <input type="range" id="ttsSpeed" min="0.5" max="2" step="0.1" value="0.95">
           <span class="speed-value" id="speedValue">1×</span>
         </div>
+        <div class="toolbar-tools">
+          <button class="tool-btn" id="btnHints" title="Example question hints">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+            <span>Hints</span>
+          </button>
+          <button class="tool-btn" id="btnMcMode" title="Guided question mode">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+              <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+            <span>Guided</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Hint panel -->
+      <div class="hint-panel hidden" id="hintPanel">
+        <div class="hint-panel-body" id="hintPanelBody"></div>
       </div>
 
       <div class="messages" id="messages">
@@ -114,6 +134,9 @@
           </div>
         </div>
       </div>
+
+      <!-- Guided question options (MC mode) -->
+      <div class="mc-options hidden" id="mcOptions"></div>
 
       <div class="chat-input-area">
         <button class="mic-btn" id="micBtn" title="Hold to speak" style="display:none">
@@ -185,6 +208,9 @@
     <p class="text-sm text-muted" style="margin-top:1rem">
       Coverage is based on keyword detection in your questions. Review the patient's full response history to assess the depth of information obtained.
     </p>
+
+    <!-- Learning supports (only shown if used) -->
+    <div id="learningSupportsSection" class="hidden" style="margin-top:1.25rem"></div>
 
     <!-- AI Review -->
     <div id="aiReviewSection" style="margin-top:1.5rem">

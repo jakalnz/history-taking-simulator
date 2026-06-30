@@ -114,6 +114,38 @@ Please review this session and provide feedback.`;
 }
 
 /**
+ * Generate 4 suggested follow-up questions for the student based on recent conversation.
+ * @param {Array} conversation - [{role, content}]
+ * @returns {Promise<string[]>} - Array of 4 question strings
+ */
+export async function getSuggestedQuestions(conversation) {
+  const proxyUrl = getProxyUrl();
+  const sessionToken = getSessionToken();
+
+  const recent = conversation.slice(-6)
+    .map(m => `${m.role === 'user' ? 'Student' : 'Patient'}: ${m.content}`)
+    .join('\n\n');
+
+  const response = await fetch(proxyUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-Session-Token': sessionToken },
+    body: JSON.stringify({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 300,
+      system: 'You are helping an audiology student practise history taking. Suggest exactly 4 short, natural follow-up questions the student could ask next. Vary the topics — do not all ask about the same thing. Return ONLY a valid JSON array of exactly 4 strings. No explanation, no markdown, just the JSON array.',
+      messages: [{ role: 'user', content: `Recent conversation:\n\n${recent}\n\nSuggest 4 follow-up questions.` }]
+    })
+  });
+
+  if (!response.ok) throw new Error(`Suggestions failed (${response.status})`);
+  const data = await response.json();
+  const text = (data.content?.[0]?.text || '[]').trim();
+  const parsed = JSON.parse(text);
+  if (!Array.isArray(parsed)) throw new Error('Unexpected response format');
+  return parsed.slice(0, 4);
+}
+
+/**
  * Test the proxy connection with a minimal request.
  */
 export async function testConnection() {

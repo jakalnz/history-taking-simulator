@@ -1,5 +1,5 @@
 import { getCases, loadBundledCases, saveCase, buildSystemPrompt } from './cases.js';
-import { sendMessage, getAiReview, getSessionToken, setSessionToken, getProxyUrl, setProxyUrl } from './api.js';
+import { sendMessage, getAiReview, getSuggestedQuestions, getSessionToken, setSessionToken, getProxyUrl, setProxyUrl } from './api.js';
 
 // ── Session timer ──
 let timerInterval = null;
@@ -241,6 +241,98 @@ function stopRecordingIfActive() {
   }
 }
 
+// ── Hint question bank ──
+const SECTION_HINTS = {
+  reasonForAppointment: [
+    'What brings you in to see us today?',
+    'Can you tell me in your own words what\'s been concerning you?',
+    'Have you been referred here, or did you make this appointment yourself?',
+  ],
+  previousHearingTest: [
+    'Have you had your hearing tested before?',
+    'When was your last hearing test, and where did you have it done?',
+    'Do you remember what the results showed, or were you given any follow-up advice?',
+  ],
+  hearingDetails: [
+    'Which ear do you feel you hear better from?',
+    'Has your hearing changed gradually over time, or did it happen more suddenly?',
+    'When did you first notice your hearing wasn\'t quite right?',
+  ],
+  hearingAids: [
+    'Do you currently use any hearing aids?',
+    'How long have you been wearing hearing aids, and what style are they?',
+    'How are you finding your hearing aids — are they helping?',
+  ],
+  tinnitus: [
+    'Do you notice any ringing, buzzing, or other sounds in your ears when it\'s quiet?',
+    'Have you been aware of any noises in your ears that other people can\'t hear?',
+    'Does the sound seem to be in one ear, both ears, or more in your head?',
+  ],
+  soundSensitivity: [
+    'Do you find that certain sounds are uncomfortably loud for you?',
+    'Are there everyday sounds — like cutlery or voices — that bother you more than they used to?',
+    'Do loud sounds ever cause you pain or discomfort?',
+  ],
+  balance: [
+    'Have you had any problems with your balance or dizziness?',
+    'Do you ever feel like the room is spinning, or that you\'re unsteady on your feet?',
+    'What seems to trigger your dizziness, and how long do episodes usually last?',
+  ],
+  earHealth: [
+    'Have you had any pain, pressure, or a feeling of fullness in your ears?',
+    'Have you ever had discharge or fluid coming from your ears?',
+    'Have you had any ear infections, or has anyone suggested a build-up of wax?',
+  ],
+  entHistory: [
+    'Have you ever seen an ear, nose and throat specialist?',
+    'Have you had any surgery or procedures on your ears?',
+    'Have you had any scans or investigations related to your ears?',
+  ],
+  generalHealth: [
+    'Have you ever been hospitalised, and was there any change in your hearing around that time?',
+    'Do you have any ongoing health conditions I should know about?',
+    'Are there any major illnesses in your history that might be relevant?',
+  ],
+  headInjuries: [
+    'Have you ever had a significant head injury or concussion?',
+    'Did you notice any change in your hearing after the injury?',
+    'Did you receive medical treatment for the head injury?',
+  ],
+  pastInfections: [
+    'Have you had any childhood illnesses like measles, mumps, or meningitis?',
+    'Do you have any ongoing conditions such as diabetes or cardiovascular disease?',
+    'Have you had any serious infections in the past that you can recall?',
+  ],
+  medications: [
+    'Are you currently taking any medications, either prescribed or over the counter?',
+    'Have you ever been on long-term antibiotics or had chemotherapy?',
+    'Are there any medications you think might have affected your hearing?',
+  ],
+  noiseHistory: [
+    'Have you worked in a noisy environment — like a factory, construction, or farming?',
+    'Do you have recreational noise exposure, such as concerts, loud music, or shooting?',
+    'Have you worn hearing protection when exposed to loud noise?',
+  ],
+  familyHistory: [
+    'Is there any history of hearing loss in your family?',
+    'Which relatives have had hearing difficulties — parents, siblings, or grandparents?',
+    'Do any family members wear hearing aids?',
+  ],
+  otherConcerns: [
+    'Is there anything else about your hearing or ear health you\'d like to mention?',
+    'Have we covered everything you wanted to discuss today?',
+    'Is there anything you were hoping I\'d ask about that we haven\'t touched on?',
+  ],
+};
+
+// ── Hint panel state ──
+let hintsViewed = new Set(); // section keys where hints were opened
+
+// ── Guided question (MC) mode state ──
+let mcModeEnabled = false;
+let mcTurns = 0;   // turns where student selected a guided option
+let freeTurns = 0; // turns where student typed freely (while MC mode was on)
+
 // ── State ──
 let activeCase = null;
 let systemPrompt = '';
@@ -401,12 +493,103 @@ const COVERAGE_SECTIONS = [
 
 let coveredSections = new Set();
 
+// ── Hint panel ──
+function initHintPanel() {
+  const btn = document.getElementById('btnHints');
+  const panel = document.getElementById('hintPanel');
+  const body = document.getElementById('hintPanelBody');
+  if (!btn || !panel || !body) return;
+
+  // Build accordion from COVERAGE_SECTIONS + SECTION_HINTS
+  body.innerHTML = COVERAGE_SECTIONS.map(section => {
+    const hints = SECTION_HINTS[section.key] || [];
+    if (!hints.length) return '';
+    return `
+      <div class="hint-section">
+        <button class="hint-section-hdr" data-key="${section.key}">
+          <span>${esc(section.label)}</span>
+          <svg class="hint-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="hint-section-body">
+          ${hints.map(h => `<div class="hint-q">${esc(h)}</div>`).join('')}
+        </div>
+      </div>`;
+  }).join('');
+
+  // Accordion toggle
+  body.querySelectorAll('.hint-section-hdr').forEach(hdr => {
+    hdr.addEventListener('click', () => {
+      const isOpen = hdr.classList.contains('open');
+      body.querySelectorAll('.hint-section-hdr').forEach(h => h.classList.remove('open'));
+      if (!isOpen) {
+        hdr.classList.add('open');
+        hintsViewed.add(hdr.dataset.key);
+      }
+    });
+  });
+
+  btn.addEventListener('click', () => {
+    const open = panel.classList.toggle('open');
+    btn.classList.toggle('active', open);
+  });
+}
+
+// ── Guided question (MC) mode ──
+function initMcMode() {
+  const btn = document.getElementById('btnMcMode');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    mcModeEnabled = !mcModeEnabled;
+    btn.classList.toggle('active', mcModeEnabled);
+    if (!mcModeEnabled) clearMcOptions();
+    toast(mcModeEnabled ? 'Guided mode on — question options will appear after each response' : 'Guided mode off', '');
+  });
+}
+
+function clearMcOptions() {
+  const el = document.getElementById('mcOptions');
+  if (el) { el.classList.add('hidden'); el.innerHTML = ''; }
+}
+
+async function showMcOptions() {
+  if (!mcModeEnabled || conversation.length === 0) return;
+  const container = document.getElementById('mcOptions');
+  if (!container) return;
+
+  container.innerHTML = `<div class="mc-loading"><div class="ai-review-spinner"></div>Suggesting questions…</div>`;
+  container.classList.remove('hidden');
+
+  try {
+    const questions = await getSuggestedQuestions(conversation);
+    if (!mcModeEnabled) { clearMcOptions(); return; } // mode toggled off while loading
+    const labels = ['A', 'B', 'C', 'D'];
+    container.innerHTML = questions.map((q, i) => `
+      <button class="mc-option" data-q="${esc(q)}">
+        <span class="mc-label">${labels[i] || i + 1}</span>
+        <span>${esc(q)}</span>
+      </button>`).join('');
+
+    container.querySelectorAll('.mc-option').forEach(optBtn => {
+      optBtn.addEventListener('click', () => {
+        const q = optBtn.dataset.q;
+        const input = document.getElementById('chatInput');
+        if (input) { input.value = q; autoResize(); }
+        handleSend(true);
+      });
+    });
+  } catch {
+    clearMcOptions(); // silently fall back to free text on error
+  }
+}
+
 // ── Init ──
 document.addEventListener('DOMContentLoaded', async () => {
   // Auth
   checkAuth();
   initTTS();
   initSpeech();
+  initHintPanel();
+  initMcMode();
 
   // Load cases for selection
   await populateCaseList();
@@ -584,6 +767,10 @@ function startSession() {
   systemPrompt = buildSystemPrompt(activeCase);
   conversation = [];
   coveredSections = new Set();
+  hintsViewed = new Set();
+  mcTurns = 0;
+  freeTurns = 0;
+  clearMcOptions();
 
   // Show chat UI
   document.getElementById('setupScreen').classList.add('hidden');
@@ -615,13 +802,19 @@ function showSetup() {
 }
 
 // ── Messaging ──
-async function handleSend() {
+async function handleSend(fromMc = false) {
   const input = document.getElementById('chatInput');
   const text = input?.value?.trim();
   if (!text || isWaiting) return;
 
-  // Stop microphone before sending so it doesn't pick up the patient response
+  // Track MC vs free-text turns (only when MC mode is active)
+  if (mcModeEnabled) {
+    if (fromMc) mcTurns++; else freeTurns++;
+  }
+
+  // Stop microphone and clear MC options before sending
   stopRecordingIfActive();
+  clearMcOptions();
 
   input.value = '';
   input.style.height = '';
@@ -642,6 +835,8 @@ async function handleSend() {
     conversation.push({ role: 'assistant', content: reply });
     appendMessage('patient', reply);
     speakPatient(reply);
+    // Show MC options after patient responds (async, non-blocking)
+    showMcOptions();
   } catch (err) {
     appendMessage('system', `Error: ${err.message}`);
   } finally {
@@ -788,6 +983,34 @@ function endSession() {
   const reviewResult = document.getElementById('aiReviewResult');
   if (reviewBtn) { reviewBtn.style.display = ''; reviewBtn.disabled = false; reviewBtn.textContent = '✦ Get AI Feedback on my technique'; }
   if (reviewResult) { reviewResult.classList.add('hidden'); reviewResult.innerHTML = ''; }
+
+  // Learning supports section (only shown if either feature was used)
+  const supportsEl = document.getElementById('learningSupportsSection');
+  if (supportsEl) {
+    const hintCount = hintsViewed.size;
+    const usedMc = mcTurns > 0;
+    if (hintCount > 0 || usedMc) {
+      const hintLabels = COVERAGE_SECTIONS
+        .filter(s => hintsViewed.has(s.key))
+        .map(s => s.label);
+      const parts = [];
+      if (hintCount > 0) parts.push(`<div class="supports-item">💡 Hints viewed for: <em>${hintLabels.join(', ')}</em></div>`);
+      if (usedMc) {
+        const totalMcTurns = mcTurns + freeTurns;
+        parts.push(`<div class="supports-item">⊞ Guided questions used for ${mcTurns} of ${totalMcTurns} turn${totalMcTurns !== 1 ? 's' : ''}</div>`);
+      }
+      supportsEl.innerHTML = `
+        <div class="supports-card">
+          <div class="supports-title">Learning supports used</div>
+          ${parts.join('')}
+          <p class="supports-note">Using available tools is a normal part of building clinical vocabulary — they help you internalise the questions over time.</p>
+        </div>`;
+      supportsEl.classList.remove('hidden');
+    } else {
+      supportsEl.classList.add('hidden');
+      supportsEl.innerHTML = '';
+    }
+  }
 
   overlay.classList.add('visible');
 }

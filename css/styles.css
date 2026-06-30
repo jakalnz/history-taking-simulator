@@ -567,6 +567,165 @@ body {
 .report-sub-list { display: flex; flex-wrap: wrap; gap: .2rem .5rem; margin-top: .2rem; }
 .report-sub { font-size: .78rem; color: var(--green-600); opacity: .8; }
 
+/* ── TOOLBAR TOOLS ── */
+.toolbar-tools {
+  display: flex;
+  gap: .3rem;
+  margin-left: auto;
+}
+.tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  padding: .25rem .55rem;
+  border-radius: 5px;
+  border: 1px solid var(--slate-200);
+  background: transparent;
+  color: var(--slate-500);
+  font-size: .72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .12s, color .12s, border-color .12s;
+  font-family: inherit;
+}
+.tool-btn:hover { background: var(--slate-100); color: var(--slate-700); }
+.tool-btn.active { background: var(--teal-50); color: var(--teal-700); border-color: var(--teal-400); }
+.tool-btn svg { flex-shrink: 0; }
+
+/* ── HINT PANEL ── */
+.hint-panel {
+  border-bottom: 1px solid var(--slate-200);
+  background: var(--slate-50);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .25s ease;
+  flex-shrink: 0;
+}
+.hint-panel.open {
+  max-height: 260px;
+  overflow-y: auto;
+}
+.hint-section { border-bottom: 1px solid var(--slate-100); }
+.hint-section:last-child { border-bottom: none; }
+.hint-section-hdr {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--slate-600);
+  text-align: left;
+  font-family: inherit;
+  transition: background .1s;
+}
+.hint-section-hdr:hover { background: var(--slate-100); }
+.hint-section-hdr.open { color: var(--teal-700); }
+.hint-chevron {
+  flex-shrink: 0;
+  transition: transform .2s;
+  color: var(--slate-400);
+}
+.hint-section-hdr.open .hint-chevron { transform: rotate(180deg); color: var(--teal-600); }
+.hint-section-body {
+  display: none;
+  padding: .25rem .75rem .5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+.hint-section-hdr:not(.open) + .hint-section-body { display: none; }
+.hint-section-hdr.open + .hint-section-body { display: flex; }
+.hint-q {
+  font-size: .78rem;
+  color: var(--slate-600);
+  padding: .3rem .5rem;
+  border-radius: 5px;
+  border-left: 2px solid var(--teal-300);
+  background: #fff;
+  line-height: 1.4;
+}
+
+/* ── GUIDED QUESTION OPTIONS ── */
+.mc-options {
+  padding: .5rem .75rem;
+  border-top: 1px solid var(--slate-100);
+  background: var(--slate-50);
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  flex-shrink: 0;
+}
+.mc-loading {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .78rem;
+  color: var(--slate-400);
+  padding: .25rem 0;
+}
+.mc-option {
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+  padding: .45rem .65rem;
+  border-radius: 7px;
+  border: 1px solid var(--slate-200);
+  background: #fff;
+  cursor: pointer;
+  font-size: .82rem;
+  color: var(--slate-700);
+  text-align: left;
+  font-family: inherit;
+  line-height: 1.4;
+  transition: border-color .12s, background .12s;
+}
+.mc-option:hover { border-color: var(--teal-400); background: var(--teal-50); color: var(--teal-800); }
+.mc-label {
+  flex-shrink: 0;
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  background: var(--slate-100);
+  color: var(--slate-500);
+  font-size: .7rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: .05rem;
+}
+.mc-option:hover .mc-label { background: var(--teal-100); color: var(--teal-700); }
+
+/* ── LEARNING SUPPORTS (report) ── */
+.supports-card {
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: 8px;
+  padding: .9rem 1rem;
+}
+.supports-title {
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--slate-500);
+  margin-bottom: .5rem;
+}
+.supports-item {
+  font-size: .82rem;
+  color: var(--slate-600);
+  margin-bottom: .25rem;
+}
+.supports-item em { font-style: normal; color: var(--slate-700); font-weight: 500; }
+.supports-note {
+  font-size: .75rem;
+  color: var(--slate-400);
+  margin-top: .5rem;
+  line-height: 1.5;
+}
+
 /* ── AI REVIEW ── */
 .ai-review {
   background: var(--navy-800);
