@@ -530,6 +530,7 @@ function initHintPanel() {
 
   btn.addEventListener('click', () => {
     const open = panel.classList.toggle('open');
+    panel.classList.toggle('hidden', !open);
     btn.classList.toggle('active', open);
   });
 }
