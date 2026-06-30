@@ -505,27 +505,60 @@ async function populateCaseList() {
   }
 
   if (cases.length === 0) {
-    list.innerHTML = `<p class="text-muted text-sm">No cases available. Ask your teacher to share a case file, or load sample cases.</p>`;
+    list.innerHTML = `<p class="text-muted text-sm" style="padding:.75rem">No cases available. Ask your teacher to share a case file, or load sample cases.</p>`;
     return;
   }
 
-  list.innerHTML = cases.map(c => `
-    <div class="case-select-item" data-id="${c.id}">
-      <div>
-        <div class="csi-name">${esc(c.patient.name) || 'Unnamed Patient'}</div>
-        <div class="csi-meta">${c.patient.age ? c.patient.age + ' yrs' : ''}${c.patient.occupation ? ' · ' + esc(c.patient.occupation) : ''}</div>
-      </div>
-    </div>
-  `).join('');
+  function renderCaseItems(filtered) {
+    list.innerHTML = filtered.length ? filtered.map(c => {
+      const initial = (c.patient.name || '?')[0].toUpperCase();
+      const meta = [c.patient.age ? c.patient.age + ' yrs' : '', esc(c.patient.occupation || '')].filter(Boolean).join(' · ');
+      return `
+        <div class="case-select-item" data-id="${c.id}">
+          <div class="csi-avatar">${esc(initial)}</div>
+          <div class="csi-info">
+            <div class="csi-name">${esc(c.patient.name) || 'Unnamed Patient'}</div>
+            ${meta ? `<div class="csi-meta">${meta}</div>` : ''}
+          </div>
+          <svg class="csi-tick" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+          </svg>
+        </div>`;
+    }).join('') : `<p class="text-muted text-sm" style="padding:.75rem">No patients match your search.</p>`;
 
-  list.querySelectorAll('.case-select-item').forEach(item => {
-    item.addEventListener('click', () => {
-      list.querySelectorAll('.case-select-item').forEach(i => i.classList.remove('selected'));
-      item.classList.add('selected');
-      document.getElementById('btnStartSession').disabled = false;
-      activeCase = getCases().find(c => c.id === item.dataset.id);
+    list.querySelectorAll('.case-select-item').forEach(item => {
+      item.addEventListener('click', () => {
+        list.querySelectorAll('.case-select-item').forEach(i => i.classList.remove('selected'));
+        item.classList.add('selected');
+        document.getElementById('btnStartSession').disabled = false;
+        activeCase = getCases().find(c => c.id === item.dataset.id);
+      });
     });
-  });
+  }
+
+  renderCaseItems(cases);
+
+  // Search filter
+  const searchInput = document.getElementById('caseSearch');
+  if (searchInput) {
+    searchInput.value = '';
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.toLowerCase().trim();
+      const filtered = q
+        ? cases.filter(c =>
+            (c.patient.name || '').toLowerCase().includes(q) ||
+            (c.patient.occupation || '').toLowerCase().includes(q) ||
+            String(c.patient.age || '').includes(q)
+          )
+        : cases;
+      renderCaseItems(filtered);
+      // Deselect if the active case is filtered out
+      if (activeCase && !filtered.find(c => c.id === activeCase.id)) {
+        activeCase = null;
+        document.getElementById('btnStartSession').disabled = true;
+      }
+    });
+  }
 
   // Import a case file
   document.getElementById('btnImportCase')?.addEventListener('click', () => {

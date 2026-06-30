@@ -843,18 +843,84 @@ body {
 .setup-hero h2 { font-size: 1.2rem; margin-bottom: .35rem; }
 .setup-hero p { font-size: .85rem; color: var(--slate-300); }
 .setup-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
-.case-select-list { display: flex; flex-direction: column; gap: .5rem; max-height: 300px; overflow-y: auto; }
-.case-select-item {
-  padding: .75rem 1rem;
-  border: 2px solid var(--slate-200);
+
+/* Search filter */
+.case-search {
+  width: 100%;
+  border: 1px solid var(--slate-300);
   border-radius: 8px;
+  padding: .5rem .75rem .5rem 2.2rem;
+  font-size: .9rem;
+  font-family: inherit;
+  color: var(--slate-800);
+  background: var(--slate-50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") .7rem center no-repeat;
+  transition: border-color .12s, box-shadow .12s;
+}
+.case-search:focus {
+  outline: none;
+  border-color: var(--teal-500);
+  box-shadow: 0 0 0 3px rgba(20,184,166,.12);
+}
+
+/* Patient list — scrollable, grows to fill available space */
+.case-select-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: 340px;
+  overflow-y: auto;
+  border: 1px solid var(--slate-200);
+  border-radius: 8px;
+}
+
+/* Compact contact-style row */
+.case-select-item {
+  padding: .65rem .9rem;
+  border: none;
+  border-bottom: 1px solid var(--slate-100);
+  border-radius: 0;
   cursor: pointer;
-  transition: border-color .12s, background .12s;
+  transition: background .1s;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: .75rem;
 }
-.case-select-item:hover { border-color: var(--teal-400); background: var(--teal-50); }
-.case-select-item.selected { border-color: var(--teal-600); background: var(--teal-50); }
-.case-select-item .csi-name { font-weight: 600; font-size: .9rem; }
-.case-select-item .csi-meta { font-size: .78rem; color: var(--slate-500); }
+.case-select-item:last-child { border-bottom: none; }
+.case-select-item:first-child { border-radius: 8px 8px 0 0; }
+.case-select-item:last-child:first-child { border-radius: 8px; }
+.case-select-item:hover { background: var(--teal-50); }
+.case-select-item.selected { background: var(--teal-50); outline: 2px solid var(--teal-500); outline-offset: -2px; }
+
+/* Avatar initial circle */
+.csi-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--teal-600);
+  color: #fff;
+  font-weight: 700;
+  font-size: .85rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.case-select-item.selected .csi-avatar { background: var(--teal-700); }
+
+.csi-info { flex: 1; min-width: 0; }
+.csi-name { font-weight: 600; font-size: .9rem; color: var(--slate-800); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.csi-meta { font-size: .75rem; color: var(--slate-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Selected tick */
+.csi-tick {
+  width: 18px; height: 18px;
+  color: var(--teal-600);
+  flex-shrink: 0;
+  display: none;
+}
+.case-select-item.selected .csi-tick { display: block; }
+
+@media (max-width: 640px) {
+  .setup-screen { margin: 0; padding: 0; min-height: calc(100vh - 56px); }
+  .setup-card { border-radius: 0; border: none; min-height: calc(100vh - 56px); display: flex; flex-direction: column; }
+  .setup-hero { padding: 1.25rem 1.5rem; }
+  .setup-body { flex: 1; padding: 1rem; }
+  .case-select-list { max-height: none; flex: 1; }
+}
