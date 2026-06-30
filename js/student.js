@@ -137,8 +137,9 @@ function stopSpeaking() {
 // ── Speech recognition ──
 let recognition = null;
 let isRecording = false;
+let shouldRestartRecognition = false; // user still wants mic on; we auto-restart after each pause
 let speechBaseline = '';   // text already in box when mic started
-let speechFinals = '';     // accumulated final transcripts this session
+let speechFinals = '';     // accumulated final transcripts this recognition burst
 
 function initSpeech() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -148,7 +149,10 @@ function initSpeech() {
   if (micBtn) micBtn.style.display = 'flex';
 
   recognition = new SpeechRecognition();
-  recognition.continuous = true;      // don't stop on natural pauses
+  // continuous=false avoids Android/Samsung bug where previous finals are
+  // replayed on internal restart, producing duplicated text like "Hi hi Dave Dave".
+  // Instead we restart manually in onend while the user still wants the mic on.
+  recognition.continuous = false;
   recognition.interimResults = true;
   recognition.lang = 'en-AU';
 
@@ -161,7 +165,6 @@ function initSpeech() {
 
   recognition.onresult = e => {
     let interim = '';
-    // Only look at results since the last final we've already committed
     for (let i = e.resultIndex; i < e.results.length; i++) {
       const t = e.results[i][0].transcript;
       if (e.results[i].isFinal) {
@@ -180,39 +183,52 @@ function initSpeech() {
 
   recognition.onend = () => {
     isRecording = false;
-    micBtn?.classList.remove('recording');
-    const input = document.getElementById('chatInput');
-    if (input) {
-      input.placeholder = 'Type your question… (Enter to send, Shift+Enter for new line)';
-      input.focus();
+    if (shouldRestartRecognition) {
+      // Roll committed finals into baseline before restarting so they
+      // can't be replayed or duplicated in the next recognition session.
+      speechBaseline = [speechBaseline, speechFinals].filter(Boolean).join(' ').trim();
+      speechFinals = '';
+      try { recognition.start(); } catch (_) {}
+    } else {
+      micBtn?.classList.remove('recording');
+      const input = document.getElementById('chatInput');
+      if (input) {
+        input.placeholder = 'Type your question… (Enter to send, Shift+Enter for new line)';
+        input.focus();
+      }
     }
   };
 
   recognition.onerror = e => {
+    if (e.error === 'no-speech') return; // harmless — onend will restart if needed
+    if (e.error === 'aborted') return;
+    shouldRestartRecognition = false;
     isRecording = false;
     micBtn?.classList.remove('recording');
-    if (e.error !== 'no-speech' && e.error !== 'aborted') {
-      toast(`Microphone error: ${e.error}`, 'error');
-    }
+    toast(`Microphone error: ${e.error}`, 'error');
     const input = document.getElementById('chatInput');
     if (input) input.placeholder = 'Type your question… (Enter to send, Shift+Enter for new line)';
   };
 
   micBtn?.addEventListener('click', () => {
-    if (isRecording) {
+    if (isRecording || shouldRestartRecognition) {
+      shouldRestartRecognition = false;
       recognition.stop();
     } else {
-      // Capture whatever is already in the box so we append to it
       const input = document.getElementById('chatInput');
       speechBaseline = input?.value?.trim() || '';
       speechFinals = '';
+      shouldRestartRecognition = true;
       recognition.start();
     }
   });
 }
 
 function stopRecordingIfActive() {
-  if (isRecording && recognition) recognition.stop();
+  if ((isRecording || shouldRestartRecognition) && recognition) {
+    shouldRestartRecognition = false;
+    recognition.stop();
+  }
 }
 
 // ── State ──
