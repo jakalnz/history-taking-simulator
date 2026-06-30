@@ -137,7 +137,8 @@ function stopSpeaking() {
 // ── Speech recognition ──
 let recognition = null;
 let isRecording = false;
-let interimText = '';
+let speechBaseline = '';   // text already in box when mic started
+let speechFinals = '';     // accumulated final transcripts this session
 
 function initSpeech() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -147,13 +148,12 @@ function initSpeech() {
   if (micBtn) micBtn.style.display = 'flex';
 
   recognition = new SpeechRecognition();
-  recognition.continuous = false;
+  recognition.continuous = true;      // don't stop on natural pauses
   recognition.interimResults = true;
   recognition.lang = 'en-AU';
 
   recognition.onstart = () => {
     isRecording = true;
-    interimText = '';
     micBtn?.classList.add('recording');
     const input = document.getElementById('chatInput');
     if (input) input.placeholder = 'Listening…';
@@ -161,17 +161,21 @@ function initSpeech() {
 
   recognition.onresult = e => {
     let interim = '';
-    let final = '';
-    for (const result of e.results) {
-      if (result.isFinal) final += result[0].transcript;
-      else interim += result[0].transcript;
+    // Only look at results since the last final we've already committed
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      const t = e.results[i][0].transcript;
+      if (e.results[i].isFinal) {
+        speechFinals += (speechFinals && !speechFinals.endsWith(' ') ? ' ' : '') + t.trim();
+      } else {
+        interim = t;
+      }
     }
     const input = document.getElementById('chatInput');
     if (input) {
-      input.value = final || interim;
+      const combined = [speechBaseline, speechFinals, interim].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+      input.value = combined;
       autoResize();
     }
-    interimText = interim;
   };
 
   recognition.onend = () => {
@@ -198,7 +202,10 @@ function initSpeech() {
     if (isRecording) {
       recognition.stop();
     } else {
-      document.getElementById('chatInput').value = '';
+      // Capture whatever is already in the box so we append to it
+      const input = document.getElementById('chatInput');
+      speechBaseline = input?.value?.trim() || '';
+      speechFinals = '';
       recognition.start();
     }
   });
