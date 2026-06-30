@@ -825,6 +825,9 @@ async function handleSend(fromMc = false) {
 
   input.value = '';
   input.style.height = '';
+  // On mobile, drop focus so the on-screen keyboard closes while the
+  // patient's reply comes in — re-focusing it would just reopen the keyboard.
+  if (isMobileViewport()) input.blur();
 
   appendMessage('student', text);
   conversation.push({ role: 'user', content: text });
