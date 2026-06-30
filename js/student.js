@@ -210,7 +210,10 @@ function initSpeech() {
       const input = document.getElementById('chatInput');
       if (input) {
         input.placeholder = 'Type your question… (Enter to send, Shift+Enter for new line)';
-        input.focus();
+        // Skip on mobile: handleSend() stops the mic via stopRecordingIfActive(),
+        // which fires this onend — re-focusing here reopens the keyboard right
+        // as the patient's reply is coming in.
+        if (!isMobileViewport()) input.focus();
       }
     }
   };
