@@ -139,7 +139,11 @@ export async function getSuggestedQuestions(conversation) {
 
   if (!response.ok) throw new Error(`Suggestions failed (${response.status})`);
   const data = await response.json();
-  const text = (data.content?.[0]?.text || '[]').trim();
+  let text = (data.content?.[0]?.text || '[]').trim();
+  // Strip markdown code fences and any leading/trailing prose around the array
+  text = text.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();
+  const arrayMatch = text.match(/\[[\s\S]*\]/);
+  if (arrayMatch) text = arrayMatch[0];
   const parsed = JSON.parse(text);
   if (!Array.isArray(parsed)) throw new Error('Unexpected response format');
   return parsed.slice(0, 4);

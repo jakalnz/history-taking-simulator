@@ -577,8 +577,9 @@ async function showMcOptions() {
         handleSend(true);
       });
     });
-  } catch {
-    clearMcOptions(); // silently fall back to free text on error
+  } catch (err) {
+    console.error('Failed to load suggested questions:', err);
+    clearMcOptions(); // fall back to free text on error
   }
 }
 
