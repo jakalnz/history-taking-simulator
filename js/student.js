@@ -4,6 +4,7 @@ import { sendMessage, getSessionToken, setSessionToken, getProxyUrl, setProxyUrl
 // ── Text to speech ──
 let ttsEnabled = false;
 let ttsVoice = null;
+const TTS_VOICE_KEY = 'audiology-sim-tts-voice';
 
 function initTTS() {
   if (!window.speechSynthesis) return;
@@ -11,28 +12,60 @@ function initTTS() {
   const btn = document.getElementById('ttsToggle');
   if (btn) btn.style.display = 'flex';
 
-  // Pick the best available voice: prefer a natural-sounding en-AU or en-GB female
-  function pickVoice() {
-    const voices = speechSynthesis.getVoices();
-    if (!voices.length) return;
+  function getVoices() { return speechSynthesis.getVoices().filter(v => v.lang.startsWith('en')); }
+
+  function pickDefaultVoice(voices) {
     const preferred = [
-      v => v.name.includes('Karen'),           // macOS/iOS Australian
-      v => v.name.includes('Samantha'),        // macOS US natural
+      v => v.name.includes('Karen'),
+      v => v.name.includes('Samantha'),
       v => v.lang === 'en-AU' && !v.name.includes('Google'),
       v => v.lang === 'en-GB' && !v.name.includes('Google'),
       v => v.lang.startsWith('en-AU'),
       v => v.lang.startsWith('en-GB'),
-      v => v.lang.startsWith('en'),
     ];
     for (const match of preferred) {
       const found = voices.find(match);
-      if (found) { ttsVoice = found; return; }
+      if (found) return found;
     }
-    ttsVoice = voices[0];
+    return voices[0];
   }
 
-  pickVoice();
-  speechSynthesis.onvoiceschanged = pickVoice;
+  function applyVoice(voices) {
+    const saved = localStorage.getItem(TTS_VOICE_KEY);
+    ttsVoice = (saved && voices.find(v => v.name === saved)) || pickDefaultVoice(voices);
+    populateVoiceDropdown(voices);
+  }
+
+  function populateVoiceDropdown(voices) {
+    const select = document.getElementById('voiceSelect');
+    const field = document.getElementById('voiceSelectorField');
+    if (!select || !voices.length) return;
+    field.style.display = 'block';
+
+    select.innerHTML = voices.map(v =>
+      `<option value="${esc(v.name)}" ${ttsVoice?.name === v.name ? 'selected' : ''}>
+        ${esc(v.name)} (${v.lang})
+       </option>`
+    ).join('');
+
+    select.onchange = () => {
+      const chosen = voices.find(v => v.name === select.value);
+      if (chosen) {
+        ttsVoice = chosen;
+        localStorage.setItem(TTS_VOICE_KEY, chosen.name);
+        // Preview the selected voice
+        speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance('Hello, I am your patient today.');
+        utter.voice = chosen;
+        utter.rate = 0.95;
+        speechSynthesis.speak(utter);
+      }
+    };
+  }
+
+  const voices = getVoices();
+  if (voices.length) applyVoice(voices);
+  speechSynthesis.onvoiceschanged = () => applyVoice(getVoices());
 
   btn?.addEventListener('click', () => {
     ttsEnabled = !ttsEnabled;
