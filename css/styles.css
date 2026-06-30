@@ -761,7 +761,17 @@ body {
   /* Slightly smaller header on mobile */
   .chat-header { padding: .75rem 1rem; gap: .6rem; }
   .patient-avatar { width: 34px; height: 34px; font-size: .85rem; }
+
+  /* Hide age/occupation to save header space */
+  .chat-patient-meta { display: none; }
+
+  /* Shorten "End & Report" button to "End" */
+  .label-full { display: none; }
+  .label-short { display: inline; }
 }
+
+/* Default: show full label, hide short */
+.label-short { display: none; }
 
 /* ── SETUP SCREEN ── */
 .setup-screen {

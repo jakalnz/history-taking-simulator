@@ -137,9 +137,8 @@ function stopSpeaking() {
 // ── Speech recognition ──
 let recognition = null;
 let isRecording = false;
-let shouldRestartRecognition = false; // user still wants mic on; we auto-restart after each pause
-let speechBaseline = '';   // text already in box when mic started
-let speechFinals = '';     // accumulated final transcripts this recognition burst
+let shouldRestartRecognition = false;
+let speechBaseline = ''; // text in box at the start of the current mic session (or burst restart)
 
 function initSpeech() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -149,9 +148,8 @@ function initSpeech() {
   if (micBtn) micBtn.style.display = 'flex';
 
   recognition = new SpeechRecognition();
-  // continuous=false avoids Android/Samsung bug where previous finals are
-  // replayed on internal restart, producing duplicated text like "Hi hi Dave Dave".
-  // Instead we restart manually in onend while the user still wants the mic on.
+  // continuous=false + manual restart avoids Android/Samsung's bug where
+  // previous finals are replayed after an internal restart, causing duplicates.
   recognition.continuous = false;
   recognition.interimResults = true;
   recognition.lang = 'en-AU';
@@ -164,19 +162,33 @@ function initSpeech() {
   };
 
   recognition.onresult = e => {
+    // Rebuild from scratch for this burst (iterate ALL results, not from resultIndex)
+    // so Android replaying old results just produces the same string, not an appended one.
+    let sessionFinals = '';
     let interim = '';
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      const t = e.results[i][0].transcript;
-      if (e.results[i].isFinal) {
-        speechFinals += (speechFinals && !speechFinals.endsWith(' ') ? ' ' : '') + t.trim();
-      } else {
-        interim = t;
+    for (let i = 0; i < e.results.length; i++) {
+      const t = e.results[i][0].transcript.trim();
+      if (e.results[i].isFinal) sessionFinals += (sessionFinals ? ' ' : '') + t;
+      else interim = t;
+    }
+
+    // Strip any prefix that's already in speechBaseline (Android replay protection).
+    // If Android replays "Hi Dave" at the start of a new burst where baseline="Hi Dave",
+    // we detect the overlap and discard the repeated text.
+    let extra = sessionFinals;
+    if (speechBaseline && sessionFinals) {
+      const bNorm = speechBaseline.replace(/\s+/g, ' ').toLowerCase().trim();
+      const sNorm = sessionFinals.replace(/\s+/g, ' ').toLowerCase().trim();
+      if (sNorm === bNorm || bNorm.endsWith(sNorm)) {
+        extra = ''; // pure replay — ignore
+      } else if (sNorm.startsWith(bNorm)) {
+        extra = sessionFinals.slice(speechBaseline.length).trim(); // strip replayed prefix
       }
     }
+
     const input = document.getElementById('chatInput');
     if (input) {
-      const combined = [speechBaseline, speechFinals, interim].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
-      input.value = combined;
+      input.value = [speechBaseline, extra, interim].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
       autoResize();
     }
   };
@@ -184,10 +196,9 @@ function initSpeech() {
   recognition.onend = () => {
     isRecording = false;
     if (shouldRestartRecognition) {
-      // Roll committed finals into baseline before restarting so they
-      // can't be replayed or duplicated in the next recognition session.
-      speechBaseline = [speechBaseline, speechFinals].filter(Boolean).join(' ').trim();
-      speechFinals = '';
+      // Use current input value as new baseline before restarting
+      const input = document.getElementById('chatInput');
+      speechBaseline = input?.value?.trim() || '';
       try { recognition.start(); } catch (_) {}
     } else {
       micBtn?.classList.remove('recording');
@@ -217,7 +228,6 @@ function initSpeech() {
     } else {
       const input = document.getElementById('chatInput');
       speechBaseline = input?.value?.trim() || '';
-      speechFinals = '';
       shouldRestartRecognition = true;
       recognition.start();
     }
