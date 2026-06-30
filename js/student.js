@@ -77,8 +77,11 @@ function initTTS() {
 
 function speakPatient(text) {
   if (!ttsEnabled || !window.speechSynthesis) return;
+  // Strip stage directions like *fidgets with hands* before speaking
+  const clean = text.replace(/\*[^*]*\*/g, '').replace(/\s+/g, ' ').trim();
+  if (!clean) return;
   speechSynthesis.cancel();
-  const utter = new SpeechSynthesisUtterance(text);
+  const utter = new SpeechSynthesisUtterance(clean);
   if (ttsVoice) utter.voice = ttsVoice;
   utter.rate = 0.95;
   utter.pitch = 1.05;
