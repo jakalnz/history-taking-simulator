@@ -1,10 +1,33 @@
 import { getCases, loadBundledCases, saveCase, buildSystemPrompt } from './cases.js';
 import { sendMessage, getAiReview, getSessionToken, setSessionToken, getProxyUrl, setProxyUrl } from './api.js';
 
+// ── Session timer ──
+let timerInterval = null;
+let timerSeconds = 0;
+
+function startTimer() {
+  timerSeconds = 0;
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timerSeconds++;
+    const m = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+    const s = String(timerSeconds % 60).padStart(2, '0');
+    const el = document.getElementById('sessionTimer');
+    if (el) el.textContent = `${m}:${s}`;
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
 // ── Text to speech ──
 let ttsEnabled = false;
 let ttsVoice = null;
+let ttsRate = 0.95;
 const TTS_VOICE_KEY = 'audiology-sim-tts-voice';
+const TTS_RATE_KEY  = 'audiology-sim-tts-rate';
 
 function initTTS() {
   if (!window.speechSynthesis) return;
@@ -63,6 +86,23 @@ function initTTS() {
     };
   }
 
+  // Restore saved rate
+  const savedRate = parseFloat(localStorage.getItem(TTS_RATE_KEY));
+  if (savedRate) ttsRate = savedRate;
+
+  // Speed slider
+  const speedSlider = document.getElementById('ttsSpeed');
+  const speedValue  = document.getElementById('speedValue');
+  if (speedSlider) {
+    speedSlider.value = ttsRate;
+    if (speedValue) speedValue.textContent = ttsRate.toFixed(1).replace('.0','') + '×';
+    speedSlider.addEventListener('input', () => {
+      ttsRate = parseFloat(speedSlider.value);
+      localStorage.setItem(TTS_RATE_KEY, ttsRate);
+      if (speedValue) speedValue.textContent = ttsRate.toFixed(1).replace('.0','') + '×';
+    });
+  }
+
   const voices = getVoices();
   if (voices.length) applyVoice(voices);
   speechSynthesis.onvoiceschanged = () => applyVoice(getVoices());
@@ -71,6 +111,8 @@ function initTTS() {
     ttsEnabled = !ttsEnabled;
     btn.classList.toggle('active', ttsEnabled);
     btn.title = ttsEnabled ? 'Patient voice on — click to mute' : 'Toggle patient voice';
+    const speedControl = document.getElementById('speedControl');
+    if (speedControl) speedControl.style.display = ttsEnabled ? 'flex' : 'none';
     if (!ttsEnabled) speechSynthesis.cancel();
   });
 }
@@ -83,7 +125,7 @@ function speakPatient(text) {
   speechSynthesis.cancel();
   const utter = new SpeechSynthesisUtterance(clean);
   if (ttsVoice) utter.voice = ttsVoice;
-  utter.rate = 0.95;
+  utter.rate = ttsRate;
   utter.pitch = 1.05;
   speechSynthesis.speak(utter);
 }
@@ -348,6 +390,7 @@ function startSession() {
   document.getElementById('messages').innerHTML = '';
 
   renderCoverage();
+  startTimer();
 
   // Focus input
   document.getElementById('chatInput')?.focus();
@@ -471,6 +514,7 @@ function renderCoverage() {
 // ── End session / report ──
 function endSession() {
   stopSpeaking();
+  stopTimer();
   const overlay = document.getElementById('reportOverlay');
   if (!overlay) return;
 
@@ -478,9 +522,13 @@ function endSession() {
   const covered = coveredSections.size;
   const percent = Math.round((covered / total) * 100);
 
+  const mins = Math.floor(timerSeconds / 60);
+  const secs = String(timerSeconds % 60).padStart(2, '0');
+  const duration = mins > 0 ? `${mins}m ${secs}s` : `${timerSeconds}s`;
+
   document.getElementById('reportPatientName').textContent = activeCase?.patient?.name || 'Patient';
   document.getElementById('reportScore').textContent = `${percent}%`;
-  document.getElementById('reportSubtitle').textContent = `${covered} of ${total} history areas explored`;
+  document.getElementById('reportSubtitle').textContent = `${covered} of ${total} areas explored · ${duration}`;
 
   const hitList = document.getElementById('reportHits');
   const missList = document.getElementById('reportMisses');

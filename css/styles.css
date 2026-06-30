@@ -445,6 +445,41 @@ body {
 .send-btn:hover { background: var(--teal-700); }
 .send-btn:disabled { opacity: .5; cursor: not-allowed; }
 
+.session-timer {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--slate-400);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .04em;
+}
+
+.chat-toolbar {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .4rem 1rem;
+  border-bottom: 1px solid var(--slate-200);
+  background: var(--slate-50);
+  font-size: .78rem;
+  color: var(--slate-500);
+}
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  margin-left: auto;
+}
+.speed-control label { white-space: nowrap; }
+.speed-control input[type="range"] {
+  width: 80px;
+  accent-color: var(--teal-600);
+}
+.speed-value {
+  font-weight: 600;
+  color: var(--teal-700);
+  min-width: 2.5ch;
+}
+
 .tts-toggle {
   width: 34px; height: 34px;
   border-radius: 7px;
@@ -610,8 +645,8 @@ body {
   background: #fff;
   border-radius: 12px;
   padding: 2rem;
-  max-width: 380px;
-  width: 90%;
+  max-width: 520px;
+  width: 95%;
   box-shadow: 0 20px 60px rgba(0,0,0,.3);
 }
 .auth-modal h2 { font-size: 1.2rem; color: var(--navy-800); margin-bottom: .3rem; }
