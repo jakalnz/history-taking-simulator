@@ -825,9 +825,6 @@ async function handleSend(fromMc = false) {
 
   input.value = '';
   input.style.height = '';
-  // On mobile, drop focus so the on-screen keyboard closes while the
-  // patient's reply comes in — re-focusing it would just reopen the keyboard.
-  if (isMobileViewport()) input.blur();
 
   appendMessage('student', text);
   conversation.push({ role: 'user', content: text });
@@ -839,6 +836,11 @@ async function handleSend(fromMc = false) {
   showTyping(true);
   isWaiting = true;
   document.getElementById('sendBtn').disabled = true;
+  // On mobile, drop focus so the on-screen keyboard closes while the
+  // patient's reply comes in. Must happen AFTER disabling sendBtn — disabling
+  // the element the user just tapped can otherwise bounce focus back onto
+  // chatInput (a mobile browser quirk), reopening the keyboard immediately.
+  if (isMobileViewport()) document.activeElement?.blur();
 
   try {
     const reply = await sendMessage(systemPrompt, conversation);
