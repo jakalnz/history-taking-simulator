@@ -1,4 +1,4 @@
-import { getCases, loadBundledCases, saveCase, buildSystemPrompt } from './cases.js';
+import { getCases, loadBundledCases, saveCase, buildSystemPrompt, isPaediatricCase } from './cases.js';
 import { sendMessage, getAiReview, getSuggestedQuestions, getSessionToken, setSessionToken, getProxyUrl, setProxyUrl } from './api.js';
 
 // Matches the mobile breakpoint in css/styles.css (@media max-width: 768px).
@@ -320,7 +320,7 @@ function stopRecordingIfActive() {
 }
 
 // ── Hint question bank ──
-const SECTION_HINTS = {
+const ADULT_SECTION_HINTS = {
   reasonForAppointment: [
     'What brings you in to see us today?',
     'Can you tell me in your own words what\'s been concerning you?',
@@ -418,6 +418,96 @@ const SECTION_HINTS = {
   ],
 };
 
+// Hint bank for paediatric sessions — keyed to PAEDIATRIC_COVERAGE_SECTIONS
+// keys, questions phrased to the caregiver. Drawn from
+// docs/paediatric_audiology_history_questionnaire.md.
+const PAEDIATRIC_SECTION_HINTS = {
+  presenting_concern: [
+    'What brings you and your child in today?',
+    'Why has your child been referred?',
+    'Is the difficulty constant or does it come and go?',
+  ],
+  caregiver_concern: [
+    'Tell me about what you\'ve noticed with your child\'s hearing.',
+    'Do you personally think your child has a hearing problem?',
+    'Does it seem to affect one ear more than the other, or both equally?',
+  ],
+  onset_course: [
+    'Tell me about when you first noticed a concern, and whether it\'s changed over time.',
+    'When did you first notice a concern?',
+    'Has it stayed the same, or has it changed since you first noticed it?',
+  ],
+  previous_tests: [
+    'What can you tell me about any hearing tests your child has had before?',
+    'Has your child had any previous hearing tests?',
+    'Do you know what the results were?',
+  ],
+  newborn_screening: [
+    'Tell me about your child\'s newborn hearing screening.',
+    'Was your child\'s hearing tested at birth?',
+    'Do you know the result — pass or refer — and which ear(s)?',
+  ],
+  b4_school_check: [
+    'Tell me about your child\'s B4 School Check.',
+    'Did your child have the B4 School Check?',
+    'What was the hearing result?',
+  ],
+  birth_history: [
+    'Tell me about the pregnancy and your child\'s birth.',
+    'How many weeks was your child when they were born?',
+    'Were there any complications during the pregnancy?',
+  ],
+  perinatal_risk: [
+    'Tell me about the first few days after your child was born.',
+    'Was your child admitted to the neonatal intensive care unit (NICU)?',
+    'Did your child have jaundice that required treatment?',
+  ],
+  ear_health: [
+    'Tell me about any ear infections or ear problems your child has had.',
+    'Has your child had frequent ear infections or been told they have fluid in the ears?',
+    'Has your child had any ear surgery, like grommets?',
+  ],
+  speech_language: [
+    'Tell me about how your child\'s speech and language have developed.',
+    'When did your child say their first word?',
+    'How clearly does your child speak — can people outside the family understand them?',
+  ],
+  milestones: [
+    'Tell me about your child\'s general development.',
+    'Did your child reach their motor milestones around the expected time?',
+    'Has your child received any early intervention services?',
+  ],
+  school_function: [
+    'Tell me how your child is getting on at preschool or school.',
+    'Are teachers raising any concerns?',
+    'Does your child follow instructions well in the classroom?',
+  ],
+  home_function: [
+    'Tell me how the hearing concern affects your child at home.',
+    'Do they turn the TV up, or miss things said from another room?',
+    'Do they respond better when you\'re face-to-face with them?',
+  ],
+  family_history: [
+    'Tell me about any hearing problems that run in your family.',
+    'Is there any family history of hearing loss in childhood?',
+    'Are the child\'s parents related to each other?',
+  ],
+  noise_exposure: [
+    'Tell me about your child\'s exposure to loud noise.',
+    'Has your child been exposed to any loud noise, recreational or otherwise?',
+    'Does your child use headphones?',
+  ],
+  other_concerns: [
+    'Is there anything else you\'d like to share or ask about?',
+    'Is any support currently in place at school?',
+    'What are you hoping happens as a result of today\'s appointment?',
+  ],
+};
+
+// Active hint bank for the current session — swapped alongside
+// COVERAGE_SECTIONS in startSession().
+let SECTION_HINTS = ADULT_SECTION_HINTS;
+
 // ── Hint panel state ──
 let hintsViewed = new Set(); // section keys where hints were opened
 
@@ -435,7 +525,7 @@ let isWaiting = false;
 // Sections we track for coverage — mirrors the history template.
 // Each section has top-level keywords (any hit marks the parent covered) and
 // optional subs (shown once the parent is touched, each individually tracked).
-const COVERAGE_SECTIONS = [
+const ADULT_COVERAGE_SECTIONS = [
   {
     key: 'reasonForAppointment',
     label: 'Reason for appointment',
@@ -584,16 +674,44 @@ const COVERAGE_SECTIONS = [
   },
 ];
 
+// Paediatric coverage areas — used instead of ADULT_COVERAGE_SECTIONS when
+// the active case has a paediatricHistory block. See docs/paediatric_extension_spec.md §3.
+const PAEDIATRIC_COVERAGE_SECTIONS = [
+  { key: 'presenting_concern', label: 'Presenting concern', keywords: ['hear','concern','today','appointment','refer','why'], subs: [] },
+  { key: 'caregiver_concern',  label: "Caregiver's view of hearing", keywords: ['think','notice','worry','problem','hear','behave'], subs: [] },
+  { key: 'onset_course',       label: 'Onset and time course', keywords: ['when','start','sudden','gradual','always','worse','better'], subs: [] },
+  { key: 'previous_tests',     label: 'Previous hearing tests', keywords: ['test','before','result','audiology','screen'], subs: [] },
+  { key: 'newborn_screening',  label: 'Newborn hearing screening', keywords: ['newborn','birth','hospital','aabr','oae','screen','pass','refer'], subs: [] },
+  { key: 'b4_school_check',    label: 'B4 School Check', keywords: ['b4','school check','plunket','4 year','preschool check'], subs: [] },
+  { key: 'birth_history',      label: 'Pregnancy and birth history', keywords: ['born','birth','pregnan','week','premature','nicu','weight','labour'], subs: [] },
+  { key: 'perinatal_risk',     label: 'Perinatal risk factors', keywords: ['nicu','intensive care','jaundice','oxygen','transfusion','antibiotic','infection'], subs: [] },
+  { key: 'ear_health',         label: 'Ear health and infections', keywords: ['ear','infection','glue','otitis','grommets','fluid','pain','discharge'], subs: [] },
+  { key: 'speech_language',    label: 'Speech and language development', keywords: ['speak','word','sentence','babble','talk','say','speech','language','communicate'], subs: [] },
+  { key: 'milestones',         label: 'Developmental milestones', keywords: ['walk','sit','develop','milestone','motor','crawl','grow'], subs: [] },
+  { key: 'school_function',    label: 'Preschool or school function', keywords: ['school','preschool','teacher','classroom','group','instruction','learn'], subs: [] },
+  { key: 'home_function',      label: 'Listening at home', keywords: ['home','tv','distance','room','respond','name','call'], subs: [] },
+  { key: 'family_history',     label: 'Family history of hearing loss', keywords: ['family','relative','parent','sibling','grandpar','uncle','aunt','cousin','genetic'], subs: [] },
+  { key: 'noise_exposure',     label: 'Noise exposure', keywords: ['noise','loud','concert','headphone','protect'], subs: [] },
+  { key: 'other_concerns',     label: 'Other concerns', keywords: ['worry','question','aids','support','future','what happens'], subs: [] },
+];
+
+// Active set for the current session — swapped between the two arrays above
+// in startSession() based on whether the case is paediatric. Kept as a `let`
+// so every function below (trackCoverage, renderCoverage, endSession,
+// handleAiReview) that reads COVERAGE_SECTIONS picks up the live value.
+let COVERAGE_SECTIONS = ADULT_COVERAGE_SECTIONS;
+
 let coveredSections = new Set();
 
 // ── Hint panel ──
-function initHintPanel() {
-  const btn = document.getElementById('btnHints');
-  const panel = document.getElementById('hintPanel');
+// Rebuilds the hint accordion from the CURRENT COVERAGE_SECTIONS/SECTION_HINTS.
+// Must be called again whenever those are swapped (e.g. in startSession for a
+// paediatric case) — it was previously only ever built once at page load,
+// which meant a paediatric session would silently keep showing adult hints.
+function renderHintPanel() {
   const body = document.getElementById('hintPanelBody');
-  if (!btn || !panel || !body) return;
+  if (!body) return;
 
-  // Build accordion from COVERAGE_SECTIONS + SECTION_HINTS
   body.innerHTML = COVERAGE_SECTIONS.map(section => {
     const hints = SECTION_HINTS[section.key] || [];
     if (!hints.length) return '';
@@ -613,7 +731,7 @@ function initHintPanel() {
       </div>`;
   }).join('');
 
-  // Accordion toggle
+  // Accordion toggle — re-attached each render since innerHTML was rebuilt.
   body.querySelectorAll('.hint-section-hdr').forEach(hdr => {
     hdr.addEventListener('click', () => {
       const isOpen = hdr.classList.contains('open');
@@ -624,6 +742,15 @@ function initHintPanel() {
       }
     });
   });
+}
+
+function initHintPanel() {
+  const btn = document.getElementById('btnHints');
+  const panel = document.getElementById('hintPanel');
+  const body = document.getElementById('hintPanelBody');
+  if (!btn || !panel || !body) return;
+
+  renderHintPanel();
 
   btn.addEventListener('click', () => {
     const open = panel.classList.toggle('open');
@@ -828,7 +955,11 @@ async function populateCaseList() {
   function renderCaseItems(filtered) {
     list.innerHTML = filtered.length ? filtered.map(c => {
       const initial = (c.patient.name || '?')[0].toUpperCase();
-      const meta = [c.patient.age ? c.patient.age + ' yrs' : '', esc(c.patient.occupation || '')].filter(Boolean).join(' · ');
+      const paediatric = isPaediatricCase(c);
+      const metaParts = paediatric
+        ? [c.patient.age || '', c.patient.caregiverName ? `caregiver: ${c.patient.caregiverName}` : '']
+        : [c.patient.age ? c.patient.age + ' yrs' : '', c.patient.occupation || ''];
+      const meta = metaParts.filter(Boolean).map(esc).join(' · ');
       const difficulty = DIFFICULTY_LABELS[c.meta?.difficulty] || 'Moderate';
       return `
         <div class="case-select-item" data-id="${c.id}">
@@ -837,6 +968,7 @@ async function populateCaseList() {
             <div class="csi-name">${esc(c.patient.name) || 'Unnamed Patient'}</div>
             ${meta ? `<div class="csi-meta">${meta}</div>` : ''}
           </div>
+          ${paediatric ? '<span class="csi-paediatric" title="Paediatric case — respondent is a caregiver">🧒 Paediatric</span>' : ''}
           <span class="csi-difficulty csi-difficulty-${esc(c.meta?.difficulty || 'moderate')}">${esc(difficulty)}</span>
           <svg class="csi-tick" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
@@ -856,22 +988,26 @@ async function populateCaseList() {
 
   renderCaseItems(cases);
 
-  // Search + difficulty filters (combined)
+  // Search + difficulty + case-type filters (combined)
   const searchInput = document.getElementById('caseSearch');
   const difficultyFilter = document.getElementById('caseDifficultyFilter');
+  const typeFilter = document.getElementById('caseTypeFilter');
   if (searchInput) searchInput.value = '';
   if (difficultyFilter) difficultyFilter.value = '';
+  if (typeFilter) typeFilter.value = '';
 
   function applyFilters() {
     const q = (searchInput?.value || '').toLowerCase().trim();
     const difficulty = difficultyFilter?.value || '';
+    const type = typeFilter?.value || '';
     const filtered = cases.filter(c => {
       const matchesQuery = !q ||
         (c.patient.name || '').toLowerCase().includes(q) ||
         (c.patient.occupation || '').toLowerCase().includes(q) ||
         String(c.patient.age || '').includes(q);
       const matchesDifficulty = !difficulty || (c.meta?.difficulty || 'moderate') === difficulty;
-      return matchesQuery && matchesDifficulty;
+      const matchesType = !type || (type === 'paediatric' ? isPaediatricCase(c) : !isPaediatricCase(c));
+      return matchesQuery && matchesDifficulty && matchesType;
     });
     renderCaseItems(filtered);
     // Deselect if the active case is filtered out
@@ -883,6 +1019,7 @@ async function populateCaseList() {
 
   searchInput?.addEventListener('input', applyFilters);
   difficultyFilter?.addEventListener('change', applyFilters);
+  typeFilter?.addEventListener('change', applyFilters);
 
   // Import a case file
   document.getElementById('btnImportCase')?.addEventListener('click', () => {
@@ -905,6 +1042,8 @@ async function populateCaseList() {
 function startSession() {
   if (!activeCase) return;
 
+  const isPaediatric = isPaediatricCase(activeCase);
+
   systemPrompt = buildSystemPrompt(activeCase);
   conversation = [];
   coveredSections = new Set();
@@ -914,15 +1053,32 @@ function startSession() {
   clearMcOptions();
   updateQBalancePill();
 
+  // Swap the active coverage areas + hint bank for this session, and
+  // re-render the hint panel accordion so it reflects the new set —
+  // it's only ever built on demand here, not left over from a previous session.
+  COVERAGE_SECTIONS = isPaediatric ? PAEDIATRIC_COVERAGE_SECTIONS : ADULT_COVERAGE_SECTIONS;
+  SECTION_HINTS = isPaediatric ? PAEDIATRIC_SECTION_HINTS : ADULT_SECTION_HINTS;
+  renderHintPanel();
+
+  const coveragePanelTitle = document.getElementById('coveragePanelTitle');
+  if (coveragePanelTitle) coveragePanelTitle.textContent = isPaediatric ? 'Paediatric History Coverage' : 'History Coverage';
+
   // Show chat UI
   document.getElementById('setupScreen').classList.add('hidden');
   document.getElementById('sessionScreen').classList.remove('hidden');
 
   // Fill patient header
   const p = activeCase.patient;
-  document.getElementById('chatPatientName').textContent = p.name || 'Patient';
-  document.getElementById('chatPatientMeta').textContent =
-    [p.age ? p.age + ' yrs' : '', p.occupation].filter(Boolean).join(' · ');
+  if (isPaediatric) {
+    document.getElementById('chatPatientName').textContent = p.name || 'Patient';
+    const caregiverLabel = p.caregiverName ? `responding as caregiver (${p.caregiverName})` : 'responding as caregiver';
+    document.getElementById('chatPatientMeta').textContent =
+      [p.age ? `${p.age}` : '', caregiverLabel].filter(Boolean).join(' — ');
+  } else {
+    document.getElementById('chatPatientName').textContent = p.name || 'Patient';
+    document.getElementById('chatPatientMeta').textContent =
+      [p.age ? p.age + ' yrs' : '', p.occupation].filter(Boolean).join(' · ');
+  }
   document.getElementById('patientInitial').textContent = (p.name || 'P')[0].toUpperCase();
 
   // Clear messages

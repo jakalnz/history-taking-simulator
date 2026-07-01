@@ -1155,6 +1155,18 @@ body {
 .csi-name { font-weight: 600; font-size: .9rem; color: var(--slate-800); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .csi-meta { font-size: .75rem; color: var(--slate-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+/* Paediatric badge */
+.csi-paediatric {
+  font-size: .65rem;
+  font-weight: 700;
+  padding: .15rem .5rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+  background: #ede9fe;
+  color: #6d28d9;
+  white-space: nowrap;
+}
+
 /* Difficulty badge */
 .csi-difficulty {
   font-size: .65rem;

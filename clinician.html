@@ -57,6 +57,14 @@
           <option value="advanced">Advanced</option>
         </select>
       </div>
+      <div class="field">
+        <label for="filterCaseType">Filter by case type</label>
+        <select id="filterCaseType">
+          <option value="">All case types</option>
+          <option value="adult">Adult</option>
+          <option value="paediatric">Paediatric</option>
+        </select>
+      </div>
     </div>
 
     <div class="case-grid" id="caseGrid"></div>
@@ -129,8 +137,11 @@
           </div>
         </div>
         <div class="field form-full">
-          <label for="patientNotes">Additional Character Notes (optional)</label>
+          <label for="patientNotes" id="patientNotesLabel">Additional Character Notes (optional)</label>
           <textarea id="patientNotes" placeholder="e.g. Tends to mention her garden. Refers to husband who also has hearing loss. Gets frustrated if asked to repeat herself."></textarea>
+        </div>
+        <div class="field form-full">
+          <label class="check-item"><input type="checkbox" id="paedToggle"> This is a paediatric case (respondent is a caregiver, not the child)</label>
         </div>
       </div>
     </div>
@@ -168,6 +179,230 @@
         <div class="field form-full">
           <label for="clinicianNotes">Clinician Notes (hidden from students)</label>
           <textarea id="clinicianNotes" placeholder="e.g. Learning objective: get students to probe fluctuating symptoms and connect vertigo + tinnitus + fullness. Common student issue: they often stop at 'ringing in ears' and don't ask about episodic vertigo."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PAEDIATRIC HISTORY (shown only when "This is a paediatric case" is checked) ── -->
+    <div id="paediatricSection" class="hidden">
+      <div class="card">
+        <div class="card-title">Caregiver (Respondent)</div>
+        <p class="text-sm text-muted" style="margin-bottom:.75rem">The AI plays this person, not the child. Describe the caregiver's name, relationship, personality, communication style, emotional state, and cultural background in the character notes above.</p>
+        <div class="form-grid">
+          <div class="field">
+            <label for="caregiverName">Caregiver's name</label>
+            <input type="text" id="caregiverName" placeholder="e.g. Lena Taufa">
+          </div>
+          <div class="field">
+            <label for="caregiverRelationship">Relationship to child</label>
+            <input type="text" id="caregiverRelationship" placeholder="e.g. mother, father, grandmother">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Paediatric: Pregnancy, Birth &amp; Perinatal History</div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="paedGestationalAge">Gestational age at birth</label>
+            <input type="text" id="paedGestationalAge" placeholder="e.g. 40 weeks (term)">
+          </div>
+          <div class="field">
+            <label for="paedBirthWeight">Birth weight</label>
+            <input type="text" id="paedBirthWeight" placeholder="e.g. 3.2 kg">
+          </div>
+          <div class="field">
+            <label>NICU admission?</label>
+            <div class="radio-group horizontal">
+              <label class="radio-item"><input type="radio" name="paedNicu" id="paedNicuYes" value="yes"> Yes</label>
+              <label class="radio-item"><input type="radio" name="paedNicu" id="paedNicuNo" value="no" checked> No</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Perinatal hypoxia / low Apgar?</label>
+            <div class="radio-group horizontal">
+              <label class="radio-item"><input type="radio" name="paedHypoxia" id="paedHypoxiaYes" value="yes"> Yes</label>
+              <label class="radio-item"><input type="radio" name="paedHypoxia" id="paedHypoxiaNo" value="no" checked> No</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Jaundice requiring treatment?</label>
+            <div class="radio-group horizontal">
+              <label class="radio-item"><input type="radio" name="paedJaundice" id="paedJaundiceYes" value="yes"> Yes</label>
+              <label class="radio-item"><input type="radio" name="paedJaundice" id="paedJaundiceNo" value="no" checked> No</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Ototoxic antibiotics (e.g. gentamicin)?</label>
+            <div class="radio-group horizontal">
+              <label class="radio-item"><input type="radio" name="paedOtotoxic" id="paedOtotoxicYes" value="yes"> Yes</label>
+              <label class="radio-item"><input type="radio" name="paedOtotoxic" id="paedOtotoxicNo" value="no" checked> No</label>
+            </div>
+          </div>
+          <div class="field form-full">
+            <label for="paedPerinatalInfections">Perinatal / in-utero infections</label>
+            <textarea id="paedPerinatalInfections" placeholder="e.g. None. No TORCH infections identified during pregnancy."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedCongenitalAnomalies">Congenital anomalies (ear/craniofacial)</label>
+            <textarea id="paedCongenitalAnomalies" placeholder="e.g. None. Normal ear morphology bilaterally."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Paediatric: Hearing Screening</div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="paedNewbornResult">Newborn screening result</label>
+            <input type="text" id="paedNewbornResult" placeholder="e.g. Pass bilateral / Refer right ear">
+          </div>
+          <div class="field">
+            <label for="paedNewbornTechnology">Newborn screening technology</label>
+            <select id="paedNewbornTechnology">
+              <option value="">Not recorded</option>
+              <option value="AABR">AABR</option>
+              <option value="TEOAE">TEOAE</option>
+              <option value="AABR + TEOAE">AABR + TEOAE</option>
+              <option value="unknown">Unknown</option>
+              <option value="not done">Not done</option>
+            </select>
+          </div>
+          <div class="field form-full">
+            <label for="paedNewbornNotes">Newborn screening notes</label>
+            <textarea id="paedNewbornNotes" placeholder="e.g. Completed at Middlemore Hospital day 2."></textarea>
+          </div>
+          <div class="field">
+            <label for="paedB4Result">B4 School Check result</label>
+            <input type="text" id="paedB4Result" placeholder="e.g. Referred right ear">
+          </div>
+          <div class="field form-full">
+            <label for="paedB4Notes">B4 School Check notes</label>
+            <textarea id="paedB4Notes" placeholder="e.g. Completed at age 3 years 9 months. Left ear passed."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedCurrentDevices">Current hearing devices</label>
+            <input type="text" id="paedCurrentDevices" placeholder="e.g. None / hearing aids since age 2">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Paediatric: Speech &amp; Language Development</div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="paedFirstBabble">Age of first babble</label>
+            <input type="text" id="paedFirstBabble" placeholder="e.g. Around 6 months">
+          </div>
+          <div class="field">
+            <label for="paedFirstWord">Age of first word</label>
+            <input type="text" id="paedFirstWord" placeholder="e.g. Around 14 months">
+          </div>
+          <div class="field">
+            <label for="paedTwoWordCombos">Age of two-word combinations</label>
+            <input type="text" id="paedTwoWordCombos" placeholder="e.g. Around 26 months">
+          </div>
+          <div class="field">
+            <label for="paedLanguages">Languages spoken at home</label>
+            <input type="text" id="paedLanguages" placeholder="e.g. English and Samoan">
+          </div>
+          <div class="field form-full">
+            <label for="paedCurrentVocabulary">Current vocabulary estimate</label>
+            <textarea id="paedCurrentVocabulary" placeholder="e.g. Approximately 200-250 words, 3-4 word sentences."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedIntelligibility">Intelligibility</label>
+            <textarea id="paedIntelligibility" placeholder="e.g. Family understands almost everything; strangers struggle significantly."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedReceptiveExpressiveNotes">Receptive vs expressive notes</label>
+            <textarea id="paedReceptiveExpressiveNotes" placeholder="e.g. Understands instructions well face-to-face at home; less clear in background noise."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedSLT">Speech-language therapy history</label>
+            <textarea id="paedSLT" placeholder="e.g. Referred 3 months ago, on the waiting list."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Paediatric: General Development</div>
+        <div class="form-grid">
+          <div class="field form-full">
+            <label for="paedGrossMotor">Gross motor development</label>
+            <textarea id="paedGrossMotor" placeholder="e.g. Normal milestones. Walked at 13 months."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedFineMotor">Fine motor development</label>
+            <textarea id="paedFineMotor" placeholder="e.g. Age-appropriate."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedCognitive">Cognitive development</label>
+            <textarea id="paedCognitive" placeholder="e.g. Bright and curious, no concerns raised by teachers."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedSocial">Social / play development</label>
+            <textarea id="paedSocial" placeholder="e.g. Shy with new people, plays well with familiar children."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedEarlyIntervention">Early intervention services</label>
+            <textarea id="paedEarlyIntervention" placeholder="e.g. None to date."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedSchoolProgress">School / preschool progress</label>
+            <textarea id="paedSchoolProgress" placeholder="e.g. Attends preschool 4 days/week, teachers describe as engaged but quiet."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedDevelopmentalDiagnoses">Developmental diagnoses</label>
+            <textarea id="paedDevelopmentalDiagnoses" placeholder="e.g. None formal. No ASD or ADHD concerns raised."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Paediatric: Functional Impact &amp; Support</div>
+        <div class="form-grid">
+          <div class="field form-full">
+            <label for="paedHomeImpact">Impact at home</label>
+            <textarea id="paedHomeImpact" placeholder="e.g. Misses things said from another room, turns TV up."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedSchoolImpact">Impact at school / preschool</label>
+            <textarea id="paedSchoolImpact" placeholder="e.g. Doesn't follow group instructions, moved to front of mat area."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedSocialParticipation">Social participation</label>
+            <textarea id="paedSocialParticipation" placeholder="e.g. Plays well in small groups, withdraws in noisy gatherings."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedListeningFatigue">Listening fatigue</label>
+            <textarea id="paedListeningFatigue" placeholder="e.g. Often grumpy after preschool, not identified as listening fatigue by caregiver."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedNoiseExposure">Noise exposure</label>
+            <textarea id="paedNoiseExposure" placeholder="e.g. None of concern."></textarea>
+          </div>
+          <div class="field form-full">
+            <label for="paedExistingSupport">Existing support in place</label>
+            <textarea id="paedExistingSupport" placeholder="e.g. None yet. Preschool awaiting audiology results before applying for RTLB support."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Paediatric: JCIH 2019 Risk Factors</div>
+        <p class="text-sm text-muted" style="margin-bottom:.75rem">Tick all that apply to this case — used as a quick reference in the AI patient's history, not auto-derived from other fields.</p>
+        <div class="check-group horizontal" id="jcihChecks">
+          <label class="check-item"><input type="checkbox" class="jcih-check" value="Caregiver concern about hearing, speech, language, or development"> Caregiver concern about hearing, speech, language, or development</label>
+          <label class="check-item"><input type="checkbox" class="jcih-check" value="Family history of permanent childhood hearing loss"> Family history of permanent childhood hearing loss</label>
+          <label class="check-item"><input type="checkbox" class="jcih-check" value="NICU admission >5 days, or ECMO / ototoxic medications / loop diuretics / hyperbilirubinaemia requiring exchange transfusion"> NICU admission &gt;5 days, or ECMO / ototoxic medications / loop diuretics / hyperbilirubinaemia requiring exchange transfusion</label>
+          <label class="check-item"><input type="checkbox" class="jcih-check" value="In utero infection (CMV, herpes, rubella, syphilis, toxoplasmosis)"> In utero infection (CMV, herpes, rubella, syphilis, toxoplasmosis)</label>
+          <label class="check-item"><input type="checkbox" class="jcih-check" value="Craniofacial anomalies including abnormal ear morphology"> Craniofacial anomalies including abnormal ear morphology</label>
+          <label class="check-item"><input type="checkbox" class="jcih-check" value="Physical findings associated with a hearing loss syndrome"> Physical findings associated with a hearing loss syndrome</label>
+          <label class="check-item"><input type="checkbox" class="jcih-check" value="Neurodegenerative disorder or sensory motor neuropathy"> Neurodegenerative disorder or sensory motor neuropathy</label>
+          <label class="check-item"><input type="checkbox" class="jcih-check" value="Culture-positive postnatal infection associated with hearing loss (bacterial/viral meningitis)"> Culture-positive postnatal infection associated with hearing loss (bacterial/viral meningitis)</label>
+          <label class="check-item"><input type="checkbox" class="jcih-check" value="Head trauma, especially basal skull or temporal bone fracture"> Head trauma, especially basal skull or temporal bone fracture</label>
+          <label class="check-item"><input type="checkbox" class="jcih-check" value="Chemotherapy or radiation to head or neck"> Chemotherapy or radiation to head or neck</label>
         </div>
       </div>
     </div>

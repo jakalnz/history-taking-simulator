@@ -1,4 +1,4 @@
-import { getCases, saveCase, deleteCase, exportCase, exportAllCases, importCasesFromFile, loadBundledCases, newCaseTemplate, cloneCase } from './cases.js';
+import { getCases, saveCase, deleteCase, exportCase, exportAllCases, importCasesFromFile, loadBundledCases, newCaseTemplate, cloneCase, newPaediatricHistoryTemplate, isPaediatricCase } from './cases.js';
 import { getProxyUrl, setProxyUrl } from './api.js';
 
 // ── Toast ──
@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnLoadBundled')?.addEventListener('click', handleLoadBundled);
   document.getElementById('filterCategory')?.addEventListener('change', renderLibrary);
   document.getElementById('filterDifficulty')?.addEventListener('change', renderLibrary);
+  document.getElementById('filterCaseType')?.addEventListener('change', renderLibrary);
 
   // Builder actions
   document.getElementById('btnSaveCase')?.addEventListener('click', handleSave);
@@ -92,8 +93,10 @@ function renderLibrary() {
 
   const catFilter = document.getElementById('filterCategory')?.value || '';
   const diffFilter = document.getElementById('filterDifficulty')?.value || '';
+  const typeFilter = document.getElementById('filterCaseType')?.value || '';
   if (catFilter) cases = cases.filter(c => c.meta.category.includes(catFilter));
   if (diffFilter) cases = cases.filter(c => c.meta.difficulty === diffFilter);
+  if (typeFilter) cases = cases.filter(c => typeFilter === 'paediatric' ? isPaediatricCase(c) : !isPaediatricCase(c));
 
   if (cases.length === 0) {
     grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
@@ -105,10 +108,12 @@ function renderLibrary() {
 
   grid.innerHTML = cases.map(c => {
     const tags = buildTags(c);
+    const paediatric = isPaediatricCase(c);
     return `<div class="case-card" data-id="${c.id}">
       <div class="case-card-name">${esc(c.patient.name) || 'Unnamed Patient'}</div>
       <div class="case-card-meta">${esc(c.patient.age) ? c.patient.age + ' yrs' : ''}${c.patient.occupation ? ' · ' + esc(c.patient.occupation) : ''}</div>
       <div class="case-card-tags">
+        ${paediatric ? '<span class="tag" style="background:#ede9fe;color:#6d28d9">🧒 Paediatric</span>' : ''}
         <span class="tag navy">${esc(DIFFICULTY_LABELS[c.meta.difficulty] || 'Moderate')}</span>
         ${tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}
       </div>
@@ -321,12 +326,71 @@ function populateForm(c) {
 
   setVal('otherConcerns', h.otherConcerns);
 
+  // Paediatric section
+  const paed = isPaediatricCase(c);
+  setCheck('paedToggle', paed);
+  const ph = c.paediatricHistory || newPaediatricHistoryTemplate();
+  setVal('caregiverName', p.caregiverName);
+  setVal('caregiverRelationship', p.caregiverRelationship);
+
+  const pn = ph.prenatalAndPerinatal;
+  setVal('paedGestationalAge', pn.gestationalAge);
+  setVal('paedBirthWeight', pn.birthWeight);
+  setCheck('paedNicuYes', pn.nicuAdmission);
+  setCheck('paedNicuNo', !pn.nicuAdmission);
+  setCheck('paedHypoxiaYes', pn.perinatalHypoxia);
+  setCheck('paedHypoxiaNo', !pn.perinatalHypoxia);
+  setCheck('paedJaundiceYes', pn.jaundice);
+  setCheck('paedJaundiceNo', !pn.jaundice);
+  setCheck('paedOtotoxicYes', pn.ototoxicAntibiotics);
+  setCheck('paedOtotoxicNo', !pn.ototoxicAntibiotics);
+  setVal('paedPerinatalInfections', pn.perinatalInfections);
+  setVal('paedCongenitalAnomalies', pn.congenitalAnomalies);
+
+  const hs = ph.hearingScreening;
+  setVal('paedNewbornResult', hs.newbornScreening.result);
+  setVal('paedNewbornTechnology', hs.newbornScreening.technology);
+  setVal('paedNewbornNotes', hs.newbornScreening.notes);
+  setVal('paedB4Result', hs.b4SchoolCheck.result);
+  setVal('paedB4Notes', hs.b4SchoolCheck.notes);
+  setVal('paedCurrentDevices', hs.currentDevices);
+
+  const sl = ph.speechAndLanguage;
+  setVal('paedFirstBabble', sl.firstBabble);
+  setVal('paedFirstWord', sl.firstWord);
+  setVal('paedTwoWordCombos', sl.twoWordCombinations);
+  setVal('paedCurrentVocabulary', sl.currentVocabulary);
+  setVal('paedIntelligibility', sl.intelligibility);
+  setVal('paedReceptiveExpressiveNotes', sl.receptiveExpressiveNotes);
+  setVal('paedLanguages', sl.languages);
+  setVal('paedSLT', sl.speechLanguageTherapy);
+
+  const gd = ph.generalDevelopment;
+  setVal('paedGrossMotor', gd.grossMotor);
+  setVal('paedFineMotor', gd.fineMotor);
+  setVal('paedCognitive', gd.cognitive);
+  setVal('paedSocial', gd.social);
+  setVal('paedEarlyIntervention', gd.earlyIntervention);
+  setVal('paedSchoolProgress', gd.schoolProgress);
+  setVal('paedDevelopmentalDiagnoses', gd.developmentalDiagnoses);
+
+  const fi = ph.functionalImpact;
+  setVal('paedHomeImpact', fi.homeImpact);
+  setVal('paedSchoolImpact', fi.schoolImpact);
+  setVal('paedSocialParticipation', fi.socialParticipation);
+  setVal('paedListeningFatigue', fi.listeningFatigue);
+  setVal('paedNoiseExposure', fi.noiseExposure);
+  setVal('paedExistingSupport', fi.existingSupport);
+
+  document.querySelectorAll('.jcih-check').forEach(el => { el.checked = (ph.jcihRiskFactors || []).includes(el.value); });
+
   // Update range display
   const r = document.getElementById('patientChattiness');
   if (r) updateRangeDisplay(r);
 
-  // Update conditional visibility
+  // Update conditional visibility (including paediatric section + character notes label)
   updateAllConditionals();
+  updatePaediatricVisibility();
 }
 
 // ── Form collection ──
@@ -398,6 +462,67 @@ function collectForm(c) {
 
   h.otherConcerns = getVal('otherConcerns');
 
+  // Paediatric section — only attach paediatricHistory (the sole source of
+  // truth for "is this case paediatric") when the toggle is actually checked.
+  if (isChecked('paedToggle')) {
+    p.caregiverName = getVal('caregiverName');
+    p.caregiverRelationship = getVal('caregiverRelationship');
+
+    const ph = c.paediatricHistory || newPaediatricHistoryTemplate();
+    ph.prenatalAndPerinatal = {
+      gestationalAge: getVal('paedGestationalAge'),
+      birthWeight: getVal('paedBirthWeight'),
+      nicuAdmission: isChecked('paedNicuYes'),
+      perinatalInfections: getVal('paedPerinatalInfections'),
+      perinatalHypoxia: isChecked('paedHypoxiaYes'),
+      jaundice: isChecked('paedJaundiceYes'),
+      ototoxicAntibiotics: isChecked('paedOtotoxicYes'),
+      congenitalAnomalies: getVal('paedCongenitalAnomalies')
+    };
+    ph.hearingScreening = {
+      newbornScreening: {
+        result: getVal('paedNewbornResult'),
+        technology: getVal('paedNewbornTechnology'),
+        notes: getVal('paedNewbornNotes')
+      },
+      b4SchoolCheck: { result: getVal('paedB4Result'), notes: getVal('paedB4Notes') },
+      currentDevices: getVal('paedCurrentDevices')
+    };
+    ph.speechAndLanguage = {
+      firstBabble: getVal('paedFirstBabble'),
+      firstWord: getVal('paedFirstWord'),
+      twoWordCombinations: getVal('paedTwoWordCombos'),
+      currentVocabulary: getVal('paedCurrentVocabulary'),
+      intelligibility: getVal('paedIntelligibility'),
+      receptiveExpressiveNotes: getVal('paedReceptiveExpressiveNotes'),
+      languages: getVal('paedLanguages'),
+      speechLanguageTherapy: getVal('paedSLT')
+    };
+    ph.generalDevelopment = {
+      grossMotor: getVal('paedGrossMotor'),
+      fineMotor: getVal('paedFineMotor'),
+      cognitive: getVal('paedCognitive'),
+      social: getVal('paedSocial'),
+      earlyIntervention: getVal('paedEarlyIntervention'),
+      schoolProgress: getVal('paedSchoolProgress'),
+      developmentalDiagnoses: getVal('paedDevelopmentalDiagnoses')
+    };
+    ph.functionalImpact = {
+      homeImpact: getVal('paedHomeImpact'),
+      schoolImpact: getVal('paedSchoolImpact'),
+      socialParticipation: getVal('paedSocialParticipation'),
+      listeningFatigue: getVal('paedListeningFatigue'),
+      noiseExposure: getVal('paedNoiseExposure'),
+      existingSupport: getVal('paedExistingSupport')
+    };
+    ph.jcihRiskFactors = Array.from(document.querySelectorAll('.jcih-check:checked')).map(el => el.value);
+    c.paediatricHistory = ph;
+  } else {
+    delete c.paediatricHistory;
+    p.caregiverName = '';
+    p.caregiverRelationship = '';
+  }
+
   c.updatedAt = new Date().toISOString();
 }
 
@@ -434,6 +559,32 @@ function setupConditionals() {
   const range = document.getElementById('patientChattiness');
   if (range) {
     range.addEventListener('input', () => updateRangeDisplay(range));
+  }
+
+  // Paediatric toggle
+  document.getElementById('paedToggle')?.addEventListener('change', updatePaediatricVisibility);
+}
+
+// Shows/hides the Paediatric History cards and swaps the character-notes
+// label/placeholder to prompt for the caregiver rather than the patient.
+function updatePaediatricVisibility() {
+  const toggle = document.getElementById('paedToggle');
+  const section = document.getElementById('paediatricSection');
+  const label = document.getElementById('patientNotesLabel');
+  const notes = document.getElementById('patientNotes');
+  if (!toggle || !section) return;
+
+  const isPaed = toggle.checked;
+  section.classList.toggle('hidden', !isPaed);
+  if (label) {
+    label.textContent = isPaed
+      ? 'Caregiver Character Notes'
+      : 'Additional Character Notes (optional)';
+  }
+  if (notes) {
+    notes.placeholder = isPaed
+      ? "Describe the caregiver attending today (personality, communication style, emotional state, cultural background). The AI plays this person throughout the session, not the child. e.g. Lena is a warm but visibly stressed mother in her late 20s who feels guilty it took this long to get a referral."
+      : 'e.g. Tends to mention her garden. Refers to husband who also has hearing loss. Gets frustrated if asked to repeat herself.';
   }
 }
 

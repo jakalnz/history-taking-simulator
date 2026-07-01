@@ -43,6 +43,11 @@
           <option value="moderate">Moderate</option>
           <option value="advanced">Advanced</option>
         </select>
+        <select class="case-difficulty-filter" id="caseTypeFilter">
+          <option value="">All case types</option>
+          <option value="adult">Adult</option>
+          <option value="paediatric">Paediatric</option>
+        </select>
       </div>
       <div class="case-select-list" id="caseSelectList">
         <p class="text-muted text-sm">Loading cases…</p>
@@ -197,7 +202,7 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
       <div class="sidebar-card">
-        <div class="sidebar-title">History Coverage</div>
+        <div class="sidebar-title" id="coveragePanelTitle">History Coverage</div>
         <div class="coverage-progress">
           <div class="coverage-bar" id="coverageBar" style="width:0%"></div>
         </div>
