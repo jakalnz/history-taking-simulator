@@ -549,7 +549,7 @@ body {
   width: 34px; height: 34px;
   border-radius: 7px;
   background: transparent;
-  color: var(--slate-400);
+  color: #cbd5e1; /* literal — sits on fixed-dark .chat-header, see .session-timer note */
   border: 1px solid rgba(255,255,255,.15);
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
@@ -996,7 +996,7 @@ body {
   width: 34px; height: 34px;
   border-radius: 7px;
   background: transparent;
-  color: var(--slate-400);
+  color: #cbd5e1; /* literal — sits on fixed-dark .chat-header, see .session-timer note */
   border: 1px solid rgba(255,255,255,.15);
   cursor: pointer;
   align-items: center;
