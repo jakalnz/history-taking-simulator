@@ -1,0 +1,145 @@
+{
+  "id": "case-benji-oconnor-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Congenital/Genetic",
+      "Conductive/Otitis media"
+    ],
+    "difficulty": "advanced",
+    "clinicianNotes": "Child with Down syndrome and multiple concurrent risk factors — recurrent OME on top of a possible mild sensorineural component, common in this population and easy to under-investigate by attributing everything to the syndrome. Learning objective: students should take a thorough history despite the syndromic label, specifically asking about ear health separately from \"how he's doing generally\", and recognise that Down syndrome carries both higher rates of conductive AND sensorineural loss. Caregiver is warm and chatty but juggling many appointments/specialists and may conflate or lose track of details across them — realistic complexity of managing a child with multiple involved teams."
+  },
+  "patient": {
+    "name": "Benji O'Connor",
+    "age": "5 years",
+    "occupation": "Kindergartner",
+    "pronoun": "he/him",
+    "medicalKnowledge": "moderate",
+    "personality": "chatty",
+    "chattiness": 4,
+    "additionalNotes": "Benji's mother, Karen, is warm, chatty, and has picked up a fair amount of medical knowledge from years of specialist appointments for Benji's Down syndrome-related care (cardiology, gastroenterology, as well as ENT/audiology). She sometimes gets details from different specialists mixed up and may need gentle clarification questions. She loves talking about Benji's personality and achievements and needs occasional redirecting back to the history-taking.",
+    "caregiverName": "Karen O'Connor",
+    "caregiverRelationship": "mother"
+  },
+  "paediatricHistory": {
+    "prenatalAndPerinatal": {
+      "gestationalAge": "38 weeks",
+      "birthWeight": "2.9 kg",
+      "nicuAdmission": true,
+      "perinatalInfections": "None identified.",
+      "perinatalHypoxia": false,
+      "jaundice": true,
+      "ototoxicAntibiotics": false,
+      "congenitalAnomalies": "Trisomy 21 (Down syndrome), diagnosed prenatally and confirmed at birth. Associated with a heart condition (atrioventricular septal defect) repaired surgically at 4 months, and typical Down syndrome facial/craniofacial features including smaller ear canals."
+    },
+    "hearingScreening": {
+      "newbornScreening": {
+        "result": "Refer bilateral",
+        "technology": "AABR",
+        "notes": "Referred on newborn screening, which Karen recalls \"isn't unusual with Down syndrome kids\" as she has since learned from other parents. Diagnostic testing since has shown fluctuating results."
+      },
+      "b4SchoolCheck": {
+        "result": "Referred bilateral",
+        "notes": "Completed a few months ago — referred both ears again, prompting this more detailed audiology review."
+      },
+      "currentDevices": "Trialled hearing aids around age 2 but Karen says he \"wouldn't keep them in\" and it wasn't pursued further at the time; not currently using any devices."
+    },
+    "speechAndLanguage": {
+      "firstBabble": "Around 9 months — later than typical, which Karen was told is common with Down syndrome.",
+      "firstWord": "Around 2.5 years.",
+      "twoWordCombinations": "Around 4 years.",
+      "currentVocabulary": "Karen estimates a few hundred words, with clearer sign/gesture communication alongside speech (he uses some NZ Sign Language signs learned through early intervention). Speaks in short 2-3 word phrases.",
+      "intelligibility": "Family understands most of what he says with context; unfamiliar people often need things repeated or gestures to understand.",
+      "receptiveExpressiveNotes": "Karen feels his understanding is stronger than his ability to express himself, which she has been told is typical for Down syndrome, though she wonders if hearing plays a role too and has never quite gotten a clear answer from anyone.",
+      "languages": "English spoken at home, some NZ Sign Language signs used alongside speech.",
+      "speechLanguageTherapy": "Ongoing since age 2, currently seen fortnightly."
+    },
+    "generalDevelopment": {
+      "grossMotor": "Walked independently at 2.5 years, consistent with typical ranges for Down syndrome. Continues to have lower muscle tone, worked on with physio.",
+      "fineMotor": "Delayed relative to typical peers, worked on with occupational therapy.",
+      "cognitive": "Mild-moderate intellectual disability associated with Down syndrome, per his paediatrician and psychologist assessments.",
+      "social": "Very sociable and affectionate, loves interacting with other children, though can get frustrated when not understood.",
+      "earlyIntervention": "Extensive — physio, occupational therapy, speech-language therapy, and early intervention education support all ongoing since infancy.",
+      "schoolProgress": "Attends a mainstream kindergarten with teacher aide support. Teachers have also raised the query of whether hearing could be contributing to some of his classroom listening difficulties.",
+      "developmentalDiagnoses": "Trisomy 21 (Down syndrome) with associated mild-moderate intellectual disability."
+    },
+    "functionalImpact": {
+      "homeImpact": "Karen has noticed he sometimes doesn't respond when called, though she has generally attributed this to distractibility or the intellectual disability rather than hearing specifically.",
+      "schoolImpact": "Teacher aide has noted he seems to do better with visual cues and being close to the speaker than with verbal instruction alone from a distance.",
+      "socialParticipation": "Engages well with peers when supported, though can miss social cues in noisy group settings.",
+      "listeningFatigue": "Not specifically identified, though Karen notes he can get \"grumpy\" toward the end of the school day.",
+      "noiseExposure": "None of concern.",
+      "existingSupport": "Teacher aide at kindergarten, ongoing SLT, physio, OT. No hearing-specific classroom support currently, pending this assessment."
+    },
+    "jcihRiskFactors": [
+      "Physical findings associated with a hearing loss syndrome"
+    ]
+  },
+  "history": {
+    "reasonForAppointment": "Referred following a repeat referral on the B4 School Check hearing screen, in a child with Down syndrome and a history of fluctuating hearing test results since infancy, to get a clearer current picture of his hearing.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "Multiple previous hearing assessments since infancy due to newborn screening refers, with results Karen describes as \"fluctuating\" — sometimes better, sometimes worse, which she has been told may relate to ear fluid coming and going as much as any permanent hearing loss."
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "gradual",
+      "declineDetails": "Karen describes his hearing as inconsistent over the years rather than a clear gradual decline — better some visits, worse others, which she links to whether he currently has an ear infection or fluid. Both ears seem similarly affected over time."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": "Trialled around age 2, not tolerated at the time and discontinued. Not currently revisited."
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": "Karen isn't sure — he wouldn't necessarily be able to tell her if he experienced this."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "auralDrainage",
+        "earInfections",
+        "earWax"
+      ],
+      "details": "Frequent ear infections and glue ear throughout early childhood, ongoing issues with wax build-up requiring regular microsuction due to his narrower ear canals. Occasional discharge during infection episodes. Currently being followed by ENT for this."
+    },
+    "ent": {
+      "seen": true,
+      "history": [
+        "surgery",
+        "treatment"
+      ],
+      "details": "Had grommets inserted at age 3, which have since extruded. ENT has discussed whether he needs them again given the recent B4 School Check referral. Under ongoing combined ENT and audiology follow-up as part of his broader Down syndrome care team."
+    },
+    "generalHealth": {
+      "hospitalizations": "NICU admission after birth related to the heart condition; open-heart surgery at 4 months to repair an atrioventricular septal defect, with a further hospital stay for that. Grommet surgery at age 3.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "Frequent respiratory infections in early childhood, which Karen says is common with his low muscle tone affecting his airway. No other major infections.",
+      "majorIllnesses": "Congenital heart defect (repaired), Down syndrome-associated hypothyroidism, on regular monitoring and thyroid medication.",
+      "medications": "Levothyroxine daily for hypothyroidism."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "None of concern."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": "No family history of hearing loss outside of Benji's own Down syndrome-related ear issues."
+    },
+    "otherConcerns": "Karen wants to understand clearly, in plain terms, whether Benji currently has a hearing loss on top of everything else, whether hearing aids are worth trying again now that he's older, and whether the school should be doing anything differently to support his listening in class. She also mentions she sometimes loses track of which specialist told her what, and would appreciate a clear written summary."
+  }
+}

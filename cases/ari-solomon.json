@@ -1,0 +1,140 @@
+{
+  "id": "case-ari-solomon-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Congenital/Genetic",
+      "Undifferentiated"
+    ],
+    "difficulty": "advanced",
+    "clinicianNotes": "Passed newborn screening but caregiver now has a vague, easily-dismissed concern about response to sound — a good case for teaching that a passed newborn screen does NOT rule out later-onset or progressive hearing loss (e.g. connexin-related, or CMV-related delayed-onset loss), and that caregiver concern should be taken seriously even against a \"normal\" screening history. Father is relaxed/dismissive and needs gentle probing, not leading questions, to surface the concern properly. No firm diagnosis is implied in the case; the aim is thorough, non-dismissive history taking."
+  },
+  "patient": {
+    "name": "Ari Solomon",
+    "age": "7 months",
+    "occupation": "Infant",
+    "pronoun": "he/him",
+    "medicalKnowledge": "basic",
+    "personality": "relaxed",
+    "chattiness": 2,
+    "additionalNotes": "Ari's father, Josh, is easy-going and initially downplays the reason for the referral — he'll say something like \"my partner's probably overthinking it\" before actually describing the concern accurately if asked patiently. He isn't being evasive, he genuinely doesn't think it's a big deal, so short closed questions risk getting a dismissive \"nah he's fine\" — needs open, unhurried questions to get the real picture.",
+    "caregiverName": "Josh Solomon",
+    "caregiverRelationship": "father"
+  },
+  "paediatricHistory": {
+    "prenatalAndPerinatal": {
+      "gestationalAge": "40 weeks (term)",
+      "birthWeight": "3.6 kg",
+      "nicuAdmission": false,
+      "perinatalInfections": "Josh isn't aware of any, though he admits he wasn't across all the pregnancy details as his partner attended most antenatal appointments.",
+      "perinatalHypoxia": false,
+      "jaundice": false,
+      "ototoxicAntibiotics": false,
+      "congenitalAnomalies": "None noted at birth."
+    },
+    "hearingScreening": {
+      "newbornScreening": {
+        "result": "Pass bilateral",
+        "technology": "AABR",
+        "notes": "Passed both ears shortly after birth. Josh remembers being told everything was fine."
+      },
+      "b4SchoolCheck": {
+        "result": "Not yet due",
+        "notes": "Too young."
+      },
+      "currentDevices": "None."
+    },
+    "speechAndLanguage": {
+      "firstBabble": "Some babbling from around 5-6 months, though Josh isn't sure if it has continued or plateaued — \"he still makes noises\" is about as specific as he gets unprompted.",
+      "firstWord": "Not yet — not expected at this age.",
+      "twoWordCombinations": "Not yet — not expected at this age.",
+      "currentVocabulary": "Not applicable at 7 months.",
+      "intelligibility": "Not applicable at 7 months.",
+      "receptiveExpressiveNotes": "If asked directly and given time, Josh will mention that his partner has said Ari doesn't seem to turn toward sounds the way their older daughter did at the same age, and doesn't startle at loud noises like the vacuum cleaner the way he used to. Josh thinks this is \"probably nothing\" and that \"all babies are different.\"",
+      "languages": "English spoken at home.",
+      "speechLanguageTherapy": "None — not raised with anyone before this appointment."
+    },
+    "generalDevelopment": {
+      "grossMotor": "On track — rolling, starting to sit with support.",
+      "fineMotor": "On track for age.",
+      "cognitive": "No concerns raised.",
+      "social": "Smiles, engages with family. Josh describes him as \"a chill baby.\"",
+      "earlyIntervention": "None — no referrals made prior to this appointment.",
+      "schoolProgress": "Not applicable — infant.",
+      "developmentalDiagnoses": "None."
+    },
+    "functionalImpact": {
+      "homeImpact": "If asked specifically, Josh will describe that Ari's mother first raised the concern a few weeks ago after noticing he didn't react to the smoke alarm going off, and has since noticed him not turning toward his name being called from behind. Josh initially attributed this to Ari being absorbed in play.",
+      "schoolImpact": "Not applicable — infant.",
+      "socialParticipation": "Not applicable at this age.",
+      "listeningFatigue": "Not assessed / not applicable.",
+      "noiseExposure": "None of concern.",
+      "existingSupport": "None — this is the first appointment about the concern."
+    },
+    "jcihRiskFactors": [
+      "Caregiver concern about hearing, speech, language, or development"
+    ]
+  },
+  "history": {
+    "reasonForAppointment": "Ari's mother booked this appointment after becoming concerned over the past month that he isn't responding to loud sounds or turning toward his name, despite having passed newborn hearing screening. Josh brought him today as his mother was working, and is a little unsure why the appointment is really necessary.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "Passed newborn hearing screening bilaterally with AABR shortly after birth. No hearing tests since."
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "none",
+      "declineDetails": "Not established — this is the first assessment since the newborn screen. Josh isn't sure if anything has actually changed or if it was always subtly there and only recently noticed."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No ear infections, pain, or discharge that Josh is aware of."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": "Not yet seen ENT — this is the first specialist-type appointment about the concern."
+    },
+    "generalHealth": {
+      "hospitalizations": "None apart from birth.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "A couple of mild colds, nothing unusual for his age. No significant illnesses that Josh recalls.",
+      "majorIllnesses": "None.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "None of concern for an infant."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": "Josh isn't aware of any family history of hearing loss on his side; unsure about his partner's side and would need to check."
+    },
+    "otherConcerns": "Josh mostly wants to know if this appointment is really necessary given Ari passed his newborn hearing test, and seems a little surprised that a \"pass\" as a newborn wouldn't mean everything is fine going forward."
+  }
+}

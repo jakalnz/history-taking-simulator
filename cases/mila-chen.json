@@ -1,0 +1,141 @@
+{
+  "id": "case-mila-chen-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Congenital/Genetic"
+    ],
+    "difficulty": "beginner",
+    "clinicianNotes": "Straightforward VRA-age congenital bilateral SNHL case — good early paediatric case. Newborn screening already flagged bilateral refer and diagnostic ABR confirmed moderate-severe bilateral SNHL, so there is no diagnostic mystery; the learning objective is thorough perinatal/family/functional history-taking and comfortable, supportive communication with an anxious first-time mother, not detective work."
+  },
+  "patient": {
+    "name": "Mila Chen",
+    "age": "8 months",
+    "occupation": "Infant",
+    "pronoun": "she/her",
+    "medicalKnowledge": "basic",
+    "personality": "anxious",
+    "chattiness": 3,
+    "additionalNotes": "Mila's mother, Amy, is a first-time parent and has been anxious since the newborn screening refer. She has done a lot of her own reading online and sometimes asks quite technical-sounding questions she doesn't fully understand herself. She needs reassurance and clear, jargon-free explanations. She answers questions accurately but doesn't offer much beyond what's asked, out of nervousness about saying the wrong thing.",
+    "caregiverName": "Amy Chen",
+    "caregiverRelationship": "mother"
+  },
+  "paediatricHistory": {
+    "prenatalAndPerinatal": {
+      "gestationalAge": "39 weeks (term)",
+      "birthWeight": "3.4 kg",
+      "nicuAdmission": false,
+      "perinatalInfections": "None identified during pregnancy.",
+      "perinatalHypoxia": false,
+      "jaundice": false,
+      "ototoxicAntibiotics": false,
+      "congenitalAnomalies": "None noted at birth. Normal ear appearance."
+    },
+    "hearingScreening": {
+      "newbornScreening": {
+        "result": "Refer bilateral",
+        "technology": "AABR",
+        "notes": "Referred on initial AABR and again on rescreen at 2 weeks. Referred to diagnostic audiology, seen at 6 weeks — diagnostic ABR confirmed moderate-severe bilateral sensorineural hearing loss."
+      },
+      "b4SchoolCheck": {
+        "result": "Not yet due",
+        "notes": "Too young for the B4 School Check."
+      },
+      "currentDevices": "Bilateral hearing aids fitted at 10 weeks of age, worn most of the day though Amy admits some days are a battle to keep them in."
+    },
+    "speechAndLanguage": {
+      "firstBabble": "Some babbling from around 5 months, though Amy isn't sure if it sounds different since the hearing aids.",
+      "firstWord": "Not yet — not expected at this age.",
+      "twoWordCombinations": "Not yet — not expected at this age.",
+      "currentVocabulary": "Not applicable at 8 months.",
+      "intelligibility": "Not applicable at 8 months.",
+      "receptiveExpressiveNotes": "Amy feels Mila turns toward her voice more since getting the hearing aids, though she isn't completely sure.",
+      "languages": "English spoken at home.",
+      "speechLanguageTherapy": "Referred to early intervention (Ministry of Education, 0-2 team) — first appointment booked for next month."
+    },
+    "generalDevelopment": {
+      "grossMotor": "On track — sitting unsupported, starting to pull to stand.",
+      "fineMotor": "On track for age.",
+      "cognitive": "No concerns raised by Well Child nurse.",
+      "social": "Smiles and engages well with family. A little wary of strangers, which Amy is told is normal for her age.",
+      "earlyIntervention": "Referred to Ministry of Education Early Intervention (0-2 team) after diagnosis — first appointment pending.",
+      "schoolProgress": "Not applicable — infant.",
+      "developmentalDiagnoses": "None. No concerns raised outside of the hearing loss."
+    },
+    "functionalImpact": {
+      "homeImpact": "Amy has noticed Mila doesn't always turn when called from another room, though this has improved a little since the hearing aids.",
+      "schoolImpact": "Not applicable — infant.",
+      "socialParticipation": "Too young for meaningful peer social participation.",
+      "listeningFatigue": "Not something Amy has thought about or been asked about before.",
+      "noiseExposure": "None of concern.",
+      "existingSupport": "Early intervention referral in progress. Amy has also been given contact details for the local Deaf/hard-of-hearing parent support group but hasn't reached out yet."
+    },
+    "jcihRiskFactors": [
+      "Caregiver concern about hearing, speech, language, or development"
+    ]
+  },
+  "history": {
+    "reasonForAppointment": "Follow-up audiology review after diagnosis of bilateral sensorineural hearing loss at 6 weeks, referred from newborn hearing screening. Today's appointment is to check hearing aid fit and progress and take a fuller history now that the family has had time to settle in.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "Diagnostic ABR at 6 weeks confirmed moderate-severe bilateral sensorineural hearing loss. Has had follow-up aided assessments since starting hearing aids."
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "gradual",
+      "declineDetails": "Congenital, present from birth as far as is known — picked up on newborn screening, no evidence of change since diagnosis, though Amy worries constantly about whether it could be getting worse."
+    },
+    "hearingAids": {
+      "current": true,
+      "details": "Bilateral behind-the-ear hearing aids, fitted at 10 weeks. Amy manages the devices; compliance is reasonable but not perfect — some days Mila pulls them out repeatedly."
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No ear infections, pain, or discharge. Ears otherwise healthy."
+    },
+    "ent": {
+      "seen": true,
+      "history": [
+        "scans"
+      ],
+      "details": "Seen by ENT as part of the diagnostic pathway — had an MRI to look at the inner ear structures, reported as normal. No syndrome identified so far; genetics referral has been made but not yet attended."
+    },
+    "generalHealth": {
+      "hospitalizations": "None apart from birth (normal vaginal delivery, no complications).",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "No significant illnesses. Immunisations up to date.",
+      "majorIllnesses": "None.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "No noise exposure of concern for an infant."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": "No known family history of hearing loss on either side, as far as Amy is aware. Genetics referral made partly to investigate a possible genetic cause given no other risk factors were identified."
+    },
+    "otherConcerns": "Amy wants to know if Mila will ever talk normally, whether the hearing loss could be genetic and affect future children, and whether she is doing enough by using the hearing aids inconsistently on hard days. She is quite hard on herself about this."
+  }
+}

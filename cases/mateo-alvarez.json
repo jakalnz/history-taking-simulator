@@ -1,0 +1,137 @@
+{
+  "id": "case-mateo-alvarez-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Undifferentiated"
+    ],
+    "difficulty": "moderate",
+    "clinicianNotes": "Bilingual (Spanish/English) household, preschool flagged \"speech delay\" — the learning objective is recognising that combined vocabulary across both languages should be assessed, not English alone, and that normal bilingual language development can look like delay if only one language is counted. Hearing is normal in this case; the point is to model good differential thinking, not to reveal a hidden hearing diagnosis. Caregiver is neutral/cooperative but her English is a second language, which is not a comprehension barrier in this roleplay but is a relevant contextual detail for students to be sensitive to."
+  },
+  "patient": {
+    "name": "Mateo Alvarez",
+    "age": "3 years",
+    "occupation": "Preschooler",
+    "pronoun": "he/him",
+    "medicalKnowledge": "basic",
+    "personality": "neutral",
+    "chattiness": 3,
+    "additionalNotes": "Mateo's mother, Carla, moved to New Zealand from Chile six years ago. Spanish is the main language at home; she and her husband speak English at work and with some friends but Mateo hears mostly Spanish from family and English at preschool. She is cooperative and answers clearly, mentioning the bilingual context naturally if asked about language, but won't necessarily volunteer the specific vocabulary split unless asked.",
+    "caregiverName": "Carla Alvarez",
+    "caregiverRelationship": "mother"
+  },
+  "paediatricHistory": {
+    "prenatalAndPerinatal": {
+      "gestationalAge": "39 weeks",
+      "birthWeight": "3.3 kg",
+      "nicuAdmission": false,
+      "perinatalInfections": "None.",
+      "perinatalHypoxia": false,
+      "jaundice": false,
+      "ototoxicAntibiotics": false,
+      "congenitalAnomalies": "None."
+    },
+    "hearingScreening": {
+      "newbornScreening": {
+        "result": "Pass bilateral",
+        "technology": "AABR",
+        "notes": "Passed as a newborn, in Chile, per the family's records — Carla has a copy of the discharge summary."
+      },
+      "b4SchoolCheck": {
+        "result": "Not yet due",
+        "notes": "Mateo is 3, so the B4 School Check hasn't happened yet."
+      },
+      "currentDevices": "None."
+    },
+    "speechAndLanguage": {
+      "firstBabble": "Around 6 months, normal.",
+      "firstWord": "Around 13 months (a Spanish word, \"agua\").",
+      "twoWordCombinations": "Around 22 months, mixing Spanish and English words in the same phrase, which Carla has read is normal for bilingual children.",
+      "currentVocabulary": "In Spanish, Carla estimates several hundred words and full sentences. In English, his vocabulary is smaller — preschool teachers estimate perhaps 50-100 English words — since he has had less exposure to English until starting preschool 6 months ago.",
+      "intelligibility": "Very clear in Spanish to family. In English, less fluent but what he does say is clearly articulated — teachers describe it as \"behind\" rather than \"unclear\".",
+      "receptiveExpressiveNotes": "Carla is confident he understands everything said to him in Spanish, and seems to understand a reasonable amount of English too, more than he says himself.",
+      "languages": "Spanish is the primary home language. English is used at preschool and by his father occasionally. Started preschool (English-medium) 6 months ago.",
+      "speechLanguageTherapy": "Referred by preschool for a speech-language assessment due to concerns about his English vocabulary; assessment is pending, hasn't happened yet."
+    },
+    "generalDevelopment": {
+      "grossMotor": "Normal, no concerns.",
+      "fineMotor": "Normal, no concerns.",
+      "cognitive": "No concerns — Carla describes him as sharp and curious, and this is echoed by preschool for tasks not reliant on English language.",
+      "social": "Plays well with other children, though can get frustrated when he can't find the English word for something.",
+      "earlyIntervention": "None prior to the pending SLT referral.",
+      "schoolProgress": "Preschool has flagged that his English vocabulary and sentence use are behind his peers, prompting both this hearing referral and the SLT referral, to rule out a hearing cause before assuming it's purely a bilingual exposure issue.",
+      "developmentalDiagnoses": "None."
+    },
+    "functionalImpact": {
+      "homeImpact": "No concerns at home — Carla says he communicates fully and normally with family in Spanish, follows instructions, and responds to sounds normally.",
+      "schoolImpact": "Preschool teachers have noted he sometimes doesn't respond immediately to instructions given in English, which Carla suspects is more about not fully understanding the English words yet than not hearing them, though she isn't certain.",
+      "socialParticipation": "Plays well overall; sometimes uses gestures or Spanish words with other children when he doesn't know the English word.",
+      "listeningFatigue": "Not identified.",
+      "noiseExposure": "None of concern.",
+      "existingSupport": "None currently at preschool beyond general patience; SLT referral pending."
+    },
+    "jcihRiskFactors": []
+  },
+  "history": {
+    "reasonForAppointment": "Referred by preschool for a hearing check due to concerns about Mateo's English vocabulary and occasional non-response to instructions in the classroom, in the context of him being raised in a bilingual (Spanish/English) home.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "Passed newborn hearing screening in Chile shortly after birth, per family records. No hearing concerns raised before now."
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "none",
+      "declineDetails": "No decline described — Carla is confident his hearing is normal, citing that he responds to quiet sounds and his name being called at home, in Spanish, without any issue."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No ear infections, pain, or discharge, ever."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": "Never seen ENT — no ear health concerns."
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "No significant medical history. Immunisations up to date (New Zealand schedule, continued after moving from Chile).",
+      "majorIllnesses": "None.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "None of concern."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": "No family history of hearing loss on either side, as far as Carla is aware."
+    },
+    "otherConcerns": "Carla wants to know if the hearing test will clear things up quickly, since she is fairly confident it's about English exposure rather than hearing, but understands why the preschool wanted it checked. She asks whether it's a problem that Mateo mixes Spanish and English, since a friend told her this could confuse a hearing or speech assessment."
+  }
+}

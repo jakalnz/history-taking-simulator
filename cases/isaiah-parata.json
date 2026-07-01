@@ -1,0 +1,140 @@
+{
+  "id": "case-isaiah-parata-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Ototoxicity",
+      "Congenital/Genetic"
+    ],
+    "difficulty": "moderate",
+    "clinicianNotes": "Ex-premature infant with multiple JCIH risk factors (NICU >5 days, ototoxic antibiotics, hyperbilirubinaemia). Learning objective: students should systematically work through the NICU stay in detail rather than accepting \"he was in NICU for a while\" — duration, ventilation, specific medications, and bilirubin treatment all matter for risk stratification. Father is stoic/minimising and won't offer detail unprompted."
+  },
+  "patient": {
+    "name": "Isaiah Parata",
+    "age": "10 months (corrected age 8 months)",
+    "occupation": "Infant",
+    "pronoun": "he/him",
+    "medicalKnowledge": "basic",
+    "personality": "stoic",
+    "chattiness": 2,
+    "additionalNotes": "Isaiah's father, Wiremu, brings him to appointments as his mother works during the day. Wiremu is matter-of-fact and doesn't dwell on the difficult NICU period — he tends to say things are 'sweet as' and downplays how hard it was. He answers questions directly but briefly and won't elaborate on the emotional side of things unless asked gently and specifically.",
+    "caregiverName": "Wiremu Parata",
+    "caregiverRelationship": "father"
+  },
+  "paediatricHistory": {
+    "prenatalAndPerinatal": {
+      "gestationalAge": "29 weeks (very preterm)",
+      "birthWeight": "1.3 kg",
+      "nicuAdmission": true,
+      "perinatalInfections": "Suspected early-onset sepsis, treated empirically with IV antibiotics including gentamicin for 10 days.",
+      "perinatalHypoxia": true,
+      "jaundice": true,
+      "ototoxicAntibiotics": true,
+      "congenitalAnomalies": "None structural. Typical complications of prematurity (respiratory distress, needed ventilation for the first 2 weeks)."
+    },
+    "hearingScreening": {
+      "newbornScreening": {
+        "result": "Refer right ear, pass left ear",
+        "technology": "AABR",
+        "notes": "Screened prior to NICU discharge at around 6 weeks of age (adjusted). Referred for diagnostic follow-up given the right-ear refer plus NICU risk factors."
+      },
+      "b4SchoolCheck": {
+        "result": "Not yet due",
+        "notes": "Too young."
+      },
+      "currentDevices": "None yet — awaiting diagnostic audiology results from today's visit series."
+    },
+    "speechAndLanguage": {
+      "firstBabble": "Started babbling around 7 months actual age (around 5 months corrected), which Wiremu says the paediatrician said was reasonable for his corrected age.",
+      "firstWord": "Not yet.",
+      "twoWordCombinations": "Not yet.",
+      "currentVocabulary": "Not applicable yet.",
+      "intelligibility": "Not applicable yet.",
+      "receptiveExpressiveNotes": "Wiremu hasn't noticed anything unusual but admits he hasn't really been looking for anything specific.",
+      "languages": "English and Te Reo Māori both used at home, mostly by grandparents.",
+      "speechLanguageTherapy": "Not yet referred — being monitored through the neonatal follow-up clinic."
+    },
+    "generalDevelopment": {
+      "grossMotor": "Tracking with corrected age per the neonatal follow-up team — some mild delay expected and being monitored, not unusual for his gestation.",
+      "fineMotor": "Similarly tracked against corrected age, currently appropriate.",
+      "cognitive": "No specific concerns raised yet, though it is still early to assess.",
+      "social": "Smiles and responds to family. Wiremu says he's \"a happy little guy\" once you get him talking, in Wiremu's own terse way.",
+      "earlyIntervention": "Under neonatal follow-up clinic review already due to prematurity — physio input has been offered but not yet started.",
+      "schoolProgress": "Not applicable — infant.",
+      "developmentalDiagnoses": "None formal, though prematurity itself puts him at higher risk and he is being closely monitored."
+    },
+    "functionalImpact": {
+      "homeImpact": "Wiremu hasn't noticed him not responding to sound, but says he \"hasn't really thought about it\" until this appointment came up.",
+      "schoolImpact": "Not applicable — infant.",
+      "socialParticipation": "Not applicable at this age.",
+      "listeningFatigue": "Not assessed.",
+      "noiseExposure": "None of concern.",
+      "existingSupport": "Neonatal follow-up clinic involved. No hearing-specific support yet pending today's diagnostic results."
+    },
+    "jcihRiskFactors": [
+      "NICU admission >5 days, or ECMO / ototoxic medications / loop diuretics / hyperbilirubinaemia requiring exchange transfusion"
+    ]
+  },
+  "history": {
+    "reasonForAppointment": "Diagnostic audiology follow-up after a right-ear refer on newborn hearing screening, in the context of a lengthy NICU admission with multiple risk factors for hearing loss.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "AABR screening prior to NICU discharge — passed left ear, referred right ear. No diagnostic ABR yet; today's visit is part of building toward that."
+    },
+    "hearing": {
+      "betterEar": "left",
+      "decline": "none",
+      "declineDetails": "Not established yet — this is part of the diagnostic workup. Wiremu hasn't noticed anything himself either way."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No ear infections, discharge, or visible abnormalities noted."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": "Not yet seen ENT — audiology diagnostic pathway is still in progress."
+    },
+    "generalHealth": {
+      "hospitalizations": "Prolonged NICU admission from birth at 29 weeks — approximately 8 weeks total, including 2 weeks of ventilation for respiratory distress and treatment of suspected sepsis and jaundice requiring phototherapy.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "Suspected early sepsis treated in NICU as above (see perinatal history). No other significant infections since discharge.",
+      "majorIllnesses": "Prematurity-related complications as above, otherwise well since coming home 4 months ago.",
+      "medications": "None currently. Received IV gentamicin and other antibiotics during the NICU admission — Wiremu isn't sure of the exact names or doses if asked, only that \"he was on a lot of stuff for a while\"."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "None of concern for an infant."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": "No known family history of hearing loss that Wiremu is aware of."
+    },
+    "otherConcerns": "Wiremu mostly wants to know whether today's appointment means Isaiah definitely has a hearing problem, and if hearing aids would be needed, whether that's \"a big deal\" for a baby his age. He's trying not to worry too much given how much they already went through in NICU."
+  }
+}

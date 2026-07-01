@@ -1,0 +1,140 @@
+{
+  "id": "case-ruby-singh-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Sudden SNHL",
+      "Undifferentiated"
+    ],
+    "difficulty": "moderate",
+    "clinicianNotes": "Acute unilateral hearing loss in a young child following a viral illness (possible mumps or other viral labyrinthitis) — an acquired, sudden-onset paediatric case rather than a congenital/developmental one, useful contrast within the case set. Learning objective: students should establish the clear temporal link to the preceding illness, ask about associated symptoms at the time (fever, rash, balance), and understand this needs prompt referral given the sudden unilateral onset, similar red-flag reasoning to the adult sudden SNHL case. Caregiver is worried/defensive about vaccination status, which is a sensitive but relevant thread if raised."
+  },
+  "patient": {
+    "name": "Ruby Singh",
+    "age": "4 years",
+    "occupation": "Preschooler",
+    "pronoun": "she/her",
+    "medicalKnowledge": "basic",
+    "personality": "defensive",
+    "chattiness": 3,
+    "additionalNotes": "Ruby's mother, Priya, is worried but also a little defensive, particularly if vaccination history comes up — the family has an incomplete immunisation record for personal reasons, and Priya is sensitive to feeling judged about this. She is otherwise forthcoming and clearly very concerned about Ruby's sudden change in hearing.",
+    "caregiverName": "Priya Singh",
+    "caregiverRelationship": "mother"
+  },
+  "paediatricHistory": {
+    "prenatalAndPerinatal": {
+      "gestationalAge": "39 weeks",
+      "birthWeight": "3.2 kg",
+      "nicuAdmission": false,
+      "perinatalInfections": "None.",
+      "perinatalHypoxia": false,
+      "jaundice": false,
+      "ototoxicAntibiotics": false,
+      "congenitalAnomalies": "None."
+    },
+    "hearingScreening": {
+      "newbornScreening": {
+        "result": "Pass bilateral",
+        "technology": "AABR",
+        "notes": "Passed as a newborn, no concerns since until now."
+      },
+      "b4SchoolCheck": {
+        "result": "Not yet due",
+        "notes": "Ruby is 4; the B4 School Check has not happened yet, or is scheduled but hasn't occurred."
+      },
+      "currentDevices": "None."
+    },
+    "speechAndLanguage": {
+      "firstBabble": "Around 6 months, normal.",
+      "firstWord": "Around 12 months, normal.",
+      "twoWordCombinations": "Around 20 months, normal.",
+      "currentVocabulary": "Age-appropriate, speaks in full sentences.",
+      "intelligibility": "Fully intelligible, always has been — no change since the recent illness.",
+      "receptiveExpressiveNotes": "No concerns — Priya says her talking hasn't changed, only her hearing on one side, since the illness.",
+      "languages": "English and Punjabi spoken at home.",
+      "speechLanguageTherapy": "None — no speech or language concerns."
+    },
+    "generalDevelopment": {
+      "grossMotor": "Normal, though Priya mentions she seemed briefly a bit unsteady during the illness, which has since resolved.",
+      "fineMotor": "Normal, no concerns.",
+      "cognitive": "No concerns.",
+      "social": "Normally very social; has been a little more clingy and quieter since the illness, which Priya attributes to still recovering.",
+      "earlyIntervention": "None.",
+      "schoolProgress": "Attends preschool 3 days a week; hasn't returned yet since the illness, so no recent teacher feedback.",
+      "developmentalDiagnoses": "None."
+    },
+    "functionalImpact": {
+      "homeImpact": "Since the illness, Priya has noticed Ruby doesn't respond when spoken to from her left side, and turns her head to favour her right ear when listening to the TV or being read to.",
+      "schoolImpact": "Not yet assessed — she hasn't been back to preschool since getting unwell.",
+      "socialParticipation": "Normally very social, currently a bit subdued, which Priya links to recovering from illness rather than anything else.",
+      "listeningFatigue": "Not specifically identified, though Priya says she seems to tire more easily since being unwell, which could be the illness generally rather than hearing specifically.",
+      "noiseExposure": "None of concern.",
+      "existingSupport": "None yet — this is the first appointment since the illness and hearing change."
+    },
+    "jcihRiskFactors": [
+      "Culture-positive postnatal infection associated with hearing loss (bacterial/viral meningitis)"
+    ]
+  },
+  "history": {
+    "reasonForAppointment": "Sudden onset of left-sided hearing loss noticed by Priya about 10 days ago, during recovery from a feverish illness with swelling around the jaw/neck that the GP suspected was mumps, in the context of an incomplete immunisation history.",
+    "previousHearingTest": {
+      "had": false,
+      "details": "No hearing tests before this — passed newborn screening only, no concerns since until this sudden change."
+    },
+    "hearing": {
+      "betterEar": "right",
+      "decline": "sudden",
+      "declineDetails": "Priya describes a clear, sudden change — before the illness, Ruby's hearing seemed completely normal on both sides. During the illness (fever, swollen glands/jaw area, off her food for about a week), Priya first noticed a few days in that Ruby wasn't responding on her left side, and this has persisted since the fever settled, now about 10 days total."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "left",
+      "details": "If asked directly, Ruby has mentioned to Priya that her left ear \"sounds funny\" or makes a noise, though as a 4-year-old she struggles to describe it more precisely."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "imbalance",
+      "details": "Priya mentions, if asked, that Ruby seemed \"a bit wobbly\" for a day or two during the worst of the fever, which has since resolved and she hasn't thought much of it, attributing it to being generally unwell."
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No ear pain, discharge, or prior infections. The recent illness was described by the GP as affecting the glands/jaw area (parotid swelling) rather than the ears directly."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": "Not yet seen ENT — this audiology appointment is the first step after the GP raised concern about the sudden hearing change."
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "The recent illness 10 days ago — fever, swollen jaw/neck glands, lethargy, lasting about a week, seen by the GP who suspected mumps. If asked about immunisations, Priya becomes a little defensive and explains the family has an incomplete immunisation record, including the MMR vaccine, due to personal reasons she'd rather not go into detail about, though she confirms it directly if asked plainly and non-judgementally.",
+      "majorIllnesses": "None prior to the recent illness.",
+      "medications": "Paracetamol during the recent illness for fever, nothing currently."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "None of concern."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": "No known family history of hearing loss."
+    },
+    "otherConcerns": "Priya is very worried about whether the hearing loss is permanent, feels guilty and a little defensive about the immunisation status if it comes up, and wants to know urgently whether this needs to be seen by a specialist right away given how suddenly it happened."
+  }
+}

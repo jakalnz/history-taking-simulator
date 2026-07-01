@@ -1,0 +1,137 @@
+{
+  "id": "case-zoe-anderson-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Undifferentiated"
+    ],
+    "difficulty": "advanced",
+    "clinicianNotes": "A deliberate \"trap\" case: hearing is actually normal (confirmed on B4 School Check and prior testing), and the apparent non-response at preschool is explained by selective mutism / situational anxiety in new or overwhelming environments, not a hearing problem. Learning objective: students should notice the pattern doesn't fit hearing loss (responds normally to quiet sounds at home, the issue is specifically social/performance situations) and should explore the psychosocial angle rather than anchoring on hearing. Defensive caregiver reflects real-world reluctance to discuss anxiety/behavioural concerns at a hearing appointment."
+  },
+  "patient": {
+    "name": "Zoe Anderson",
+    "age": "4 years",
+    "occupation": "Preschooler",
+    "pronoun": "she/her",
+    "medicalKnowledge": "basic",
+    "personality": "defensive",
+    "chattiness": 2,
+    "additionalNotes": "Zoe's mother, Rebecca, is a bit defensive about the referral — she feels like the preschool has jumped to conclusions and doesn't love the implication that something might be \"wrong\" with Zoe. She'll answer direct questions about hearing readily, but becomes noticeably guarded or brief if asked about Zoe's behaviour, anxiety, or temperament, and may initially insist \"she's just shy, that's all\" before opening up a little if approached gently and non-judgementally.",
+    "caregiverName": "Rebecca Anderson",
+    "caregiverRelationship": "mother"
+  },
+  "paediatricHistory": {
+    "prenatalAndPerinatal": {
+      "gestationalAge": "40 weeks",
+      "birthWeight": "3.4 kg",
+      "nicuAdmission": false,
+      "perinatalInfections": "None.",
+      "perinatalHypoxia": false,
+      "jaundice": false,
+      "ototoxicAntibiotics": false,
+      "congenitalAnomalies": "None."
+    },
+    "hearingScreening": {
+      "newbornScreening": {
+        "result": "Pass bilateral",
+        "technology": "AABR",
+        "notes": "Passed as a newborn."
+      },
+      "b4SchoolCheck": {
+        "result": "Pass bilateral",
+        "notes": "Completed 2 months ago — passed both ears. Rebecca points this out fairly early if the student asks about it, somewhat defensively (\"she already passed that test\")."
+      },
+      "currentDevices": "None."
+    },
+    "speechAndLanguage": {
+      "firstBabble": "Around 6 months, normal.",
+      "firstWord": "Around 12 months, normal.",
+      "twoWordCombinations": "Around 20 months, normal.",
+      "currentVocabulary": "Extensive and age-appropriate at home — Rebecca says Zoe \"won't stop talking\" once she's comfortable, speaking in full, complex sentences.",
+      "intelligibility": "Fully intelligible to family and, when she does speak, to others too. No concerns about clarity.",
+      "receptiveExpressiveNotes": "Rebecca is confident Zoe understands everything said to her at home and follows multi-step instructions easily.",
+      "languages": "English only, spoken at home.",
+      "speechLanguageTherapy": "Not referred — no speech concerns at home."
+    },
+    "generalDevelopment": {
+      "grossMotor": "Normal, no concerns.",
+      "fineMotor": "Normal, no concerns.",
+      "cognitive": "Rebecca describes her as bright, does puzzles and pretend play well above her age level at home.",
+      "social": "If asked specifically and given space, Rebecca will describe that Zoe has always been \"very shy\" in new situations, sometimes not speaking at all to unfamiliar adults or in group settings for weeks at a time, though she is completely different — chatty and confident — at home and with close family.",
+      "earlyIntervention": "None.",
+      "schoolProgress": "Preschool teachers report Zoe rarely speaks at preschool, doesn't respond verbally when spoken to directly by teachers or other children, and appears to \"not hear\" instructions — this is what prompted the referral, though she does follow along with the group and copies what other children do.",
+      "developmentalDiagnoses": "None formal, though if pressed gently, Rebecca will mention a relative once suggested Zoe might have \"selective mutism\" and she found that suggestion upsetting and dismissed it at the time."
+    },
+    "functionalImpact": {
+      "homeImpact": "None — Zoe communicates fully and normally at home, responds to her name, follows instructions from another room, and reacts normally to unexpected sounds.",
+      "schoolImpact": "Does not speak to teachers or peers at preschool, does not respond verbally when addressed, though observes and follows the group's actions. Teachers interpreted this as a possible hearing problem and made the referral.",
+      "socialParticipation": "Freezes and goes quiet in group settings and with unfamiliar people; the opposite is true one-on-one with people she knows well.",
+      "listeningFatigue": "Not identified — not really applicable to what's being described.",
+      "noiseExposure": "None of concern.",
+      "existingSupport": "None currently in place at preschool beyond general patience from teachers."
+    },
+    "jcihRiskFactors": []
+  },
+  "history": {
+    "reasonForAppointment": "Referred by preschool after Zoe consistently does not respond verbally to teachers or peers and appears not to follow spoken instructions in the classroom, raising a query of possible hearing loss — despite having passed her B4 School Check hearing screen two months ago.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "B4 School Check completed 2 months ago — passed both ears. No previous concerns raised about hearing before the preschool referral."
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "none",
+      "declineDetails": "No decline described — Rebecca is confident Zoe hears completely normally, citing that she responds to whispers from another room at home and reacts to quiet sounds like a phone notification."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No ear infections, pain, or discharge, ever."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": "Never seen ENT — no ear health concerns."
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "No significant medical history. Immunisations up to date.",
+      "majorIllnesses": "None.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "None of concern."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": "No family history of hearing loss. If asked about anxiety in the family, Rebecca will mention, a little reluctantly, that she herself was \"a very shy kid\" and still finds some social situations hard as an adult."
+    },
+    "otherConcerns": "Rebecca wants a hearing test to prove to the preschool that Zoe's hearing is fine, and hopes that will resolve the issue. She is reluctant to discuss the idea that something other than hearing might be going on, and may become a little short if the conversation moves toward Zoe's temperament or anxiety rather than her ears."
+  }
+}

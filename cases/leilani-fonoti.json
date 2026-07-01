@@ -1,0 +1,138 @@
+{
+  "id": "case-leilani-fonoti-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Conductive/Otitis media"
+    ],
+    "difficulty": "beginner",
+    "clinicianNotes": "Straightforward recurrent otitis media with effusion in an infant, likely driving a mild-moderate conductive loss. Good early paediatric case — chatty caregiver makes information easy to gather, main skill being practised is organising a lot of freely-offered information into the right history categories rather than extracting reluctant detail."
+  },
+  "patient": {
+    "name": "Leilani Fonoti",
+    "age": "12 months",
+    "occupation": "Infant",
+    "pronoun": "she/her",
+    "medicalKnowledge": "basic",
+    "personality": "chatty",
+    "chattiness": 4,
+    "additionalNotes": "Leilani's mother, Sina, is young (22) and very chatty — she offers plenty of detail and goes off on tangents about family life, but is easy to redirect gently. She's not particularly worried, more just wants to understand what's going on with her daughter's ears.",
+    "caregiverName": "Sina Fonoti",
+    "caregiverRelationship": "mother"
+  },
+  "paediatricHistory": {
+    "prenatalAndPerinatal": {
+      "gestationalAge": "38 weeks",
+      "birthWeight": "3.1 kg",
+      "nicuAdmission": false,
+      "perinatalInfections": "None.",
+      "perinatalHypoxia": false,
+      "jaundice": false,
+      "ototoxicAntibiotics": false,
+      "congenitalAnomalies": "None."
+    },
+    "hearingScreening": {
+      "newbornScreening": {
+        "result": "Pass bilateral",
+        "technology": "AABR",
+        "notes": "Passed both ears as a newborn."
+      },
+      "b4SchoolCheck": {
+        "result": "Not yet due",
+        "notes": "Too young."
+      },
+      "currentDevices": "None."
+    },
+    "speechAndLanguage": {
+      "firstBabble": "Around 6 months, normal.",
+      "firstWord": "Not yet — not unexpected at 12 months, though Sina notes she's \"not really babbling as much as she used to\" recently.",
+      "twoWordCombinations": "Not applicable yet.",
+      "currentVocabulary": "Not applicable yet.",
+      "intelligibility": "Not applicable yet.",
+      "receptiveExpressiveNotes": "Sina isn't sure if Leilani responds any differently since her ear infections started, but hasn't compared closely.",
+      "languages": "English and Samoan spoken at home.",
+      "speechLanguageTherapy": "None — not raised before."
+    },
+    "generalDevelopment": {
+      "grossMotor": "On track — cruising along furniture, close to walking.",
+      "fineMotor": "On track for age.",
+      "cognitive": "No concerns.",
+      "social": "Very social, loves being around her older cousins.",
+      "earlyIntervention": "None.",
+      "schoolProgress": "Not applicable — infant.",
+      "developmentalDiagnoses": "None."
+    },
+    "functionalImpact": {
+      "homeImpact": "Sina has noticed Leilani seems less responsive to being called during and after ear infection episodes, though it's hard to tell with a busy toddler.",
+      "schoolImpact": "Not applicable — infant, not yet in any childcare.",
+      "socialParticipation": "Plays well with cousins, no concerns noted.",
+      "listeningFatigue": "Not assessed / not applicable at this age.",
+      "noiseExposure": "None of concern.",
+      "existingSupport": "None currently."
+    },
+    "jcihRiskFactors": []
+  },
+  "history": {
+    "reasonForAppointment": "Referred by GP after Leilani's fourth ear infection since 4 months of age, with ongoing concern about fluid behind the eardrums (glue ear) and possible impact on hearing.",
+    "previousHearingTest": {
+      "had": false,
+      "details": "No formal hearing test yet — this is the first audiology appointment, though GP has looked in her ears multiple times during infections."
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "gradual",
+      "declineDetails": "Sina feels Leilani's hearing seems \"a bit up and down\" — worse when she has an ear infection, seeming to improve in between, though never quite sure if it's back to fully normal. Both ears seem similarly affected."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "auralDrainage",
+        "earInfections"
+      ],
+      "details": "Four diagnosed ear infections since 4 months old, both ears affected at different times, treated with antibiotics each time by the GP. One episode had some discharge. GP has mentioned \"glue ear\" and fluid build-up as an ongoing issue between infections. No grommets or ENT referral yet."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": "Not yet referred to ENT — GP wanted an audiology assessment first."
+    },
+    "generalHealth": {
+      "hospitalizations": "None apart from birth.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "Frequent colds, which Sina says \"go around the whole family\" — nothing else of note. Immunisations up to date.",
+      "majorIllnesses": "None other than the recurrent ear infections.",
+      "medications": "Amoxicillin courses for each ear infection episode."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "None of concern for an infant."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": "No known family history of hearing loss, though Sina mentions she herself \"always had bad ears\" as a kid and had grommets at age 5 — she isn't sure if that counts."
+    },
+    "otherConcerns": "Sina wants to know if the ear infections are affecting Leilani's hearing long-term, whether she'll need grommets like Sina did as a child, and whether the infections will eventually stop as she gets older."
+  }
+}

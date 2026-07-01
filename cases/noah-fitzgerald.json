@@ -1,0 +1,142 @@
+{
+  "id": "case-noah-fitzgerald-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Congenital/Genetic",
+      "Conductive/Otitis media"
+    ],
+    "difficulty": "moderate",
+    "clinicianNotes": "Congenital aural atresia/microtia causing unilateral conductive loss, visible from birth. Learning objective: students should explore how the family has processed a visible congenital difference (not just the audiological facts), ask about associated craniofacial/syndromic features (this is an isolated finding in this case, but should still be explored), and understand unilateral hearing loss risk to speech/language and localisation even with one normal ear."
+  },
+  "patient": {
+    "name": "Noah Fitzgerald",
+    "age": "9 months",
+    "occupation": "Infant",
+    "pronoun": "he/him",
+    "medicalKnowledge": "basic",
+    "personality": "neutral",
+    "chattiness": 3,
+    "additionalNotes": "Noah's mother, Claire, has had time to come to terms with his ear difference since birth and speaks about it fairly openly and practically now, though she was quite distressed in the first weeks. She answers questions thoughtfully and doesn't mind detailed questions about the visible difference.",
+    "caregiverName": "Claire Fitzgerald",
+    "caregiverRelationship": "mother"
+  },
+  "paediatricHistory": {
+    "prenatalAndPerinatal": {
+      "gestationalAge": "40 weeks",
+      "birthWeight": "3.5 kg",
+      "nicuAdmission": false,
+      "perinatalInfections": "None identified.",
+      "perinatalHypoxia": false,
+      "jaundice": false,
+      "ototoxicAntibiotics": false,
+      "congenitalAnomalies": "Right-sided microtia (small, underdeveloped outer ear) and aural atresia (absent/narrowed ear canal), noted immediately at birth. Left ear normal in appearance. No other craniofacial or facial nerve abnormalities noted by the paediatric team."
+    },
+    "hearingScreening": {
+      "newbornScreening": {
+        "result": "Refer right ear (unable to test due to atresia), pass left ear",
+        "technology": "AABR",
+        "notes": "Right ear could not be adequately screened due to the atresia; referred directly for diagnostic assessment. Left ear passed."
+      },
+      "b4SchoolCheck": {
+        "result": "Not yet due",
+        "notes": "Too young."
+      },
+      "currentDevices": "A bone conduction hearing device on a soft headband has been discussed with the family but not yet trialled."
+    },
+    "speechAndLanguage": {
+      "firstBabble": "Around 6 months, appropriate for age.",
+      "firstWord": "Not yet — not expected at this age.",
+      "twoWordCombinations": "Not applicable yet.",
+      "currentVocabulary": "Not applicable at 9 months.",
+      "intelligibility": "Not applicable yet.",
+      "receptiveExpressiveNotes": "Claire feels he responds normally to sound from his left side and hasn't noticed obvious difficulty, though she knows localisation can be harder with one working ear.",
+      "languages": "English spoken at home.",
+      "speechLanguageTherapy": "Not yet referred — being monitored, with a plan to refer if any delay emerges."
+    },
+    "generalDevelopment": {
+      "grossMotor": "On track for age.",
+      "fineMotor": "On track for age.",
+      "cognitive": "No concerns.",
+      "social": "Sociable, smiles readily, good eye contact.",
+      "earlyIntervention": "Under review by the craniofacial team and audiology; early intervention referral offered but not yet needed per the team.",
+      "schoolProgress": "Not applicable — infant.",
+      "developmentalDiagnoses": "None. Genetics review done — isolated microtia/atresia, no syndrome identified."
+    },
+    "functionalImpact": {
+      "homeImpact": "Claire tries to keep her voice and sounds on his left (hearing) side out of habit, though she's not sure if that's necessary or overly cautious.",
+      "schoolImpact": "Not applicable — infant.",
+      "socialParticipation": "Not applicable at this age.",
+      "listeningFatigue": "Not assessed / not applicable yet.",
+      "noiseExposure": "None of concern.",
+      "existingSupport": "Involved with craniofacial team, audiology, and plastic surgery (for future reconstructive options, not planned until much older)."
+    },
+    "jcihRiskFactors": [
+      "Craniofacial anomalies including abnormal ear morphology"
+    ]
+  },
+  "history": {
+    "reasonForAppointment": "Ongoing audiology review for known right-sided congenital aural atresia and microtia, identified at birth, to monitor hearing and discuss amplification options such as a bone conduction device.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "Diagnostic testing since birth has confirmed a significant conductive hearing loss in the right ear due to the atresia, with normal hearing confirmed in the left ear."
+    },
+    "hearing": {
+      "betterEar": "left",
+      "decline": "none",
+      "declineDetails": "Right ear conductive loss present from birth due to the structural difference, stable rather than declining. Left ear normal and stable."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": "A bone conduction device on a softband has been discussed as an option to trial but the family hasn't started this yet — wanting to understand more first."
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No infections or discharge — the right ear canal is atretic (essentially closed), so classic ear infection symptoms haven't occurred, though the family has been told to watch for cholesteatoma risk longer-term given the atresia."
+    },
+    "ent": {
+      "seen": true,
+      "history": [
+        "scans"
+      ],
+      "details": "Under ongoing review by both ENT and the craniofacial team. Had a CT scan of the temporal bones to assess the middle ear structures and plan any future surgical options — results showed reasonable middle ear development, which may support future surgical candidacy, though this would not be considered until much older."
+    },
+    "generalHealth": {
+      "hospitalizations": "None apart from birth.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "No significant illnesses. Immunisations up to date.",
+      "majorIllnesses": "None other than the ear anomaly itself.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "None of concern for an infant."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": "No known family history of ear anomalies or hearing loss on either side."
+    },
+    "otherConcerns": "Claire wants to know whether the bone conduction device is worth trialling now or whether it's better to wait, whether the atresia could ever be surgically corrected, and how to explain his ear to other people (family, eventually other children) as he gets older."
+  }
+}

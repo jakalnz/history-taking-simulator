@@ -1,0 +1,139 @@
+{
+  "id": "case-harper-mitchell-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Congenital/Genetic"
+    ],
+    "difficulty": "advanced",
+    "clinicianNotes": "Progressive genetic hearing loss (unspecified cause in the case, plausible connexin-related or other non-syndromic genetic loss) picked up late because the family attributed early signs to inattention/personality rather than hearing. Learning objective: students should probe school performance and behaviour changes in detail, and specifically ask about family hearing history beyond immediate family (extended family history is present but vague and easily missed unless asked persistently). Good case for practising sensitive questioning about a \"we should have caught this sooner\" scenario without the caregiver feeling blamed."
+  },
+  "patient": {
+    "name": "Harper Mitchell",
+    "age": "6 years",
+    "occupation": "New entrant / Year 1 student",
+    "pronoun": "she/her",
+    "medicalKnowledge": "basic",
+    "personality": "anxious",
+    "chattiness": 3,
+    "additionalNotes": "Harper's father, Greg, is anxious and a little guilty-sounding — now that hearing is being seriously considered, he keeps thinking back to signs he feels he should have noticed sooner and second-guessing himself. He needs reassurance that this isn't his fault. He answers questions thoroughly once he understands what's being asked, though sometimes needs a question repeated or simplified.",
+    "caregiverName": "Greg Mitchell",
+    "caregiverRelationship": "father"
+  },
+  "paediatricHistory": {
+    "prenatalAndPerinatal": {
+      "gestationalAge": "40 weeks",
+      "birthWeight": "3.6 kg",
+      "nicuAdmission": false,
+      "perinatalInfections": "None identified.",
+      "perinatalHypoxia": false,
+      "jaundice": false,
+      "ototoxicAntibiotics": false,
+      "congenitalAnomalies": "None noted at birth."
+    },
+    "hearingScreening": {
+      "newbornScreening": {
+        "result": "Pass bilateral",
+        "technology": "AABR",
+        "notes": "Passed as a newborn."
+      },
+      "b4SchoolCheck": {
+        "result": "Referred right ear",
+        "notes": "Completed at age 4 — referred right ear at the time. Greg recalls being told to \"keep an eye on it\" but doesn't recall a clear follow-up plan being arranged, and it seems to have been lost between appointments during a stressful family period (they moved cities around that time)."
+      },
+      "currentDevices": "None."
+    },
+    "speechAndLanguage": {
+      "firstBabble": "Around 7 months, within normal range.",
+      "firstWord": "Around 15 months, within normal range.",
+      "twoWordCombinations": "Around 24 months, within normal range.",
+      "currentVocabulary": "Age-appropriate vocabulary and sentence structure — no concerns about language content itself.",
+      "intelligibility": "Fully intelligible, always has been.",
+      "receptiveExpressiveNotes": "Greg says her language itself has never been a concern — it's more that \"she doesn't always seem to be listening,\" which he had put down to her personality.",
+      "languages": "English spoken at home.",
+      "speechLanguageTherapy": "None — never flagged as a speech or language concern, only recently reframed as possibly a hearing issue."
+    },
+    "generalDevelopment": {
+      "grossMotor": "Normal, no concerns.",
+      "fineMotor": "Normal, no concerns.",
+      "cognitive": "No concerns — teachers describe her as bright when she is following along.",
+      "social": "Has a small group of close friends; has become a bit more withdrawn in larger groups over the past year, which Greg attributes to the school move but now wonders about.",
+      "earlyIntervention": "None.",
+      "schoolProgress": "New entrant teacher this year has raised concerns that Harper often doesn't respond to instructions given to the whole class, needs things repeated one-on-one, and seems to \"watch other kids to know what to do\" — this prompted the current referral. Her previous preschool teacher had described her as \"a dreamer\" who needed reminders, which in hindsight Greg now wonders about.",
+      "developmentalDiagnoses": "None formal."
+    },
+    "functionalImpact": {
+      "homeImpact": "Greg has noticed, now that he thinks about it, that Harper sits close to the TV and has always needed instructions repeated more than her older brother did — he'd always chalked this up to her being younger and \"a bit scattered.\"",
+      "schoolImpact": "Teacher reports difficulty following group instructions and following classroom discussion, particularly when there is background noise or she isn't looking directly at the speaker.",
+      "socialParticipation": "Manages one-on-one and small-group friendships well; struggles more in large, noisy group activities like assembly.",
+      "listeningFatigue": "If asked, Greg will mention she often seems tired and a bit irritable after school, which he'd put down to a long day.",
+      "noiseExposure": "None of concern.",
+      "existingSupport": "None currently — this referral is the first formal step since the B4 School Check referral two years ago was not followed up."
+    },
+    "jcihRiskFactors": [
+      "Caregiver concern about hearing, speech, language, or development"
+    ]
+  },
+  "history": {
+    "reasonForAppointment": "Re-referred by the school after Harper's new entrant teacher raised concerns about her not responding to group instructions and needing one-on-one repetition — on checking her file, it was noted she had also been referred on her right ear at the B4 School Check two years ago, which does not appear to have been followed up at the time.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "Passed newborn hearing screening. Referred right ear on the B4 School Check at age 4, but the family believes this was not properly followed up — possibly lost in the process of a house/city move around that time. No diagnostic testing has occurred since."
+    },
+    "hearing": {
+      "betterEar": "left",
+      "decline": "gradual",
+      "declineDetails": "Greg cannot say for certain when it started, but in hindsight describes a gradual pattern over the last 2-3 years — more noticeable now than he feels it was at 3-4 years old, though he acknowledges he might just be noticing it more now that it has been raised. Right ear seems to be more affected than left based on what he has observed (e.g. she tends to turn her left ear toward people)."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "right",
+      "details": "If asked directly, Harper (via Greg, prompted) has mentioned hearing a \"buzzing\" in her right ear sometimes, which Greg hadn't thought to mention as he assumed it was normal."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No ear infections, pain, or discharge that Greg is aware of."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": "Never seen ENT — no ear health concerns raised, and the earlier B4 referral wasn't followed through."
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "No significant medical history. Immunisations up to date.",
+      "majorIllnesses": "None.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "None of concern."
+    },
+    "familyHistory": {
+      "has": true,
+      "details": "If asked specifically and given time to think, Greg will recall that his own grandmother (Harper's great-grandmother) was \"quite deaf\" later in life, and that one of Greg's cousins on that side of the family also wears hearing aids, though he doesn't know at what age it started for either of them or whether it was ever formally diagnosed as genetic. He wouldn't think to mention this unless asked broadly about family hearing history beyond just parents and siblings."
+    },
+    "otherConcerns": "Greg feels quite guilty that the earlier referral wasn't followed up and keeps apologising for \"missing\" it. He wants to know if the delay has caused lasting harm to Harper's development, whether this could be genetic given the family history he's just remembered, and what happens next in terms of testing and support at school."
+  }
+}
