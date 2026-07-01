@@ -592,6 +592,29 @@ body {
 .tool-btn.active { background: var(--teal-50); color: var(--teal-700); border-color: var(--teal-400); }
 .tool-btn svg { flex-shrink: 0; }
 
+/* ── QUESTION BALANCE PILL ── */
+.qbalance-pill {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .4rem .9rem;
+  border-bottom: 1px solid var(--slate-100);
+  font-size: .75rem;
+}
+.qbalance-label { color: var(--slate-500); font-weight: 600; flex-shrink: 0; }
+.qbalance-bar {
+  flex: 1;
+  max-width: 220px;
+  height: 6px;
+  border-radius: 999px;
+  background: #fde68a; /* closed portion shows through as the bar's own background */
+  overflow: hidden;
+}
+.qbalance-bar-open { height: 100%; background: #38bdf8; border-radius: 999px 0 0 999px; transition: width .2s ease; }
+.qbalance-counts { color: var(--slate-500); flex-shrink: 0; white-space: nowrap; }
+.qbalance-pill.qbalance-empty .qbalance-bar { background: var(--slate-200); }
+.qbalance-pill.qbalance-empty .qbalance-counts { color: var(--slate-400); }
+
 /* ── HINT PANEL ── */
 .hint-panel {
   border-bottom: 1px solid var(--slate-200);

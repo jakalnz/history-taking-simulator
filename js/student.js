@@ -8,11 +8,25 @@ function isMobileViewport() {
 
 // ── Closed-question streak tracking ──
 // Heuristic only — good enough to nudge behaviour, not a precise classifier.
+// A large share of real history-taking questions are fragments/confirmations
+// ("Any ringing?", "Worse on the phone?", "So it's mainly the left?") that
+// don't start with an aux verb — treat anything phrased as a question that
+// isn't recognisably open as closed, rather than letting it fall through
+// uncounted. Only genuine non-question statements return 'other'.
 function classifyQuestion(text) {
-  const t = (text || '').trim().toLowerCase();
+  let t = (text || '').trim().toLowerCase();
+  // Strip leading filler/conjunctions (possibly chained, e.g. "Okay, and how long…")
+  // so the real question word underneath still gets read as open.
+  let stripped;
+  do {
+    stripped = t.replace(/^(and|so|ok|okay|alright|right|now|well|um)[\s,]+/, '');
+    if (stripped === t) break;
+    t = stripped;
+  } while (true);
   if (/^(what|how|why|when|where|which|who)\b/.test(t)) return 'open';
   if (/^(tell me|describe|walk me through|talk me through|can you tell me|could you tell me|can you describe|could you describe|can you explain|could you explain)\b/.test(t)) return 'open';
-  if (/^(do|does|did|have|has|had|is|are|was|were|can|could|will|would|should)\b/.test(t)) return 'closed';
+  if (/\?\s*$/.test(t)) return 'closed';
+  if (/^(do|does|did|have|has|had|is|are|was|were|can|could|will|would|should|any)\b/.test(t)) return 'closed';
   return 'other';
 }
 
@@ -31,6 +45,20 @@ function closedQuestionStreak(conversation) {
     else if (cls === 'open') break;
   }
   return streak;
+}
+
+// Tally open vs closed questions across the whole conversation so far.
+// Non-question statements ('other') are excluded from the count entirely —
+// they're not part of the open/closed picture either way.
+function computeQuestionBalance(conversation) {
+  let open = 0, closed = 0;
+  for (const m of conversation) {
+    if (m.role !== 'user') continue;
+    const cls = classifyQuestion(m.content);
+    if (cls === 'open') open++;
+    else if (cls === 'closed') closed++;
+  }
+  return { open, closed, total: open + closed };
 }
 
 // Chatty patients get a longer leash — reining in a chatty patient with a
@@ -579,6 +607,37 @@ function initHintPanel() {
   });
 }
 
+// ── Question balance (open vs closed) live indicator ──
+let qBalanceEnabled = false;
+
+function initQBalance() {
+  const btn = document.getElementById('btnQBalance');
+  const pill = document.getElementById('qBalancePill');
+  if (!btn || !pill) return;
+  btn.addEventListener('click', () => {
+    qBalanceEnabled = !qBalanceEnabled;
+    btn.classList.toggle('active', qBalanceEnabled);
+    pill.classList.toggle('hidden', !qBalanceEnabled);
+    if (qBalanceEnabled) updateQBalancePill();
+    toast(qBalanceEnabled ? 'Question balance on — a live open vs. closed tally will show above the chat' : 'Question balance off', '');
+  });
+}
+
+function updateQBalancePill() {
+  if (!qBalanceEnabled) return;
+  const pill = document.getElementById('qBalancePill');
+  const barOpen = document.getElementById('qBalanceBarOpen');
+  const counts = document.getElementById('qBalanceCounts');
+  if (!pill || !barOpen || !counts) return;
+
+  const { open, closed, total } = computeQuestionBalance(conversation);
+  // Stay neutral/greyed out on a tiny sample — an early 1/1 split isn't meaningful.
+  const warmedUp = total >= 3;
+  pill.classList.toggle('qbalance-empty', !warmedUp);
+  barOpen.style.width = total ? `${Math.round((open / total) * 100)}%` : '50%';
+  counts.textContent = warmedUp ? `${open} open · ${closed} closed` : 'Ask a few more questions to see your balance';
+}
+
 // ── Guided question (MC) mode ──
 function initMcMode() {
   const btn = document.getElementById('btnMcMode');
@@ -636,6 +695,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initSpeech();
   initHintPanel();
   initMcMode();
+  initQBalance();
 
   // Load cases for selection
   await populateCaseList();
@@ -827,6 +887,7 @@ function startSession() {
   mcTurns = 0;
   freeTurns = 0;
   clearMcOptions();
+  updateQBalancePill();
 
   // Show chat UI
   document.getElementById('setupScreen').classList.add('hidden');
@@ -877,6 +938,7 @@ async function handleSend(fromMc = false) {
 
   appendMessage('student', text);
   conversation.push({ role: 'user', content: text });
+  updateQBalancePill();
 
   // Track coverage
   trackCoverage(text);
@@ -1060,6 +1122,28 @@ function endSession() {
   const reviewResult = document.getElementById('aiReviewResult');
   if (reviewBtn) { reviewBtn.style.display = ''; reviewBtn.disabled = false; reviewBtn.textContent = '✦ Get AI Feedback on my technique'; }
   if (reviewResult) { reviewResult.classList.add('hidden'); reviewResult.innerHTML = ''; }
+
+  // Question balance section — open vs closed questions across the session
+  const qBalanceEl = document.getElementById('questionBalanceSection');
+  if (qBalanceEl) {
+    const { open, closed, total } = computeQuestionBalance(conversation);
+    if (total >= 3) {
+      const openPct = Math.round((open / total) * 100);
+      qBalanceEl.innerHTML = `
+        <div class="supports-card">
+          <div class="supports-title">Question style</div>
+          <div class="qbalance-bar" style="max-width:none;height:8px;margin-bottom:.4rem">
+            <div class="qbalance-bar-open" style="width:${openPct}%"></div>
+          </div>
+          <div class="supports-item">${open} open question${open !== 1 ? 's' : ''} · ${closed} closed question${closed !== 1 ? 's' : ''}</div>
+          <p class="supports-note">Open questions ("what", "how", "tell me about…") invite the patient to elaborate in their own words. Closed questions are great for confirming a specific detail once you have a lead — the skill is knowing which to reach for at each point in the conversation, not avoiding either one.</p>
+        </div>`;
+      qBalanceEl.classList.remove('hidden');
+    } else {
+      qBalanceEl.classList.add('hidden');
+      qBalanceEl.innerHTML = '';
+    }
+  }
 
   // Learning supports section (only shown if either feature was used)
   const supportsEl = document.getElementById('learningSupportsSection');

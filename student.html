@@ -121,7 +121,22 @@
             </svg>
             <span>Guided</span>
           </button>
+          <button class="tool-btn" id="btnQBalance" title="Show a live open vs. closed question tally">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+            </svg>
+            <span>Q Balance</span>
+          </button>
         </div>
+      </div>
+
+      <!-- Open vs closed question balance pill (toggled via Q Balance) -->
+      <div class="qbalance-pill hidden" id="qBalancePill">
+        <span class="qbalance-label">Question style</span>
+        <div class="qbalance-bar" id="qBalanceBar">
+          <div class="qbalance-bar-open" id="qBalanceBarOpen"></div>
+        </div>
+        <span class="qbalance-counts" id="qBalanceCounts">0 open · 0 closed</span>
       </div>
 
       <!-- Hint panel -->
@@ -222,6 +237,9 @@
     <p class="text-sm text-muted" style="margin-top:1rem">
       Coverage is based on keyword detection in your questions. Review the patient's full response history to assess the depth of information obtained.
     </p>
+
+    <!-- Question balance (open vs closed) -->
+    <div id="questionBalanceSection" class="hidden" style="margin-top:1.25rem"></div>
 
     <!-- Learning supports (only shown if used) -->
     <div id="learningSupportsSection" class="hidden" style="margin-top:1.25rem"></div>
