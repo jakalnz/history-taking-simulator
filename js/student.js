@@ -6,6 +6,42 @@ function isMobileViewport() {
   return window.matchMedia('(max-width: 768px)').matches;
 }
 
+// ── Closed-question streak tracking ──
+// Heuristic only — good enough to nudge behaviour, not a precise classifier.
+function classifyQuestion(text) {
+  const t = (text || '').trim().toLowerCase();
+  if (/^(what|how|why|when|where|which|who)\b/.test(t)) return 'open';
+  if (/^(tell me|describe|walk me through|talk me through|can you tell me|could you tell me|can you describe|could you describe|can you explain|could you explain)\b/.test(t)) return 'open';
+  if (/^(do|does|did|have|has|had|is|are|was|were|can|could|will|would|should)\b/.test(t)) return 'closed';
+  return 'other';
+}
+
+// Counts consecutive closed questions since the last open question, scanning
+// backwards from the most recent student turn. Non-question statements are
+// skipped (neither reset nor extend the streak).
+function closedQuestionStreak(conversation) {
+  let streak = 0;
+  let scanned = 0;
+  for (let i = conversation.length - 1; i >= 0 && scanned < 8; i--) {
+    const m = conversation[i];
+    if (m.role !== 'user') continue;
+    scanned++;
+    const cls = classifyQuestion(m.content);
+    if (cls === 'closed') streak++;
+    else if (cls === 'open') break;
+  }
+  return streak;
+}
+
+// Chatty patients get a longer leash — reining in a chatty patient with a
+// couple of closed questions is a legitimate clinical skill, not a penalty case.
+function buildDynamicDirective(conversation, patient) {
+  const streak = closedQuestionStreak(conversation);
+  const threshold = (patient?.chattiness >= 4) ? 4 : 3;
+  if (streak < threshold) return '';
+  return `\n\nCURRENT CONVERSATION DYNAMIC: The student has just asked ${streak} closed (yes/no style) questions in a row without giving you room to open up on any of them. Real patients start to feel interrogated by this and shut down. For your NEXT reply only: answer in the shortest natural way possible — a brief "yes"/"no"/one short phrase — and do NOT volunteer any extra detail, even facts you would normally add for a question like this. This resets back to your normal chattiness the moment they ask an open-ended question (a "what"/"how"/"why"/"tell me about" style question).`;
+}
+
 // ── Session timer ──
 let timerInterval = null;
 let timerSeconds = 0;
@@ -846,10 +882,23 @@ async function handleSend(fromMc = false) {
   if (isMobileViewport()) document.activeElement?.blur();
 
   try {
-    const reply = await sendMessage(systemPrompt, conversation);
+    const dynamicDirective = buildDynamicDirective(conversation, activeCase?.patient);
+    let reply = await sendMessage(systemPrompt + dynamicDirective, conversation);
+
+    const endMarker = '[[END_SESSION:UNPROFESSIONAL]]';
+    const endedForUnprofessional = reply.includes(endMarker);
+    if (endedForUnprofessional) reply = reply.replace(endMarker, '').trim();
+
     conversation.push({ role: 'assistant', content: reply });
     appendMessage('patient', reply);
     speakPatient(reply);
+
+    if (endedForUnprofessional) {
+      toast('The patient asked to speak with a supervisor and ended the session.', 'error');
+      endSession();
+      return;
+    }
+
     // Show MC options after patient responds (async, non-blocking)
     showMcOptions();
   } catch (err) {
