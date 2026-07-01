@@ -664,6 +664,9 @@ body {
 .hint-section-hdr:not(.open) + .hint-section-body { display: none; }
 .hint-section-hdr.open + .hint-section-body { display: flex; }
 .hint-q {
+  display: flex;
+  align-items: baseline;
+  gap: .4rem;
   font-size: .78rem;
   color: var(--slate-600);
   padding: .3rem .5rem;
@@ -672,6 +675,17 @@ body {
   background: #fff;
   line-height: 1.4;
 }
+.hint-tag {
+  flex-shrink: 0;
+  font-size: .62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  padding: .1rem .4rem;
+  border-radius: 999px;
+}
+.hint-tag-open { background: #dbeafe; color: #1d4ed8; }
+.hint-tag-closed { background: var(--slate-100); color: var(--slate-500); }
 
 /* ── GUIDED QUESTION OPTIONS ── */
 .mc-options {

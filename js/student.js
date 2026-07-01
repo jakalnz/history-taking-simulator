@@ -23,7 +23,10 @@ function classifyQuestion(text) {
     if (stripped === t) break;
     t = stripped;
   } while (true);
-  if (/^(what|how|why|when|where|which|who)\b/.test(t)) return 'open';
+  // Note: "which" is deliberately excluded here — "Which ear…"/"Which relatives…"
+  // are grammatically wh-questions but functionally closed/limited-choice; they
+  // fall through to the "ends in ?" rule below and land as closed, correctly.
+  if (/^(what|how|why|when|where|who)\b/.test(t)) return 'open';
   if (/^(tell me|describe|walk me through|talk me through|can you tell me|could you tell me|can you describe|could you describe|can you explain|could you explain)\b/.test(t)) return 'open';
   if (/\?\s*$/.test(t)) return 'closed';
   if (/^(do|does|did|have|has|had|is|are|was|were|can|could|will|would|should|any)\b/.test(t)) return 'closed';
@@ -324,76 +327,91 @@ const SECTION_HINTS = {
     'Have you been referred here, or did you make this appointment yourself?',
   ],
   previousHearingTest: [
+    'What can you tell me about any hearing tests you\'ve had before?',
     'Have you had your hearing tested before?',
     'When was your last hearing test, and where did you have it done?',
     'Do you remember what the results showed, or were you given any follow-up advice?',
   ],
   hearingDetails: [
+    'Tell me about how your hearing has been.',
     'Which ear do you feel you hear better from?',
     'Has your hearing changed gradually over time, or did it happen more suddenly?',
     'When did you first notice your hearing wasn\'t quite right?',
   ],
   hearingAids: [
+    'Tell me about your experience with hearing aids, if you\'ve used them.',
     'Do you currently use any hearing aids?',
     'How long have you been wearing hearing aids, and what style are they?',
     'How are you finding your hearing aids — are they helping?',
   ],
   tinnitus: [
+    'What\'s the noise in your ears like, if you notice any?',
     'Do you notice any ringing, buzzing, or other sounds in your ears when it\'s quiet?',
     'Have you been aware of any noises in your ears that other people can\'t hear?',
     'Does the sound seem to be in one ear, both ears, or more in your head?',
   ],
   soundSensitivity: [
+    'How do loud or everyday sounds affect you?',
     'Do you find that certain sounds are uncomfortably loud for you?',
     'Are there everyday sounds — like cutlery or voices — that bother you more than they used to?',
     'Do loud sounds ever cause you pain or discomfort?',
   ],
   balance: [
+    'Tell me about any balance or dizziness problems you\'ve had.',
     'Have you had any problems with your balance or dizziness?',
     'Do you ever feel like the room is spinning, or that you\'re unsteady on your feet?',
     'What seems to trigger your dizziness, and how long do episodes usually last?',
   ],
   earHealth: [
+    'Tell me about any pain, pressure, or discharge you\'ve had with your ears.',
     'Have you had any pain, pressure, or a feeling of fullness in your ears?',
     'Have you ever had discharge or fluid coming from your ears?',
     'Have you had any ear infections, or has anyone suggested a build-up of wax?',
   ],
   entHistory: [
+    'What\'s your history been with ear, nose and throat specialists, if any?',
     'Have you ever seen an ear, nose and throat specialist?',
     'Have you had any surgery or procedures on your ears?',
     'Have you had any scans or investigations related to your ears?',
   ],
   generalHealth: [
+    'Tell me about your general health and any hospital visits.',
     'Have you ever been hospitalised, and was there any change in your hearing around that time?',
     'Do you have any ongoing health conditions I should know about?',
     'Are there any major illnesses in your history that might be relevant?',
   ],
   headInjuries: [
+    'Tell me about any head injuries you\'ve had.',
     'Have you ever had a significant head injury or concussion?',
     'Did you notice any change in your hearing after the injury?',
     'Did you receive medical treatment for the head injury?',
   ],
   pastInfections: [
+    'Tell me about your childhood illnesses and any ongoing health conditions.',
     'Have you had any childhood illnesses like measles, mumps, or meningitis?',
     'Do you have any ongoing conditions such as diabetes or cardiovascular disease?',
     'Have you had any serious infections in the past that you can recall?',
   ],
   medications: [
+    'What medications are you currently taking, if any?',
     'Are you currently taking any medications, either prescribed or over the counter?',
     'Have you ever been on long-term antibiotics or had chemotherapy?',
     'Are there any medications you think might have affected your hearing?',
   ],
   noiseHistory: [
+    'Tell me about your exposure to loud noise, at work or in your free time.',
     'Have you worked in a noisy environment — like a factory, construction, or farming?',
     'Do you have recreational noise exposure, such as concerts, loud music, or shooting?',
     'Have you worn hearing protection when exposed to loud noise?',
   ],
   familyHistory: [
+    'Tell me about any hearing problems that run in your family.',
     'Is there any history of hearing loss in your family?',
     'Which relatives have had hearing difficulties — parents, siblings, or grandparents?',
     'Do any family members wear hearing aids?',
   ],
   otherConcerns: [
+    'What else would you like to share about your hearing or ear health?',
     'Is there anything else about your hearing or ear health you\'d like to mention?',
     'Have we covered everything you wanted to discuss today?',
     'Is there anything you were hoping I\'d ask about that we haven\'t touched on?',
@@ -586,7 +604,11 @@ function initHintPanel() {
           <svg class="hint-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="hint-section-body">
-          ${hints.map(h => `<div class="hint-q">${esc(h)}</div>`).join('')}
+          ${hints.map(h => {
+            const style = classifyQuestion(h);
+            const badge = style === 'open' ? '<span class="hint-tag hint-tag-open">Open</span>' : style === 'closed' ? '<span class="hint-tag hint-tag-closed">Closed</span>' : '';
+            return `<div class="hint-q">${badge}<span>${esc(h)}</span></div>`;
+          }).join('')}
         </div>
       </div>`;
   }).join('');
