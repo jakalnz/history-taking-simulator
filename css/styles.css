@@ -1,9 +1,12 @@
 :root {
   --teal-50: #f0fdfa;
   --teal-100: #ccfbf1;
+  --teal-400: #0d9488; /* was previously undefined (latent bug) — fixed value clears 3:1 on both white and navy-800 */
   --teal-500: #14b8a6;
   --teal-600: #0d9488;
   --teal-700: #0f766e;
+  --teal-800: #134e4a; /* was previously undefined (latent bug) */
+  --teal-text: #0f766e; /* accent text sitting on themed surfaces (cards/page bg) — see dark-theme override below */
   --navy-700: #1e3a5f;
   --navy-800: #162d4a;
   --navy-900: #0f1e33;
@@ -20,6 +23,54 @@
   --red-500: #ef4444;
   --green-500: #22c55e;
   --green-600: #16a34a;
+  --surface: #ffffff; /* card/panel background — themed per data-theme below */
+}
+
+/*
+ * Theming: components reference the palette variables above rather than
+ * literal hex values, so redefining the variables under [data-theme="..."]
+ * re-themes almost the whole app without touching component rules. The one
+ * exception is --navy-700/800/900, which are fixed "always dark" brand
+ * surfaces (nav bar, chat header, hero banners) — these intentionally stay
+ * constant across themes, so headings/text sitting on them use literal
+ * colors or --slate-800 rather than --navy-800, keeping them independent of
+ * the slate ramp inversion below.
+ */
+[data-theme="dark"] {
+  --slate-50: #0f172a;
+  --slate-100: #1e293b;
+  --slate-200: #6b81a0;
+  --slate-300: #475569;
+  --slate-400: #8fa0b8;
+  --slate-500: #a8b6c9;
+  --slate-600: #cbd5e1;
+  --slate-700: #e2e8f0;
+  --slate-800: #f8fafc;
+  --surface: #243244;
+  --teal-500: #2dd4bf;
+  --teal-600: #0b7a6d;
+  --teal-700: #115e56;
+  --teal-800: #a7f3ec;
+  --teal-text: #2dd4bf;
+}
+
+[data-theme="high-contrast"] {
+  --slate-50: #ffffff;
+  --slate-100: #ffffff;
+  --slate-200: #000000;
+  --slate-300: #000000;
+  --slate-400: #1a1a1a;
+  --slate-500: #000000;
+  --slate-600: #000000;
+  --slate-700: #000000;
+  --slate-800: #000000;
+  --surface: #ffffff;
+  --teal-600: #0a5c52;
+  --teal-700: #0a5c52;
+  --teal-800: #0a5c52;
+  --teal-text: #0a5c52;
+  --red-500: #9b1c1c;
+  --green-600: #0f5c26;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,6 +81,19 @@ body {
   color: var(--slate-800);
   line-height: 1.5;
   min-height: 100vh;
+}
+
+/* Baseline keyboard focus ring — only shows for keyboard navigation
+   (:focus-visible), not mouse clicks. Component-specific :focus rules
+   above still take precedence where they exist; this is the fallback for
+   everything else (icon-only buttons, links, etc). */
+:focus-visible {
+  outline: 2px solid var(--teal-600);
+  outline-offset: 2px;
+}
+[data-theme="high-contrast"] :focus-visible {
+  outline: 3px solid #000000;
+  outline-offset: 2px;
 }
 
 /* ── NAV ── */
@@ -79,7 +143,7 @@ body {
 }
 .landing h1 {
   font-size: 2rem;
-  color: var(--navy-800);
+  color: var(--slate-800);
   margin-bottom: .5rem;
 }
 .landing .subtitle {
@@ -95,7 +159,7 @@ body {
   margin: 0 auto;
 }
 .mode-card {
-  background: #fff;
+  background: var(--surface);
   border-radius: 12px;
   padding: 2rem 1.5rem;
   border: 2px solid var(--slate-200);
@@ -119,7 +183,7 @@ body {
 .mode-card.student .icon { background: var(--teal-600); }
 .mode-card h2 { font-size: 1.2rem; color: var(--slate-800); }
 .mode-card p { font-size: .875rem; color: var(--slate-500); text-align: left; }
-.mode-card .arrow { margin-top: auto; font-size: .85rem; color: var(--teal-600); font-weight: 600; }
+.mode-card .arrow { margin-top: auto; font-size: .85rem; color: var(--teal-text); font-weight: 600; }
 
 /* ── LAYOUT ── */
 .page { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
@@ -127,7 +191,7 @@ body {
 
 /* ── CARDS ── */
 .card {
-  background: #fff;
+  background: var(--surface);
   border-radius: 10px;
   border: 1px solid var(--slate-200);
   padding: 1.5rem;
@@ -138,7 +202,7 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .08em;
-  color: var(--teal-600);
+  color: var(--teal-text);
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -171,7 +235,7 @@ body {
   padding: .45rem .7rem;
   font-size: .9rem;
   color: var(--slate-800);
-  background: #fff;
+  background: var(--surface);
   transition: border-color .12s, box-shadow .12s;
   font-family: inherit;
 }
@@ -253,7 +317,7 @@ body {
 }
 .section-header h1 {
   font-size: 1.25rem;
-  color: var(--navy-800);
+  color: var(--slate-800);
 }
 .section-header p {
   font-size: .85rem;
@@ -282,13 +346,13 @@ body {
   border-right: none;
   font-family: inherit;
 }
-.tab:hover { color: var(--teal-600); }
-.tab.active { color: var(--teal-700); border-bottom-color: var(--teal-600); font-weight: 600; }
+.tab:hover { color: var(--teal-text); }
+.tab.active { color: var(--teal-text); border-bottom-color: var(--teal-text); font-weight: 600; }
 
 /* ── CASE LIBRARY ── */
 .case-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
 .case-card {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--slate-200);
   border-radius: 10px;
   padding: 1rem;
@@ -321,7 +385,7 @@ body {
   height: calc(100vh - 56px - 3rem);
 }
 .chat-panel {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--slate-200);
   border-radius: 10px;
   display: flex;
@@ -476,7 +540,7 @@ body {
 }
 .speed-value {
   font-weight: 600;
-  color: var(--teal-700);
+  color: var(--teal-text);
   min-width: 2.5ch;
 }
 
@@ -526,7 +590,7 @@ body {
   overflow-y: auto;
 }
 .sidebar-card {
-  background: #fff;
+  background: var(--surface);
   border: 1px solid var(--slate-200);
   border-radius: 10px;
   padding: 1rem;
@@ -647,13 +711,13 @@ body {
   transition: background .1s;
 }
 .hint-section-hdr:hover { background: var(--slate-100); }
-.hint-section-hdr.open { color: var(--teal-700); }
+.hint-section-hdr.open { color: var(--teal-text); }
 .hint-chevron {
   flex-shrink: 0;
   transition: transform .2s;
   color: var(--slate-400);
 }
-.hint-section-hdr.open .hint-chevron { transform: rotate(180deg); color: var(--teal-600); }
+.hint-section-hdr.open .hint-chevron { transform: rotate(180deg); color: var(--teal-text); }
 .hint-section-body {
   display: none;
   padding: .25rem .75rem .5rem 1.75rem;
@@ -672,7 +736,7 @@ body {
   padding: .3rem .5rem;
   border-radius: 5px;
   border-left: 2px solid var(--teal-300);
-  background: #fff;
+  background: var(--surface);
   line-height: 1.4;
 }
 .hint-tag {
@@ -712,7 +776,7 @@ body {
   padding: .45rem .65rem;
   border-radius: 7px;
   border: 1px solid var(--slate-200);
-  background: #fff;
+  background: var(--surface);
   cursor: pointer;
   font-size: .82rem;
   color: var(--slate-700);
@@ -810,7 +874,7 @@ body {
 }
 .report-overlay.visible { display: flex; }
 .report-modal {
-  background: #fff;
+  background: var(--surface);
   border-radius: 12px;
   max-width: 600px;
   width: 100%;
@@ -819,12 +883,12 @@ body {
   padding: 2rem;
 }
 .report-header { margin-bottom: 1.5rem; }
-.report-header h2 { font-size: 1.3rem; color: var(--navy-800); }
+.report-header h2 { font-size: 1.3rem; color: var(--slate-800); }
 .report-header p { color: var(--slate-500); font-size: .875rem; margin-top: .3rem; }
 .report-score {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--teal-600);
+  color: var(--teal-text);
   margin-bottom: 1.5rem;
   text-align: center;
 }
@@ -869,7 +933,7 @@ body {
 }
 .report-transcript-item { display: flex; gap: .5rem; }
 .report-transcript-role { flex-shrink: 0; font-weight: 700; width: 60px; }
-.report-transcript-item.student .report-transcript-role { color: var(--teal-600); }
+.report-transcript-item.student .report-transcript-role { color: var(--teal-text); }
 .report-transcript-item.patient .report-transcript-role { color: var(--navy-600, #1d4ed8); }
 .report-transcript-text { color: var(--slate-700); line-height: 1.4; }
 
@@ -881,14 +945,14 @@ body {
   z-index: 300;
 }
 .auth-modal {
-  background: #fff;
+  background: var(--surface);
   border-radius: 12px;
   padding: 2rem;
   max-width: 520px;
   width: 95%;
   box-shadow: 0 20px 60px rgba(0,0,0,.3);
 }
-.auth-modal h2 { font-size: 1.2rem; color: var(--navy-800); margin-bottom: .3rem; }
+.auth-modal h2 { font-size: 1.2rem; color: var(--slate-800); margin-bottom: .3rem; }
 .auth-modal p { font-size: .85rem; color: var(--slate-500); margin-bottom: 1.25rem; }
 .auth-error { color: var(--red-500); font-size: .8rem; margin-top: .5rem; display: none; }
 .auth-error.visible { display: block; }
@@ -1058,7 +1122,20 @@ body {
 
 /* ── PRINT / PDF ── */
 @media print {
-  /* Hide everything except the report modal content */
+  /* This is a fallback path only (used if the PDF library fails to load —
+     see generatePdfReport() in student.js). Force light-theme variable
+     values regardless of the active site theme: most browsers don't print
+     background colours by default, so dark/high-contrast foreground
+     colours (e.g. near-white text) could otherwise print invisibly on the
+     white page. */
+  :root, [data-theme] {
+    --slate-50: #f8fafc; --slate-100: #f1f5f9; --slate-200: #e2e8f0; --slate-300: #cbd5e1;
+    --slate-400: #94a3b8; --slate-500: #64748b; --slate-600: #475569; --slate-700: #334155; --slate-800: #1e293b;
+    --surface: #ffffff;
+    --teal-500: #14b8a6; --teal-600: #0d9488; --teal-700: #0f766e; --teal-800: #134e4a; --teal-text: #0f766e;
+  }
+  /* Hide the theme toggle disc and hide everything except the report modal content */
+  .theme-toggle-wrap { display: none !important; }
   body > *:not(.report-overlay) { display: none !important; }
   .report-overlay {
     display: block !important;
@@ -1094,7 +1171,7 @@ body {
   padding: 1.5rem;
 }
 .setup-card {
-  background: #fff;
+  background: var(--surface);
   border-radius: 12px;
   border: 1px solid var(--slate-200);
   overflow: hidden;
@@ -1105,7 +1182,7 @@ body {
   color: #fff;
 }
 .setup-hero h2 { font-size: 1.2rem; margin-bottom: .35rem; }
-.setup-hero p { font-size: .85rem; color: var(--slate-300); }
+.setup-hero p { font-size: .85rem; color: #cbd5e1; } /* pinned literal — setup-hero bg is always dark navy regardless of theme */
 .setup-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
 
 /* Search + difficulty filter row */
@@ -1236,4 +1313,109 @@ body {
   .case-select-list { max-height: none; flex: 1; }
   .case-filter-row { flex-wrap: wrap; }
   .case-difficulty-filter { flex: 1 0 auto; }
+}
+
+/* ── HIGH CONTRAST / LOW VISION THEME ── */
+/* Beyond the colour swap above (:root override block): larger base type,
+   thicker borders on interactive surfaces, and bolder focus rings — a
+   low-vision theme that only changes colours isn't actually serving the
+   people it's named for. */
+[data-theme="high-contrast"] {
+  font-size: 108%;
+}
+[data-theme="high-contrast"] .card,
+[data-theme="high-contrast"] .sidebar-card,
+[data-theme="high-contrast"] .mode-card,
+[data-theme="high-contrast"] .case-card,
+[data-theme="high-contrast"] .chat-panel,
+[data-theme="high-contrast"] .report-modal,
+[data-theme="high-contrast"] .auth-modal,
+[data-theme="high-contrast"] .setup-card,
+[data-theme="high-contrast"] .field input,
+[data-theme="high-contrast"] .field select,
+[data-theme="high-contrast"] .field textarea,
+[data-theme="high-contrast"] .btn {
+  border-width: 2px !important;
+}
+[data-theme="high-contrast"] .btn-primary,
+[data-theme="high-contrast"] .btn-navy {
+  border: 2px solid #000000;
+}
+
+/* ── THEME TOGGLE (floating disc) ── */
+.theme-toggle-wrap {
+  position: fixed;
+  z-index: 500;
+  bottom: 1rem;
+  right: 1rem;
+}
+.theme-toggle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--slate-300);
+  background: var(--surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  transition: transform .12s;
+}
+.theme-toggle-btn:hover { transform: scale(1.06); }
+.theme-toggle-btn svg { width: 22px; height: 22px; display: block; }
+.theme-menu {
+  position: absolute;
+  bottom: calc(100% + .5rem);
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--slate-200);
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.18);
+  padding: .35rem;
+  min-width: 168px;
+  display: none;
+  flex-direction: column;
+  gap: .15rem;
+}
+.theme-menu.open { display: flex; }
+.theme-menu-item {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  padding: .5rem .6rem;
+  border-radius: 6px;
+  border: none;
+  background: none;
+  font-size: .85rem;
+  color: var(--slate-700);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  width: 100%;
+}
+.theme-menu-item:hover { background: var(--slate-100); }
+.theme-menu-item.active { background: var(--teal-50); color: var(--teal-text); font-weight: 600; }
+.theme-menu-item .theme-swatch {
+  width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
+  border: 1px solid var(--slate-300);
+}
+
+/* Sidebar placement on mobile: sits at the bottom of the sidebar/coverage
+   panel rather than floating fixed over chat content, per the request to
+   dock it there on small screens. */
+@media (max-width: 900px) {
+  .theme-toggle-wrap {
+    position: static;
+    display: flex;
+    justify-content: center;
+    padding: .75rem 0 .25rem;
+    margin-top: auto;
+  }
+  .theme-toggle-wrap .theme-menu {
+    bottom: calc(100% + .5rem);
+    right: 50%;
+    transform: translateX(50%);
+  }
 }
