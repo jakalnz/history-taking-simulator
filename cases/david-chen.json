@@ -2,6 +2,13 @@
   "id": "case-david-chen-001",
   "version": "1.0",
   "createdAt": "2025-01-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "NIHL"
+    ],
+    "difficulty": "moderate",
+    "clinicianNotes": "Occupational NIHL with confounders (head injury, mixed noise history). Learning objective: get students to separate the occupational and recreational noise contributions and probe PPE compliance. Common student issue: they accept \"a bit down at high frequencies\" without asking for specifics from the occupational test."
+  },
   "patient": {
     "name": "David Chen",
     "age": "38",
@@ -42,7 +49,9 @@
       "details": ""
     },
     "earHealth": {
-      "experiences": ["noConcerns"],
+      "experiences": [
+        "noConcerns"
+      ],
       "details": "No history of ear pain, pressure, infections, drainage, or wax. Ears have been healthy throughout his life."
     },
     "ent": {
@@ -60,7 +69,10 @@
       "medications": "No regular medications. Occasional ibuprofen for back pain after physically demanding shifts."
     },
     "noiseHistory": {
-      "type": ["occupational", "recreational"],
+      "type": [
+        "occupational",
+        "recreational"
+      ],
       "details": "Has worked on or near factory floors for 15 years. Significant machinery noise. Mandatory hearing protection (foam earplugs) is provided and he wears it about 70% of the time — admits to sometimes not wearing it when it is 'inconvenient' or when he needs to hear instructions. Recreational: was in a band in his 20s, played drums for about 8 years with minimal hearing protection."
     },
     "familyHistory": {

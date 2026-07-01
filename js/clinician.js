@@ -1,4 +1,4 @@
-import { getCases, saveCase, deleteCase, exportCase, exportAllCases, importCasesFromFile, loadBundledCases, newCaseTemplate } from './cases.js';
+import { getCases, saveCase, deleteCase, exportCase, exportAllCases, importCasesFromFile, loadBundledCases, newCaseTemplate, cloneCase } from './cases.js';
 import { getProxyUrl, setProxyUrl } from './api.js';
 
 // ── Toast ──
@@ -13,6 +13,18 @@ function toast(msg, type = '') {
 // ── State ──
 let currentCase = null;
 let currentTab = 'library';
+
+const CATEGORY_OPTIONS = ['NIHL','Presbycusis','Otosclerosis',"Meniere's",'Conductive/Otitis media','Sudden SNHL','Ototoxicity','Tinnitus-predominant','Vestibular','Congenital/Genetic','Traumatic','Undifferentiated'];
+const DIFFICULTY_LABELS = { beginner: 'Beginner', moderate: 'Moderate', advanced: 'Advanced' };
+
+// Legacy/imported cases may predate the meta field — backfill a safe default.
+function ensureMeta(c) {
+  if (!c.meta) c.meta = { category: [], difficulty: 'moderate', clinicianNotes: '' };
+  if (!Array.isArray(c.meta.category)) c.meta.category = [];
+  if (!c.meta.difficulty) c.meta.difficulty = 'moderate';
+  if (typeof c.meta.clinicianNotes !== 'string') c.meta.clinicianNotes = '';
+  return c;
+}
 
 // ── Init ──
 document.addEventListener('DOMContentLoaded', () => {
@@ -34,6 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('importFile')?.addEventListener('change', handleImport);
   document.getElementById('btnExportAll')?.addEventListener('click', handleExportAll);
   document.getElementById('btnLoadBundled')?.addEventListener('click', handleLoadBundled);
+  document.getElementById('filterCategory')?.addEventListener('change', renderLibrary);
+  document.getElementById('filterDifficulty')?.addEventListener('change', renderLibrary);
 
   // Builder actions
   document.getElementById('btnSaveCase')?.addEventListener('click', handleSave);
@@ -59,14 +73,32 @@ function switchTab(tab) {
 }
 
 // ── Library ──
+function populateCategoryFilter() {
+  const sel = document.getElementById('filterCategory');
+  if (!sel || sel.dataset.populated) return;
+  sel.dataset.populated = '1';
+  CATEGORY_OPTIONS.forEach(cat => {
+    const opt = document.createElement('option');
+    opt.value = cat;
+    opt.textContent = cat;
+    sel.appendChild(opt);
+  });
+}
+
 function renderLibrary() {
+  populateCategoryFilter();
   const grid = document.getElementById('caseGrid');
-  const cases = getCases();
+  let cases = getCases().map(ensureMeta);
+
+  const catFilter = document.getElementById('filterCategory')?.value || '';
+  const diffFilter = document.getElementById('filterDifficulty')?.value || '';
+  if (catFilter) cases = cases.filter(c => c.meta.category.includes(catFilter));
+  if (diffFilter) cases = cases.filter(c => c.meta.difficulty === diffFilter);
 
   if (cases.length === 0) {
     grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
       <div class="empty-icon">🗂️</div>
-      <p>No cases yet. Create a new case or import from a JSON file.</p>
+      <p>${getCases().length === 0 ? 'No cases yet. Create a new case or import from a JSON file.' : 'No cases match the selected filters.'}</p>
     </div>`;
     return;
   }
@@ -76,9 +108,13 @@ function renderLibrary() {
     return `<div class="case-card" data-id="${c.id}">
       <div class="case-card-name">${esc(c.patient.name) || 'Unnamed Patient'}</div>
       <div class="case-card-meta">${esc(c.patient.age) ? c.patient.age + ' yrs' : ''}${c.patient.occupation ? ' · ' + esc(c.patient.occupation) : ''}</div>
-      <div class="case-card-tags">${tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+      <div class="case-card-tags">
+        <span class="tag navy">${esc(DIFFICULTY_LABELS[c.meta.difficulty] || 'Moderate')}</span>
+        ${tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}
+      </div>
       <div class="case-card-actions">
         <button class="btn btn-sm btn-secondary btn-edit" data-id="${c.id}">Edit</button>
+        <button class="btn btn-sm btn-secondary btn-clone" data-id="${c.id}">Clone</button>
         <button class="btn btn-sm btn-secondary btn-export" data-id="${c.id}">Export</button>
         <button class="btn btn-sm btn-danger btn-delete" data-id="${c.id}">Delete</button>
       </div>
@@ -87,6 +123,18 @@ function renderLibrary() {
 
   grid.querySelectorAll('.btn-edit').forEach(btn => {
     btn.addEventListener('click', e => { e.stopPropagation(); openCase(btn.dataset.id); });
+  });
+  grid.querySelectorAll('.btn-clone').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const source = getCases().find(c => c.id === btn.dataset.id);
+      if (!source) return;
+      currentCase = cloneCase(source);
+      saveCase(currentCase);
+      renderLibrary();
+      toast('Case cloned — edit it below', 'success');
+      openCase(currentCase.id);
+    });
   });
   grid.querySelectorAll('.btn-export').forEach(btn => {
     btn.addEventListener('click', e => { e.stopPropagation(); exportCase(getCases().find(c => c.id === btn.dataset.id)); });
@@ -105,12 +153,13 @@ function renderLibrary() {
 
 function buildTags(c) {
   const tags = [];
+  tags.push(...c.meta.category);
   if (c.history.tinnitus?.present) tags.push('Tinnitus');
   if (c.history.balance?.concern !== 'none') tags.push('Balance');
   if (c.history.hearingAids?.current) tags.push('HA user');
   if (c.history.soundSensitivity?.present) tags.push('Hyperacusis');
   if (c.patient.personality) tags.push(c.patient.personality);
-  return tags.slice(0, 4);
+  return tags.slice(0, 6);
 }
 
 // ── Case Builder ──
@@ -124,6 +173,7 @@ function openNewCase() {
 function openCase(id) {
   currentCase = getCases().find(c => c.id === id);
   if (!currentCase) return;
+  ensureMeta(currentCase);
   populateForm(currentCase);
   switchTab('builder');
   document.getElementById('builderTitle').textContent = 'Edit Patient Case';
@@ -197,6 +247,11 @@ function populateForm(c) {
   setVal('patientPersonality', p.personality);
   setVal('patientChattiness', p.chattiness);
   setVal('patientNotes', p.additionalNotes);
+
+  const meta = c.meta || { category: [], difficulty: 'moderate', clinicianNotes: '' };
+  document.querySelectorAll('.cat-check').forEach(el => { el.checked = meta.category.includes(el.value); });
+  setVal('patientDifficulty', meta.difficulty);
+  setVal('clinicianNotes', meta.clinicianNotes);
 
   setVal('reasonForAppointment', h.reasonForAppointment);
   setCheck('prevTestYes', h.previousHearingTest.had);
@@ -287,6 +342,11 @@ function collectForm(c) {
   p.personality = getVal('patientPersonality');
   p.chattiness = parseInt(getVal('patientChattiness')) || 3;
   p.additionalNotes = getVal('patientNotes');
+
+  if (!c.meta) c.meta = { category: [], difficulty: 'moderate', clinicianNotes: '' };
+  c.meta.category = Array.from(document.querySelectorAll('.cat-check:checked')).map(el => el.value);
+  c.meta.difficulty = getVal('patientDifficulty') || 'moderate';
+  c.meta.clinicianNotes = getVal('clinicianNotes');
 
   h.reasonForAppointment = getVal('reasonForAppointment');
   h.previousHearingTest.had = isChecked('prevTestYes');

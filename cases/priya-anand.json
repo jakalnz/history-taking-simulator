@@ -2,6 +2,13 @@
   "id": "case-priya-anand-001",
   "version": "1.0",
   "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Conductive/Otitis media"
+    ],
+    "difficulty": "beginner",
+    "clinicianNotes": "Straightforward recurrent otitis media / conductive loss case with a clear grommets history. Good for practicing otologic history-taking basics."
+  },
   "patient": {
     "name": "Priya Anand",
     "age": "34",
@@ -42,12 +49,18 @@
       "details": ""
     },
     "earHealth": {
-      "experiences": ["auralPressure", "auralDrainage", "earInfections"],
+      "experiences": [
+        "auralPressure",
+        "auralDrainage",
+        "earInfections"
+      ],
       "details": "Frequent ear infections as a child, mostly right ear, at least 6-8 that she can recall growing up, with a couple more in her 20s. The most recent one, about 3 months ago, had some thick discharge for a few days which settled with antibiotics from her GP, but the blocked feeling never went away afterward. Intermittent pressure/fullness in the right ear since then. No pain currently, just the blocked sensation."
     },
     "ent": {
       "seen": true,
-      "history": ["treatment"],
+      "history": [
+        "treatment"
+      ],
       "details": "Saw an ENT specialist as a child around the time grommets were discussed, but never proceeded with surgery. Has not seen an ENT specialist as an adult."
     },
     "generalHealth": {
@@ -60,7 +73,9 @@
       "medications": "Salbutamol inhaler as needed. Antihistamine during hay fever season."
     },
     "noiseHistory": {
-      "type": ["none"],
+      "type": [
+        "none"
+      ],
       "details": "Works in a primary school classroom — not a particularly loud environment. No significant occupational or recreational noise exposure."
     },
     "familyHistory": {

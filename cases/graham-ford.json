@@ -2,6 +2,14 @@
   "id": "case-graham-ford-001",
   "version": "1.0",
   "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Meniere's",
+      "Vestibular"
+    ],
+    "difficulty": "advanced",
+    "clinicianNotes": "Undiagnosed Meniere's. Learning objective: students must independently elicit and connect fluctuating hearing loss, tinnitus, aural fullness, and episodic vertigo — patient does not link them himself. Common student issue: treating the dizziness and hearing complaints as separate topics instead of asking about the classic triad/tetrad together."
+  },
   "patient": {
     "name": "Graham Ford",
     "age": "51",
@@ -42,7 +50,9 @@
       "details": "If asked directly and given time, he'll describe a few episodes over the past 2–3 months of feeling like the world briefly tilts or spins, lasting somewhere between 20 minutes and a couple of hours. Usually comes with feeling a bit sick and needing to sit still. He has generally pulled over or waited it out rather than telling anyone, including his employer. He often has a sense of fullness or pressure in the left ear just before or during these episodes, though he wouldn't describe it that way unprompted — he'd say his ear 'feels blocked' or 'full' beforehand. Episodes are unpredictable and he hasn't noticed a clear trigger. Between episodes he feels essentially normal."
     },
     "earHealth": {
-      "experiences": ["auralPressure"],
+      "experiences": [
+        "auralPressure"
+      ],
       "details": "Intermittent feeling of fullness or pressure in the left ear, usually associated with the dizzy spells and the hearing changes. No pain, discharge, or infections."
     },
     "ent": {
@@ -60,7 +70,9 @@
       "medications": "None regularly. Occasional paracetamol."
     },
     "noiseHistory": {
-      "type": ["occupational"],
+      "type": [
+        "occupational"
+      ],
       "details": "Years of truck cab noise, moderate rather than extreme. Doesn't use hearing protection as it's not been suggested to him for driving."
     },
     "familyHistory": {

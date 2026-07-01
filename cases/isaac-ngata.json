@@ -2,6 +2,14 @@
   "id": "case-isaac-ngata-001",
   "version": "1.0",
   "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Congenital/Genetic",
+      "Traumatic"
+    ],
+    "difficulty": "advanced",
+    "clinicianNotes": "Suspected Pendred syndrome on top of an acute traumatic exacerbation. Learning objective: students should ask specifically about family hearing history, childhood balance/developmental history, and thyroid/neck history to surface the syndromic clues. Common student issue: focusing only on the recent injury and missing the congenital picture entirely."
+  },
   "patient": {
     "name": "Isaac Ngata",
     "age": "24",
@@ -42,7 +50,9 @@
       "details": "If asked about balance in childhood, he'll mention (somewhat vaguely, prompted by his mum's old comments) that he was a 'wobbly' toddler and was a bit later than his siblings to walk steadily, though nothing was ever formally investigated. Currently, since the knock, he has had a few days of feeling mildly off-balance and unsteady, which has settled down over the past couple of weeks. No spinning or vomiting, just a vague unsteadiness."
     },
     "earHealth": {
-      "experiences": ["noConcerns"],
+      "experiences": [
+        "noConcerns"
+      ],
       "details": "No pain, discharge, or infections related to the ears, before or after the knock. No bruising or bleeding at the time of the injury — just a hard knock."
     },
     "ent": {
@@ -60,7 +70,9 @@
       "medications": "None."
     },
     "noiseHistory": {
-      "type": ["occupational"],
+      "type": [
+        "occupational"
+      ],
       "details": "Landscaping work involves mowers, trimmers, and chainsaws. Wears ear protection most of the time when using loud equipment."
     },
     "familyHistory": {

@@ -25,6 +25,17 @@ export function getCaseById(id) {
   return getCases().find(c => c.id === id) || null;
 }
 
+// Deep-copy an existing case as a starting point for a new one.
+export function cloneCase(c) {
+  const copy = JSON.parse(JSON.stringify(c));
+  copy.id = crypto.randomUUID();
+  copy.createdAt = new Date().toISOString();
+  delete copy.updatedAt;
+  copy.patient.name = copy.patient.name ? `${copy.patient.name} (Copy)` : '';
+  if (!copy.meta) copy.meta = { category: [], difficulty: 'moderate', clinicianNotes: '' };
+  return copy;
+}
+
 export function exportCase(c) {
   const blob = new Blob([JSON.stringify(c, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -79,6 +90,11 @@ export function newCaseTemplate() {
     id: crypto.randomUUID(),
     version: '1.0',
     createdAt: new Date().toISOString(),
+    meta: {
+      category: [],
+      difficulty: 'moderate',
+      clinicianNotes: ''
+    },
     patient: {
       name: '',
       age: '',

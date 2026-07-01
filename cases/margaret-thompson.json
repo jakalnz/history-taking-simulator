@@ -2,6 +2,13 @@
   "id": "case-margaret-thompson-001",
   "version": "1.0",
   "createdAt": "2025-01-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Presbycusis"
+    ],
+    "difficulty": "beginner",
+    "clinicianNotes": "Good first case: classic gradual bilateral age-related loss with straightforward family history. Watch that students ask about tinnitus impact on sleep, not just presence."
+  },
   "patient": {
     "name": "Margaret Thompson",
     "age": "72",
@@ -42,7 +49,9 @@
       "details": ""
     },
     "earHealth": {
-      "experiences": ["earWax"],
+      "experiences": [
+        "earWax"
+      ],
       "details": "Had ear wax removed by microsuction at the GP surgery approximately 18 months ago. Right ear only. No recurrence since. No history of aural pain, pressure, or drainage."
     },
     "ent": {
@@ -54,13 +63,17 @@
       "hospitalizations": "Hip replacement surgery on right hip in 2019. Uneventful recovery. Stayed in hospital for 4 days. No change in hearing noted around that time.",
       "headInjuries": false,
       "headInjuriesDetails": "",
-      "pastInfections": ["diabetes"],
+      "pastInfections": [
+        "diabetes"
+      ],
       "pastInfectionsDetails": "Type 2 diabetes, diagnosed 2010. Managed with Metformin 500mg twice daily. Well controlled, last HbA1c was within target. She does not believe it has affected her hearing.",
       "majorIllnesses": "Hypertension — managed with Amlodipine 5mg daily. Diagnosed around 2008. Osteoarthritis affecting both knees and right hip (hence the hip replacement).",
       "medications": "Metformin 500mg twice daily, Amlodipine 5mg once daily, Paracetamol 1g as needed for joint pain, Atorvastatin 20mg nightly"
     },
     "noiseHistory": {
-      "type": ["none"],
+      "type": [
+        "none"
+      ],
       "details": "Worked as a primary school teacher for 35 years — some noise exposure from classrooms but not at industrial levels. No recreational noise exposure of significance. Never wore hearing protection as it was not considered necessary."
     },
     "familyHistory": {

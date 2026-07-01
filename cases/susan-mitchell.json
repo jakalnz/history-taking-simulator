@@ -2,6 +2,13 @@
   "id": "case-susan-mitchell-001",
   "version": "1.0",
   "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Otosclerosis"
+    ],
+    "difficulty": "advanced",
+    "clinicianNotes": "Otosclerosis case. Learning objective: students should notice paresis-like clue (hears better in noise) and the vague family history of ear surgery — neither is volunteered. Common student issue: stopping after \"gradual left-sided loss\" without asking about pregnancy-related changes or family ear surgery."
+  },
   "patient": {
     "name": "Susan Mitchell",
     "age": "45",
@@ -42,7 +49,9 @@
       "details": ""
     },
     "earHealth": {
-      "experiences": ["noConcerns"],
+      "experiences": [
+        "noConcerns"
+      ],
       "details": "No pain, drainage, or infections. Tried OTC olive oil ear drops assuming it was wax build-up, no change in hearing."
     },
     "ent": {
@@ -60,7 +69,9 @@
       "medications": "Occasional antihistamine for seasonal hay fever. No regular medications."
     },
     "noiseHistory": {
-      "type": ["none"],
+      "type": [
+        "none"
+      ],
       "details": "Works in a pharmacy — quiet environment. No occupational or recreational noise exposure of note."
     },
     "familyHistory": {

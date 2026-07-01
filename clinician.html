@@ -41,6 +41,24 @@
       </div>
     </div>
 
+    <div class="form-grid" style="margin-bottom:1rem">
+      <div class="field">
+        <label for="filterCategory">Filter by presentation</label>
+        <select id="filterCategory">
+          <option value="">All presentations</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="filterDifficulty">Filter by difficulty</label>
+        <select id="filterDifficulty">
+          <option value="">All difficulties</option>
+          <option value="beginner">Beginner</option>
+          <option value="moderate">Moderate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      </div>
+    </div>
+
     <div class="case-grid" id="caseGrid"></div>
   </div>
 
@@ -113,6 +131,43 @@
         <div class="field form-full">
           <label for="patientNotes">Additional Character Notes (optional)</label>
           <textarea id="patientNotes" placeholder="e.g. Tends to mention her garden. Refers to husband who also has hearing loss. Gets frustrated if asked to repeat herself."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CASE METADATA (clinician-facing only) ── -->
+    <div class="card">
+      <div class="card-title">Case Metadata</div>
+      <p class="text-sm text-muted" style="margin-bottom:.75rem">Used for organising the case library — never shown to students or included in the simulated patient's knowledge.</p>
+      <div class="form-grid">
+        <div class="field form-full">
+          <label>Primary presentation (select all that apply)</label>
+          <div class="check-group horizontal" id="categoryChecks">
+            <label class="check-item"><input type="checkbox" class="cat-check" value="NIHL"> Noise-induced hearing loss</label>
+            <label class="check-item"><input type="checkbox" class="cat-check" value="Presbycusis"> Presbycusis (age-related)</label>
+            <label class="check-item"><input type="checkbox" class="cat-check" value="Otosclerosis"> Otosclerosis</label>
+            <label class="check-item"><input type="checkbox" class="cat-check" value="Meniere's"> Meniere's disease</label>
+            <label class="check-item"><input type="checkbox" class="cat-check" value="Conductive/Otitis media"> Conductive / otitis media</label>
+            <label class="check-item"><input type="checkbox" class="cat-check" value="Sudden SNHL"> Sudden sensorineural hearing loss</label>
+            <label class="check-item"><input type="checkbox" class="cat-check" value="Ototoxicity"> Ototoxicity</label>
+            <label class="check-item"><input type="checkbox" class="cat-check" value="Tinnitus-predominant"> Tinnitus-predominant</label>
+            <label class="check-item"><input type="checkbox" class="cat-check" value="Vestibular"> Vestibular / balance disorder</label>
+            <label class="check-item"><input type="checkbox" class="cat-check" value="Congenital/Genetic"> Congenital / genetic</label>
+            <label class="check-item"><input type="checkbox" class="cat-check" value="Traumatic"> Traumatic / head injury related</label>
+            <label class="check-item"><input type="checkbox" class="cat-check" value="Undifferentiated"> Unknown / undifferentiated</label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="patientDifficulty">Difficulty</label>
+          <select id="patientDifficulty">
+            <option value="beginner">Beginner</option>
+            <option value="moderate" selected>Moderate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+        </div>
+        <div class="field form-full">
+          <label for="clinicianNotes">Clinician Notes (hidden from students)</label>
+          <textarea id="clinicianNotes" placeholder="e.g. Learning objective: get students to probe fluctuating symptoms and connect vertigo + tinnitus + fullness. Common student issue: they often stop at 'ringing in ears' and don't ask about episodic vertigo."></textarea>
         </div>
       </div>
     </div>
