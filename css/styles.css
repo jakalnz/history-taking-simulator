@@ -52,6 +52,7 @@
   --teal-700: #115e56;
   --teal-800: #a7f3ec;
   --teal-text: #2dd4bf;
+  --teal-50: #0b3b34;
 }
 
 [data-theme="high-contrast"] {
@@ -414,7 +415,7 @@ body {
   flex-shrink: 0;
 }
 .chat-patient-name { font-weight: 600; font-size: .95rem; }
-.chat-patient-meta { font-size: .78rem; color: var(--slate-400); }
+.chat-patient-meta { font-size: .78rem; color: #cbd5e1; } /* literal — sits on fixed-dark .chat-header, see .session-timer note */
 .chat-status { margin-left: auto; font-size: .75rem; color: var(--teal-400); display: flex; align-items: center; gap: .3rem; }
 .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-500); animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
@@ -512,7 +513,7 @@ body {
 .session-timer {
   font-size: .78rem;
   font-weight: 600;
-  color: var(--slate-400);
+  color: #cbd5e1; /* literal light colour — always sits on the fixed-dark .chat-header, so must not use --slate-400 (flips near-black in high-contrast) */
   font-variant-numeric: tabular-nums;
   letter-spacing: .04em;
 }
@@ -1355,6 +1356,7 @@ body {
   border-radius: 50%;
   border: 1px solid var(--slate-300);
   background: var(--surface);
+  color: var(--slate-800);
   cursor: pointer;
   display: flex;
   align-items: center;

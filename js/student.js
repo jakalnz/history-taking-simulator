@@ -1194,6 +1194,7 @@ function startSession() {
   // Show chat UI
   document.getElementById('setupScreen').classList.add('hidden');
   document.getElementById('sessionScreen').classList.remove('hidden');
+  window.dispatchEvent(new Event('audsim:relocate-theme-toggle'));
 
   // Fill patient header
   const p = activeCase.patient;
@@ -1222,6 +1223,7 @@ function startSession() {
 function showSetup() {
   document.getElementById('setupScreen').classList.remove('hidden');
   document.getElementById('sessionScreen').classList.add('hidden');
+  window.dispatchEvent(new Event('audsim:relocate-theme-toggle'));
   activeCase = null;
   systemPrompt = '';
   conversation = [];

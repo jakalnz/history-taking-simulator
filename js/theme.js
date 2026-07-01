@@ -83,7 +83,6 @@
     btnEl.setAttribute('aria-haspopup', 'menu');
     btnEl.setAttribute('aria-expanded', 'false');
     btnEl.innerHTML = ICON_SVG;
-    btnEl.style.color = '#1e293b';
 
     menuEl = document.createElement('div');
     menuEl.className = 'theme-menu';
@@ -124,18 +123,26 @@
     wrap.appendChild(menuEl);
     wrap.appendChild(btnEl);
 
-    // Dock inside the sidebar if this page has one (student view — the
-    // CSS then switches this element to position:static on small screens
-    // so it sits at the bottom of the sidebar rather than floating over
-    // the chat). Otherwise just float bottom-right on every screen size.
-    var slot = document.getElementById('themeToggleSlot');
-    if (slot) {
-      slot.replaceWith(wrap);
-    } else {
-      document.body.appendChild(wrap);
-    }
+    // Dock inside the sidebar if this page has one AND it's currently
+    // visible (student session view — the CSS then switches this element
+    // to position:static on small screens so it sits at the bottom of the
+    // sidebar rather than floating over the chat). Otherwise float
+    // bottom-right over the body. The sidebar lives inside #sessionScreen,
+    // which starts hidden behind the case-picker (#setupScreen), so we
+    // can't just dock once at load — redock() re-evaluates this whenever
+    // the screen the sidebar lives in is shown/hidden.
+    redock();
+    window.addEventListener('audsim:relocate-theme-toggle', redock);
 
     updateMenuState();
+
+    function redock() {
+      var slot = document.getElementById('themeToggleSlot');
+      var sessionScreen = document.getElementById('sessionScreen');
+      var slotVisible = slot && (!sessionScreen || !sessionScreen.classList.contains('hidden'));
+      var target = slotVisible ? slot : document.body;
+      if (wrap.parentNode !== target) target.appendChild(wrap);
+    }
   }
 
   if (document.readyState === 'loading') {
