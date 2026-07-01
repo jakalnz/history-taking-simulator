@@ -1,0 +1,135 @@
+{
+  "id": "case-sarah-taufa-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": ["Conductive/Otitis media", "Congenital/Genetic"],
+    "difficulty": "moderate",
+    "clinicianNotes": "Paediatric case (caregiver-respondent) to practise developmental and perinatal history taking alongside the standard audiological domains. The key diagnostic issues are: (1) recurrent OME driving a mild-moderate conductive loss in the right ear; (2) speech delay that is likely multifactorial — OME plus possible mild bilateral SNHL (left ear borderline on screening). Students should ask about newborn screening (passed AABR bilaterally but borderline on later screening), B4 School Check (referred right ear), developmental milestones (speech at the lower end of normal, motor on track), family history (maternal uncle with childhood hearing loss of unknown cause), and NICU history (nil — normal birth). The trap is anchoring too early on OME and not exploring the genetic/SNHL angle. JCIH risk factors present: caregiver concern, family history, B4 School Check referral. No NICU history, no prenatal infections."
+  },
+  "patient": {
+    "name": "Sarah Taufa",
+    "age": "4 years",
+    "occupation": "Preschooler",
+    "pronoun": "she/her",
+    "medicalKnowledge": "none",
+    "personality": "anxious",
+    "chattiness": 3,
+    "additionalNotes": "Sarah herself is shy and will not speak to the clinician directly — all responses come from her mother, Lena. Lena is a warm but visibly stressed Pacific mother in her late 20s. She has been worried about Sarah's speech for over a year and feels guilty that it took this long to get a referral. She uses everyday language, occasionally mixing in Samoan words. She tends to ask 'is that bad?' after disclosing anything significant. She needs gentle reassurance to stay on track. Lena does not volunteer information spontaneously — she answers questions accurately but waits to be asked.",
+    "caregiverName": "Lena Taufa",
+    "caregiverRelationship": "mother"
+  },
+  "paediatricHistory": {
+    "prenatalAndPerinatal": {
+      "gestationalAge": "40 weeks (term)",
+      "birthWeight": "3.2 kg",
+      "nicuAdmission": false,
+      "perinatalInfections": "None. No TORCH infections identified during pregnancy. Lena had a normal antenatal course.",
+      "perinatalHypoxia": false,
+      "jaundice": false,
+      "ototoxicAntibiotics": false,
+      "congenitalAnomalies": "None. Normal ear morphology bilaterally. No craniofacial anomalies."
+    },
+    "hearingScreening": {
+      "newbornScreening": {
+        "result": "Pass bilateral",
+        "technology": "AABR",
+        "notes": "Completed at Middlemore Hospital day 2. Lena recalls being told 'she passed' and has a copy of the result in the Well Child book."
+      },
+      "b4SchoolCheck": {
+        "result": "Referred right ear",
+        "notes": "Completed at Māngere Health Centre at age 3 years 9 months. Left ear passed. Right ear referred at a 25 dB HL sweep at 1, 2, and 4 kHz. GP received the result and made this audiology referral."
+      },
+      "currentDevices": "None."
+    },
+    "speechAndLanguage": {
+      "firstBabble": "Around 6 months",
+      "firstWord": "Around 14 months (later than Sarah's older brother, who said words at 10 months)",
+      "twoWordCombinations": "Around 26 months",
+      "currentVocabulary": "Lena estimates Sarah uses about 200-250 words. She speaks in 3-4 word sentences most of the time.",
+      "intelligibility": "Lena understands almost everything Sarah says. Close family members understand about 80%. People outside the family — including preschool teachers — struggle significantly. Teachers have raised concern about clarity with Lena.",
+      "receptiveExpressiveNotes": "Lena feels Sarah understands instructions well at home, especially when Lena is face-to-face with her. She is less sure how well Sarah follows instructions at preschool in background noise.",
+      "languages": "English and Samoan spoken at home. Lena is the primary caregiver and speaks English predominantly. Grandparents speak Samoan to Sarah.",
+      "speechLanguageTherapy": "Referred by preschool 3 months ago. On the waiting list — has not yet been seen."
+    },
+    "generalDevelopment": {
+      "grossMotor": "Normal milestones. Walked at 13 months. Running, jumping, climbing appropriately.",
+      "fineMotor": "Age-appropriate.",
+      "cognitive": "Lena feels Sarah is bright and curious. Preschool teachers have not raised cognitive concerns.",
+      "social": "Sarah is shy with new people but plays well with familiar children. Good pretend play. Makes eye contact appropriately with family.",
+      "earlyIntervention": "None to date.",
+      "schoolProgress": "Attends Māngere community preschool 4 days per week. Teachers describe her as engaged but quiet. She tends to watch other children to know what to do rather than following verbal instructions independently.",
+      "developmentalDiagnoses": "None formal. No ASD or ADHD concerns raised."
+    },
+    "functionalImpact": {
+      "homeImpact": "Lena notices Sarah misses things said from another room. Turns the TV up. Responds better when Lena crouches down to her level and speaks directly to her face.",
+      "schoolImpact": "Preschool teachers report Sarah often does not follow group instructions and sometimes seems 'in her own world'. She was moved to the front of the mat area to help.",
+      "socialParticipation": "Plays well in small groups. In noisy family gatherings she tends to withdraw and play alone.",
+      "listeningFatigue": "Lena has not identified this specifically but notes Sarah is often grumpy after preschool.",
+      "noiseExposure": "None of concern.",
+      "existingSupport": "None currently in place. Preschool is awaiting audiology results before applying for RTLB support."
+    },
+    "jcihRiskFactors": [
+      "Caregiver concern about hearing and speech",
+      "Family history of childhood hearing loss (maternal uncle)",
+      "B4 School Check referral (right ear)"
+    ]
+  },
+  "history": {
+    "reasonForAppointment": "Referred by Māngere Family Health for hearing assessment. B4 School Check completed 3 months ago — Sarah was referred from the right ear. The GP has also been concerned about her speech, which is not yet fully clear to people outside the family.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "Newborn hearing screening completed at Middlemore Hospital — passed bilaterally with AABR. B4 School Check 3 months ago at Māngere Health Centre — passed left ear, referred right ear. No diagnostic audiology prior to today."
+    },
+    "hearing": {
+      "betterEar": "left",
+      "decline": "gradual",
+      "declineDetails": "Lena first noticed Sarah was not responding to her name from another room around age 2. She initially thought Sarah was just ignoring her. The concern has grown gradually. Sarah turns up the TV louder than her older brother does. In noisy environments like the preschool playground or family gatherings she seems to completely miss what is said to her."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": ["earInfections"],
+      "details": "Sarah has had five diagnosed episodes of acute otitis media since age 18 months, all treated with amoxicillin by the GP. The most recent episode was about 4 months ago. Lena reports that between infections Sarah's right ear always seems 'full' — she describes Sarah rubbing or tugging the right ear. No discharge. No history of grommets or ENT referral prior to this appointment."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": "Never referred to ENT. GP has managed all ear infections in the community."
+    },
+    "generalHealth": {
+      "hospitalizations": "No hospitalisations apart from birth (normal delivery at Middlemore, term, birth weight 3.2 kg, no NICU admission, no jaundice requiring treatment, no perinatal infections, normal Apgar scores).",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "No significant medical history. No seizures. No syndromic features identified by GP or Well Child provider. Immunisations up to date.",
+      "majorIllnesses": "Nil other than recurrent ear infections.",
+      "medications": "Nil regular. Amoxicillin courses for acute otitis media episodes as needed."
+    },
+    "noiseHistory": {
+      "type": ["none"],
+      "details": "No significant noise exposure history. Family does not attend loud concerts or motorsport events. Lena is aware of safe headphone use and Sarah does not use headphones."
+    },
+    "familyHistory": {
+      "has": true,
+      "details": "Lena's younger brother (maternal uncle to Sarah) had hearing problems as a child — he wore hearing aids throughout primary school. Lena is not sure of the cause or type of hearing loss. He does not wear hearing aids as an adult and Lena assumes he 'grew out of it', though she is uncertain. No other known family history of hearing loss. No family history of known genetic syndromes."
+    },
+    "otherConcerns": "Lena asks at the end of the appointment whether Sarah will need hearing aids, and whether the hearing problem could have caused her speech delay. She also mentions that she is worried about whether it is 'too late' for Sarah's speech given her age."
+  }
+}
