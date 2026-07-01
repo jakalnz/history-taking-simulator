@@ -1,0 +1,83 @@
+{
+  "id": "case-ruby-campbell-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Congenital/Genetic"
+    ],
+    "difficulty": "advanced",
+    "clinicianNotes": "Progressive hearing loss with subtle night-vision/peripheral vision clues suggestive of Usher syndrome. Learning objective: students should ask broadly enough to surface the vision history and childhood balance/motor delay — neither is something Ruby thinks to connect to her hearing. Common student issue: staying narrowly focused on the ears and never asking about vision or early developmental milestones."
+  },
+  "patient": {
+    "name": "Ruby Campbell",
+    "age": "26",
+    "occupation": "Veterinary nurse",
+    "pronoun": "she/her",
+    "medicalKnowledge": "basic",
+    "personality": "neutral",
+    "chattiness": 3,
+    "additionalNotes": "Ruby is friendly and cooperative but doesn't connect her different symptoms together — she answers what's asked without volunteering the bigger picture. She wouldn't mention her night vision or clumsiness as a kid unless specifically asked, since she's never thought of them as related to her hearing."
+  },
+  "history": {
+    "reasonForAppointment": "Hearing has been gradually getting worse over the past few years and she's started missing things at work, like quiet questions from clients or a phone ringing in another room.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "Had a hearing test as a child, around age 7, after her parents noticed she was slow to respond to sounds — was told she had 'a mild loss' at the time, hearing aids were discussed but not pursued as it wasn't considered severe enough. No follow-up testing since then until now."
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "gradual",
+      "declineDetails": "Both ears, roughly even, slowly worsening for as long as she can really remember but definitely more noticeable in the last 3-4 years. Struggles most with quiet or distant sounds and background noise."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "both",
+      "details": "Mild intermittent ringing, present for a few years, not a big bother."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": "If asked specifically about balance as a child, she'll mention she was 'a clumsy kid', a bit late to walk steadily and often bumped into things, though her parents never had it investigated and she hasn't thought about it since. No current balance issues."
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No pain, discharge, or infections."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "If asked specifically about her eyesight or vision, Ruby will mention she's had trouble seeing at night or in dim light for a few years — bumps into furniture in the dark, struggles driving at night — and was told by an optometrist a while back that her peripheral vision was 'a bit narrow' but no formal eye diagnosis was made. She wouldn't bring this up unless asked directly about vision.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "No significant occupational or recreational noise exposure."
+    },
+    "familyHistory": {
+      "has": true,
+      "details": "Her younger brother also has some hearing loss, diagnosed in childhood, similar pattern to hers. No known specific genetic diagnosis in the family — no one has pursued genetic testing."
+    },
+    "otherConcerns": "Ruby wants to know if her hearing loss is going to keep getting worse and whether it's likely to be genetic since her brother has something similar."
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "id": "case-dylan-ah-chong-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Traumatic",
+      "Conductive/Otitis media"
+    ],
+    "difficulty": "moderate",
+    "clinicianNotes": "Traumatic tympanic membrane perforation from a direct blow (slap injury during sport). Learning objective: students should ask specifically about the mechanism of injury and immediate post-injury symptoms (sudden pain, brief bleeding, sudden hearing drop) rather than accepting a vague \"got hit\" without detail."
+  },
+  "patient": {
+    "name": "Dylan Ah Chong",
+    "age": "20",
+    "occupation": "Apprentice electrician, plays social rugby",
+    "pronoun": "he/him",
+    "medicalKnowledge": "basic",
+    "personality": "relaxed",
+    "chattiness": 2,
+    "additionalNotes": "Dylan is casual about it — sports injuries are normal for him. Doesn't think it's a big deal unless asked more about it."
+  },
+  "history": {
+    "reasonForAppointment": "Left ear hearing dropped suddenly after copping an open-hand slap to the side of the head during a rugby match about 10 days ago, and it hasn't come right since.",
+    "previousHearingTest": {
+      "had": false,
+      "details": ""
+    },
+    "hearing": {
+      "betterEar": "right",
+      "decline": "sudden",
+      "declineDetails": "Left ear hearing dropped suddenly at the moment of the impact, sharp pain at the time, and it has stayed muffled since. Right ear completely normal. No change in the 10 days since — hasn't got better or worse."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "left",
+      "details": "Some ringing in the left ear since the injury, comes and goes. Doesn't bother him much."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "imbalance",
+      "details": "Brief dizziness right at the moment of impact, lasted a few seconds and settled almost immediately. Nothing since."
+    },
+    "earHealth": {
+      "experiences": [
+        "auralPain",
+        "auralDrainage"
+      ],
+      "details": "Sharp pain at the moment of the slap, with a small amount of blood-tinged fluid from the ear canal that evening, which stopped by the next day. Some mild ongoing discomfort but no pain currently. No infections before this."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "None.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "occupational"
+      ],
+      "details": "Some noise exposure as an apprentice electrician on building sites, uses provided hearing protection most of the time."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": ""
+    },
+    "otherConcerns": "Dylan wants to know if he can keep playing rugby and swimming, and whether the hearing will come back on its own."
+  }
+}

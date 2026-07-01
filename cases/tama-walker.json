@@ -1,0 +1,84 @@
+{
+  "id": "case-tama-walker-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "NIHL"
+    ],
+    "difficulty": "beginner",
+    "clinicianNotes": "Straightforward NIHL in a young adult with dual occupational + recreational (band) exposure. Good early case for noise-history taking and PPE questions."
+  },
+  "patient": {
+    "name": "Tama Walker",
+    "age": "27",
+    "occupation": "Builder, plays drums in a covers band on weekends",
+    "pronoun": "he/him",
+    "medicalKnowledge": "basic",
+    "personality": "relaxed",
+    "chattiness": 2,
+    "additionalNotes": "Tama isn't too worried about it — mates his age have the same thing. Short, easy answers. Only gets more talkative if asked about the band."
+  },
+  "history": {
+    "reasonForAppointment": "Girlfriend told him to get it checked after he kept turning the TV up and missed her calling him from another room.",
+    "previousHearingTest": {
+      "had": false,
+      "details": ""
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "gradual",
+      "declineDetails": "Both ears, roughly even. Noticed over the last couple of years he struggles to hear people at gigs afterwards and needs the TV louder than his girlfriend does. Worse in noisy pubs and gigs, fine one-on-one in quiet."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "both",
+      "details": "High-pitched ringing after gigs or a loud day on site, usually gone by the next morning. Lately taking a bit longer to go away. Doesn't bother him much."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No pain, discharge or infections."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "None.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "occupational",
+        "recreational"
+      ],
+      "details": "5 years on building sites — power tools, nail guns, saws. Earmuffs provided but he 'forgets half the time'. Drums in a band for 8 years, 2-3 gigs a month plus rehearsals, no hearing protection, sits right in front of the amps."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": ""
+    },
+    "otherConcerns": "Wants to know if it's actually a problem or if everyone's hearing is a bit like this. Curious if earplugs at gigs actually make a difference."
+  }
+}

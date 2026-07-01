@@ -1,0 +1,83 @@
+{
+  "id": "case-olivia-hart-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Sudden SNHL"
+    ],
+    "difficulty": "advanced",
+    "clinicianNotes": "Sudden sensorineural hearing loss — a genuine urgent referral. Learning objective: students should recognise the red-flag timeline (loss over hours-days, unilateral, no obvious cause) and understand this needs same-day ENT referral, not routine booking. Common student issue: treating it like routine gradual loss and not probing exact onset speed."
+  },
+  "patient": {
+    "name": "Olivia Hart",
+    "age": "39",
+    "occupation": "Marketing manager",
+    "pronoun": "she/her",
+    "medicalKnowledge": "basic",
+    "personality": "anxious",
+    "chattiness": 3,
+    "additionalNotes": "Olivia is frightened — this came on fast and she doesn't understand why. She googled her symptoms and is worried about a brain tumour. Reassure-seeking, asks 'is this serious?' more than once."
+  },
+  "history": {
+    "reasonForAppointment": "Woke up three days ago with her right ear feeling completely blocked and sound muffled. Thought it was wax at first but it hasn't improved and she's now quite worried.",
+    "previousHearingTest": {
+      "had": false,
+      "details": ""
+    },
+    "hearing": {
+      "betterEar": "left",
+      "decline": "sudden",
+      "declineDetails": "Right ear hearing dropped suddenly — she noticed it immediately on waking three days ago, it was normal the night before. No fluctuation since, hasn't improved or worsened. Left ear completely normal. No preceding cold, injury, or loud noise exposure."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "right",
+      "details": "New high-pitched ringing in the right ear since the same morning. Constant since onset."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "imbalance",
+      "details": "Mild sense of unsteadiness for the first day, which has settled. No true spinning."
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No pain, pressure, or discharge. No recent cold or flu, though she had a stressful week at work beforehand."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "None significant. Mild stress/anxiety, no formal diagnosis.",
+      "medications": "Combined oral contraceptive pill."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "Office job, no significant noise exposure."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": ""
+    },
+    "otherConcerns": "Olivia wants to know urgently if this is permanent and whether it could be something serious like a tumour or stroke. She's already looked it up online and scared herself."
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "id": "case-jordan-pillai-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Undifferentiated"
+    ],
+    "difficulty": "moderate",
+    "clinicianNotes": "Suspected auditory processing difficulty — normal-ish hearing sensitivity but real functional difficulty in noise/multi-talker settings, plus a history that hints at possible undiagnosed ADHD. Learning objective: students should recognise this doesn't fit a simple audiometric hearing loss picture and consider APD/central auditory workup and referral rather than just reassuring 'your hearing is probably fine'. Common student issue: dismissing the complaint once basic tinnitus/ear health questions come back negative, without exploring the listening-in-noise and attention history further."
+  },
+  "patient": {
+    "name": "Jordan Pillai",
+    "age": "22",
+    "occupation": "University student (studying commerce)",
+    "pronoun": "they/them",
+    "medicalKnowledge": "basic",
+    "personality": "chatty",
+    "chattiness": 4,
+    "additionalNotes": "Jordan is friendly and talks a lot, sometimes going off on tangents about uni or flatmates. They're a bit frustrated because previous doctors have brushed off their concerns. They won't mention attention/concentration difficulties unless asked specifically — they see it as unrelated to why they're here."
+  },
+  "history": {
+    "reasonForAppointment": "Struggles to follow lectures and conversations in noisy places like the uni cafeteria or flat parties, despite feeling like their hearing is 'fine' one-on-one in quiet.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "Had a basic hearing screen through student health a year ago — was told results were 'within normal range' and sent away, which frustrated them because the problem hasn't gone away."
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "gradual",
+      "declineDetails": "Hard to pin down — feels like it's 'always been like this' but became a bigger problem since starting university with lots of group work and lectures. Both ears seem the same. Main issue is following speech when there's background noise or multiple people talking, not volume — they can hear that people are talking, just struggle to make out or keep up with what's being said."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": true,
+      "location": "both",
+      "details": "Finds busy, echoey rooms overwhelming and tiring, like the cafeteria or a crowded bar — describes it as sounds all blurring together rather than being too loud exactly. Rates it as quite frustrating if pushed for detail."
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No pain, discharge, infections, or history of ear problems."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "If asked specifically about concentration, focus, or being easily distracted, Jordan will mention they've always struggled to focus in lectures and lose track of conversations easily, and a teacher once suggested they get assessed for ADHD in high school but it was never followed up. They wouldn't bring this up unprompted since they think of it as a separate issue from their hearing.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "recreational"
+      ],
+      "details": "Goes to gigs and parties reasonably often as a student, nothing extreme. No occupational noise exposure."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": ""
+    },
+    "otherConcerns": "Jordan is frustrated that a previous 'normal' hearing test didn't explain why they still struggle so much in noisy places, and wants to know if something else could be going on."
+  }
+}

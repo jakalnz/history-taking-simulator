@@ -1,0 +1,84 @@
+{
+  "id": "case-nathan-ross-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Conductive/Otitis media"
+    ],
+    "difficulty": "beginner",
+    "clinicianNotes": "Acute otitis externa (swimmer's ear) — simple, self-contained case good for early practice, including pain-on-touch and recent water exposure clues."
+  },
+  "patient": {
+    "name": "Nathan Ross",
+    "age": "19",
+    "occupation": "Lifeguard and university student",
+    "pronoun": "he/him",
+    "medicalKnowledge": "basic",
+    "personality": "relaxed",
+    "chattiness": 2,
+    "additionalNotes": "Nathan is chill about it, treats it as a minor annoyance getting in the way of his shifts at the pool."
+  },
+  "history": {
+    "reasonForAppointment": "Right ear has been sore and blocked for the past 4 days, started after a week of back-to-back lifeguarding shifts at the pool.",
+    "previousHearingTest": {
+      "had": false,
+      "details": ""
+    },
+    "hearing": {
+      "betterEar": "left",
+      "decline": "sudden",
+      "declineDetails": "Right ear feels blocked and muffled, started a few days ago alongside the pain. Left ear completely normal. He suspects it's just swelling from the infection."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "auralPain",
+        "auralPressure"
+      ],
+      "details": "Right ear pain, worse when he touches or pulls on his ear, or wears his cap. Some clear-ish discharge the last day or two. No fever. Started after a week of heavy pool exposure and using cotton buds to dry his ears out after shifts."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "None.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "No significant noise exposure."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": ""
+    },
+    "otherConcerns": "Nathan wants to know how quickly he can get back in the pool for work and whether he needs antibiotics or ear drops."
+  }
+}

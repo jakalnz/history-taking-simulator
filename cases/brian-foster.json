@@ -1,0 +1,85 @@
+{
+  "id": "case-brian-foster-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Ototoxicity"
+    ],
+    "difficulty": "moderate",
+    "clinicianNotes": "Ototoxic hearing loss from platinum-based chemotherapy. Learning objective: students should link the timeline of hearing change to the chemo course, not just log it as unrelated general health. Common student issue: not asking specifically which medications/treatments were used, just noting \"had cancer treatment\"."
+  },
+  "patient": {
+    "name": "Brian Foster",
+    "age": "58",
+    "occupation": "Retired accountant",
+    "pronoun": "he/him",
+    "medicalKnowledge": "moderate",
+    "personality": "stoic",
+    "chattiness": 2,
+    "additionalNotes": "Brian downplays things — he's just glad to be past the cancer and doesn't want to make a fuss about 'just his hearing'. Short, matter-of-fact answers about his treatment if asked directly."
+  },
+  "history": {
+    "reasonForAppointment": "Referred by his oncologist for a hearing check after completing chemotherapy for testicular cancer 8 months ago.",
+    "previousHearingTest": {
+      "had": false,
+      "details": ""
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "gradual",
+      "declineDetails": "Both ears, roughly symmetric. First noticed high-pitched sounds like birds and his microwave beeping became hard to hear partway through his chemotherapy course. Has stayed roughly the same since finishing treatment 8 months ago — hasn't worsened further, but hasn't improved either."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "both",
+      "details": "High-pitched ringing, started during chemo, still present. Rates it as a minor nuisance mostly, worse at night."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No pain, discharge, or infections."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "Admitted for chemotherapy cycles over about 4 months last year, and briefly for a low blood count during treatment.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [
+        "cancer"
+      ],
+      "pastInfectionsDetails": "Testicular cancer, diagnosed just over a year ago. Treated with surgery followed by cisplatin-based chemotherapy — he knows the drug name if asked directly ('cisplatin, I think, or something like that'). Currently in remission, follow-up scans clear.",
+      "majorIllnesses": "Cancer as above, now in remission.",
+      "medications": "None regularly now. Occasional paracetamol."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "Office career, no significant noise exposure. No recreational noise exposure of note."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": ""
+    },
+    "otherConcerns": "Brian mostly wants to know if this is 'just how it is now' from the chemo, or if it will get any worse. He's cautious about bringing up more health issues so soon after finishing cancer treatment."
+  }
+}

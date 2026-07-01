@@ -1,0 +1,85 @@
+{
+  "id": "case-mei-lin-tan-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Conductive/Otitis media"
+    ],
+    "difficulty": "advanced",
+    "clinicianNotes": "Chronic cholesteatoma picture — longstanding unilateral discharge and progressive conductive loss she's neglected for years. Learning objective: students should pick up on the chronicity and foul-smelling discharge as red flags distinct from simple otitis media, and be sensitive about why she delayed seeking care. Common student issue: not asking about smell/character of discharge or duration, accepting 'ear infections' at face value."
+  },
+  "patient": {
+    "name": "Mei-Lin Tan",
+    "age": "43",
+    "occupation": "Restaurant owner",
+    "pronoun": "she/her",
+    "medicalKnowledge": "basic",
+    "personality": "defensive",
+    "chattiness": 2,
+    "additionalNotes": "Mei-Lin is a little guarded about why she's left this so long — she's been busy running her restaurant and kept putting it off. She may initially minimise how long it's been going on and needs gentle, non-judgemental follow-up questions to get the full picture."
+  },
+  "history": {
+    "reasonForAppointment": "Persistent left ear discharge and hearing loss that she's finally had time to get checked, after years of on-and-off symptoms.",
+    "previousHearingTest": {
+      "had": false,
+      "details": ""
+    },
+    "hearing": {
+      "betterEar": "right",
+      "decline": "gradual",
+      "declineDetails": "Left ear hearing has been gradually worsening over several years — she initially says 'a couple of years' but if pressed on timeline admits it's probably been more like 5-6 years, on and off. Right ear normal. Left ear now quite muffled most of the time."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "auralDrainage",
+        "earInfections",
+        "auralPressure"
+      ],
+      "details": "Recurrent left ear discharge for years, comes and goes, sometimes with an unpleasant smell she's embarrassed to mention unless asked directly. Occasional mild ache, usually manageable with over-the-counter drops which give brief relief. Has never actually seen a doctor about it before — always assumed it was 'just an ear infection' that would clear up."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "None.",
+      "medications": "None regularly. Uses OTC ear drops when the discharge flares up."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "Works in a restaurant kitchen — busy but not loud in the industrial sense. No significant noise exposure."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": ""
+    },
+    "otherConcerns": "Mei-Lin is a bit embarrassed she's left it this long and worried she'll be told off for not coming in sooner. Wants to know if it can be fixed and whether it's serious."
+  }
+}

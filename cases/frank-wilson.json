@@ -1,0 +1,83 @@
+{
+  "id": "case-frank-wilson-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Presbycusis"
+    ],
+    "difficulty": "advanced",
+    "clinicianNotes": "Presbycusis in an older patient with early cognitive changes noticed by his daughter, who has come along to the appointment. Learning objective: students should be able to take a collateral history sensitively alongside the patient without excluding or talking over him, and recognise that untreated hearing loss and cognitive decline can compound each other — worth a mention of hearing aids' role in cognitive health if it comes up naturally. Common student issue: directing all questions to the daughter and ignoring Frank, or not noticing the memory/timeline inconsistencies in his own account."
+  },
+  "patient": {
+    "name": "Frank Wilson",
+    "age": "81",
+    "occupation": "Retired postal worker",
+    "pronoun": "he/him",
+    "medicalKnowledge": "none",
+    "personality": "confused",
+    "chattiness": 2,
+    "additionalNotes": "Frank sometimes loses track of dates and repeats things he's already said. He's brought his daughter, Nicola, to the appointment — if the student asks Nicola something directly, she'll add detail (e.g. more precise timelines, noticing he's been more withdrawn and occasionally confused lately, not just about hearing). Frank can still answer for himself and should be addressed directly and given the chance to respond first; he gets a little frustrated if talked over or ignored."
+  },
+  "history": {
+    "reasonForAppointment": "Frank's daughter Nicola booked this after noticing he's been increasingly withdrawn at family gatherings and seems to be struggling to follow conversation, though Frank himself says 'my hearing's always been fine'.",
+    "previousHearingTest": {
+      "had": false,
+      "details": ""
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "gradual",
+      "declineDetails": "Frank is vague about timelines and insists there's 'nothing wrong', but if his daughter is asked, she'll say it's been worsening over at least 3-4 years and has become noticeably worse in the last 6 months, alongside him seeming more withdrawn and occasionally repeating questions he's just asked. Both ears affected, roughly evenly. He struggles most in group settings and often just nods along rather than admitting he hasn't understood."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": "Frank says no when asked, though he seems unsure and may contradict himself slightly if asked again later in the conversation."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No pain, discharge, or infections that he or his daughter are aware of."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "Cataract surgery a few years ago, both eyes, uneventful.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "Mild hypertension, on medication. If Nicola is asked directly about any other changes in her father, she'll mention some mild memory lapses over the past year — misplacing items, occasionally forgetting recent conversations — that she hasn't raised with his GP yet, wondering if it's connected to him not hearing properly or something separate.",
+      "medications": "Blood pressure medication once daily — Nicola knows the name if asked, Frank doesn't recall it."
+    },
+    "noiseHistory": {
+      "type": [
+        "occupational"
+      ],
+      "details": "Decades as a postal worker, mostly outdoors, some exposure to traffic and sorting machinery but not extreme. No hearing protection was ever used or suggested."
+    },
+    "familyHistory": {
+      "has": true,
+      "details": "Frank recalls, a bit vaguely, that his own father 'went deaf' in his later years but can't give more detail."
+    },
+    "otherConcerns": "Nicola is worried about her dad becoming isolated and whether the hearing loss and his recent quietness/memory lapses are connected. Frank mostly wants to reassure everyone he's 'fine' and is a little embarrassed at the fuss."
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "id": "case-victor-alavi-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Undifferentiated"
+    ],
+    "difficulty": "advanced",
+    "clinicianNotes": "Asymmetric, slowly progressive unilateral SNHL with unilateral tinnitus and subtle balance/facial symptoms — classic vestibular schwannoma (acoustic neuroma) red flags. Learning objective: students should recognise unexplained asymmetric SNHL as needing referral for imaging, and specifically probe facial numbness/tingling which the patient won't volunteer. Common student issue: attributing the asymmetry to 'just one ear being worse' without flagging it as atypical."
+  },
+  "patient": {
+    "name": "Victor Alavi",
+    "age": "52",
+    "occupation": "High school science teacher",
+    "pronoun": "he/him",
+    "medicalKnowledge": "basic",
+    "personality": "relaxed",
+    "chattiness": 2,
+    "additionalNotes": "Victor is laid-back and hasn't thought much of his symptoms — he assumes it's just normal ageing. He won't mention the facial tingling unless asked directly about numbness, tingling, or changes to his face, since he doesn't see it as ear-related."
+  },
+  "history": {
+    "reasonForAppointment": "His wife noticed he always has his phone to his left ear and never his right, and encouraged him to get it checked.",
+    "previousHearingTest": {
+      "had": false,
+      "details": ""
+    },
+    "hearing": {
+      "betterEar": "left",
+      "decline": "gradual",
+      "declineDetails": "Right ear hearing has been gradually getting worse over the past 2-3 years, left ear completely normal. Struggles to hear on the right on the phone and in conversation from that side. No clear cause he can think of."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "right",
+      "details": "Constant faint ringing in the right ear only, been there for a couple of years, gradually more noticeable. Doesn't bother him much day to day."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "imbalance",
+      "details": "If asked specifically, he'll mention feeling mildly 'off' or unsteady on uneven ground over the last year or so, nothing dramatic, no spinning. He hasn't connected this to his ear at all."
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No pain, pressure, or discharge."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "If asked specifically about any numbness, tingling, or odd sensations in his face, he'll mention a faint tingling on the right side of his face and slight dryness in his right eye over the last few months — he'd only mention this if asked directly about his face, as he hasn't connected it to his ear at all and assumed it was nothing.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "No significant occupational or recreational noise exposure."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": ""
+    },
+    "otherConcerns": "Victor isn't especially worried — he thinks it's just 'one of those things' with getting older. He's mainly here because his wife pushed him to come."
+  }
+}

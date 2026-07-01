@@ -1,0 +1,83 @@
+{
+  "id": "case-arthur-baxter-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Presbycusis"
+    ],
+    "difficulty": "beginner",
+    "clinicianNotes": "Textbook presbycusis in a stoic, minimising patient — good practice for drawing out functional impact from someone who insists \"it's not that bad\" despite clear social withdrawal."
+  },
+  "patient": {
+    "name": "Arthur Baxter",
+    "age": "79",
+    "occupation": "Retired fisherman",
+    "pronoun": "he/him",
+    "medicalKnowledge": "none",
+    "personality": "stoic",
+    "chattiness": 2,
+    "additionalNotes": "Arthur insists he's 'fine' and it's everyone else who mumbles. He's stopped going to his weekly card game with mates because he can't follow the conversation, but won't say this outright — it only comes out if asked specifically about social activities or hobbies he's given up."
+  },
+  "history": {
+    "reasonForAppointment": "His daughter booked the appointment for him after visiting and noticing the TV volume was 'ridiculous' and he'd stopped answering the phone properly.",
+    "previousHearingTest": {
+      "had": false,
+      "details": ""
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "gradual",
+      "declineDetails": "Both ears, very gradual decline over probably 10+ years, hard for him to pin down exactly when it started. Struggles most with women's and children's voices, and following conversation in groups. Says one-on-one in a quiet room he's 'fine'."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "both",
+      "details": "Faint ringing, been there for years, he barely notices it and only mentions it if asked directly."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No pain, discharge or infections that he recalls, ever."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "Hernia repair, years ago.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "Mild hypertension, on medication. Otherwise well for his age.",
+      "medications": "Blood pressure tablet, once daily — cannot recall the name."
+    },
+    "noiseHistory": {
+      "type": [
+        "occupational"
+      ],
+      "details": "40 years commercial fishing — loud boat engines and machinery, no hearing protection used, it 'wasn't really a thing back then'."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": "Doesn't recall his parents having hearing problems, though he says they were 'a different generation, nobody made a fuss about it'."
+    },
+    "otherConcerns": "Arthur mainly wants his daughter to stop nagging him. Only if asked directly will he admit he's stopped going to his weekly card game because he can't keep up with the conversation and feels embarrassed asking people to repeat themselves."
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "id": "case-casey-reid-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Undifferentiated"
+    ],
+    "difficulty": "advanced",
+    "clinicianNotes": "Functional (non-organic) hearing loss in a teenager, likely linked to school stress/bullying. Learning objective: students should notice inconsistencies in the history (e.g. hearing loss that doesn't stop them responding to their name or quiet phone notifications when distracted, a normal test result they weren't satisfied with, symptom onset tied to a stressful life event) without being confrontational — the aim is gentle, non-accusatory probing, not 'catching them out'. Common student issue: either not noticing the inconsistencies at all, or bluntly telling the patient their hearing loss 'isn't real', which shuts the conversation down. The patient genuinely experiences the difficulty as real and is not consciously faking for this roleplay — treat with sensitivity."
+  },
+  "patient": {
+    "name": "Casey Reid",
+    "age": "15",
+    "occupation": "High school student",
+    "pronoun": "they/them",
+    "medicalKnowledge": "basic",
+    "personality": "defensive",
+    "chattiness": 2,
+    "additionalNotes": "Casey is a bit guarded, especially about school and friendships — gives short answers and gets quieter or changes the subject if asked directly about how school is going, whether they're being bullied, or how they're doing emotionally. They genuinely believe their hearing is impaired and are not being deliberately deceptive; they get a little defensive if it's implied they're making it up or being dramatic. If the conversation stays warm and non-confrontational, they'll eventually open up a little about a difficult few months at school (some conflict with a friend group) around when the hearing trouble started."
+  },
+  "history": {
+    "reasonForAppointment": "Brought in by a parent because Casey has been saying they can't hear properly at school and it's affecting their grades, but the school nurse's hearing screen came back 'normal' which confused everyone.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "School nurse did a basic screening test about 6 weeks ago after Casey complained of hearing trouble — was told results were normal, which Casey found hard to believe since they feel like they genuinely can't hear well, especially in class."
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "sudden",
+      "declineDetails": "Casey describes both ears as 'muffled' or 'like everything's underwater', which they say started fairly suddenly about 2 months ago. Says it's worst in the classroom and around groups of kids at school, and describes it as pretty severe if asked to rate it — but if asked casually later in the conversation whether they heard something quiet like a phone buzz or someone speaking softly, they respond normally without seeming to notice the inconsistency. They don't connect this to anything themselves and seem a little confused by their own symptoms."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No pain, discharge, or infections."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "If gently asked how things have been going generally — school, friends, home — and given time without pressing too hard, Casey will eventually mention things have been 'kind of hard' with a friend group falling out around the same time the hearing trouble started, and that school has felt overwhelming lately. They won't volunteer this unprompted and may initially deflect ('school's fine') before opening up a little.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "No significant noise exposure — typical teenager, headphones sometimes but nothing extreme."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": ""
+    },
+    "otherConcerns": "Casey's parent (mentioned if asked about who else is worried) is confused why the school test was normal but Casey still struggles, and wants a second opinion. Casey mostly wants someone to believe that something is actually wrong."
+  }
+}

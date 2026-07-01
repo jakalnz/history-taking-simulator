@@ -1,0 +1,83 @@
+{
+  "id": "case-holly-mercer-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Vestibular"
+    ],
+    "difficulty": "moderate",
+    "clinicianNotes": "Vestibular migraine — useful differential against Meniere's disease. Learning objective: students should elicit the headache/migraine history, light and sound sensitivity during episodes, and the lack of true fluctuating hearing loss, to distinguish this from a Meniere's picture. Common student issue: hearing 'dizziness + sound sensitivity' and jumping straight to a Meniere's-type conclusion without asking about headache history or visual symptoms."
+  },
+  "patient": {
+    "name": "Holly Mercer",
+    "age": "34",
+    "occupation": "Software developer",
+    "pronoun": "she/her",
+    "medicalKnowledge": "moderate",
+    "personality": "anxious",
+    "chattiness": 3,
+    "additionalNotes": "Holly is worried and has already read a lot online about Meniere's disease and is convinced that's what she has — she may bring this up herself. She describes things fairly precisely given her analytical job, but doesn't have specific ENT knowledge."
+  },
+  "history": {
+    "reasonForAppointment": "Recurrent episodes of dizziness over the past 6 months, with some sound and light sensitivity, which she's convinced herself might be Meniere's disease after researching it online.",
+    "previousHearingTest": {
+      "had": false,
+      "details": ""
+    },
+    "hearing": {
+      "betterEar": "same",
+      "decline": "none",
+      "declineDetails": "She doesn't feel her hearing itself has actually changed, though during episodes sounds feel 'too much' or overwhelming, which she's interpreted as a hearing problem. Between episodes she feels her hearing is normal."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": true,
+      "location": "both",
+      "details": "Sound feels uncomfortably intense specifically during her dizzy episodes and for a while afterward, not at other times. Bright lights bother her similarly during episodes, which she'll mention if asked broadly about what else happens during an episode."
+    },
+    "balance": {
+      "concern": "vertigo",
+      "details": "Episodes of dizziness, roughly monthly, lasting anywhere from 30 minutes to several hours. Describes a spinning or rocking sensation, sometimes with nausea. Often — though she may not connect it unless asked — accompanied by a dull headache before, during, or after, and she is more sensitive to light during these times. No clear single trigger, though she thinks stress and poor sleep make them more likely."
+    },
+    "earHealth": {
+      "experiences": [
+        "noConcerns"
+      ],
+      "details": "No pain, pressure, discharge, or infections."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "If asked specifically about headaches or migraines, Holly will mention she's had occasional migraines with visual auras since her teens, roughly a few times a year, though she hasn't thought to connect these to her current dizzy spells.",
+      "medications": "Occasional ibuprofen or sumatriptan for migraines."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "Office-based work, no significant noise exposure."
+    },
+    "familyHistory": {
+      "has": true,
+      "details": "Her mother has a history of migraines, though not specifically dizziness that Holly is aware of."
+    },
+    "otherConcerns": "Holly wants to know if this is Meniere's disease like she's read about, and is anxious about whether it will get worse or affect her hearing permanently. She works from a laptop most of the day and is worried about how the episodes affect her work."
+  }
+}

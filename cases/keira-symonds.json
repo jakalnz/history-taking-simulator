@@ -1,0 +1,83 @@
+{
+  "id": "case-keira-symonds-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "meta": {
+    "category": [
+      "Conductive/Otitis media"
+    ],
+    "difficulty": "beginner",
+    "clinicianNotes": "Simple cerumen impaction — good first-week case for basic otologic history and differentiating conductive symptoms (own voice sounding loud, sudden onset after water exposure) from sensorineural."
+  },
+  "patient": {
+    "name": "Keira Symonds",
+    "age": "31",
+    "occupation": "Graphic designer",
+    "pronoun": "she/her",
+    "medicalKnowledge": "basic",
+    "personality": "neutral",
+    "chattiness": 3,
+    "additionalNotes": "Keira is easy-going and cooperative, happy to answer questions in a bit of detail without needing much prompting."
+  },
+  "history": {
+    "reasonForAppointment": "Right ear suddenly felt completely blocked after a swim at the beach last weekend and hasn't cleared since.",
+    "previousHearingTest": {
+      "had": false,
+      "details": ""
+    },
+    "hearing": {
+      "betterEar": "left",
+      "decline": "sudden",
+      "declineDetails": "Right ear went blocked suddenly after swimming about a week ago. Feels muffled, like being underwater. Left ear completely normal. Has used cotton buds regularly for years to 'clean' her ears, more on the right."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": [
+        "auralPressure"
+      ],
+      "details": "Feeling of fullness and blockage in the right ear since the swim. No pain or discharge. Own voice sounds louder/echoey in that ear."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "None.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": [
+        "none"
+      ],
+      "details": "Office-based work, no significant noise exposure."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": ""
+    },
+    "otherConcerns": "Wants to know if it will just clear on its own or if she needs the ear syringed/cleaned, and whether she should stop using cotton buds."
+  }
+}
