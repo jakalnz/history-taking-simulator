@@ -1515,6 +1515,25 @@ function generatePdfReport() {
   const maxWidth = doc.internal.pageSize.getWidth() - marginX * 2;
   let y = 50;
 
+  // jsPDF's built-in fonts (Helvetica etc.) only support the WinAnsi/Latin-1
+  // character set, not full Unicode — anything outside it (smart quotes,
+  // em/en dashes, ellipses, bullets, checkmarks) renders as garbled glyphs
+  // instead of embedding a custom Unicode font. AI-generated feedback text
+  // in particular is full of typographic punctuation, so sanitize every
+  // string that reaches doc.text() rather than just the obvious symbols.
+  function pdfSafe(text) {
+    return String(text ?? '')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // strip accents (e.g. \u0101 -> a)
+      .replace(/[\u2018\u2019]/g, "'") // smart single quotes
+      .replace(/[\u201C\u201D]/g, '"') // smart double quotes
+      .replace(/[\u2013\u2014]/g, '-') // en/em dash
+      .replace(/\u2026/g, '...') // ellipsis
+      .replace(/[\u2022\u25CF\u25AA\u00B7]/g, '-') // bullet variants, middle dot
+      .replace(/\u2713/g, '[Y]') // checkmark
+      .replace(/[\u25CB\u25CC]/g, 'o') // open circle
+      .replace(/[^\x00-\x7F]/g, ''); // drop anything else non-ASCII (emoji, etc.)
+  }
+
   function ensureSpace(need = 14) {
     if (y + need > pageHeight - 40) { doc.addPage(); y = 50; }
   }
@@ -1522,13 +1541,13 @@ function generatePdfReport() {
     ensureSpace(size + 12);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(size);
-    doc.text(text, marginX, y);
+    doc.text(pdfSafe(text), marginX, y);
     y += size + 6;
   }
   function paragraph(text, { size = 10, bold = false } = {}) {
     doc.setFont('helvetica', bold ? 'bold' : 'normal');
     doc.setFontSize(size);
-    const lines = doc.splitTextToSize(text, maxWidth);
+    const lines = doc.splitTextToSize(pdfSafe(text), maxWidth);
     lines.forEach(line => {
       ensureSpace(size * 1.4);
       doc.text(line, marginX, y);
@@ -1553,8 +1572,8 @@ function generatePdfReport() {
   const hits = COVERAGE_SECTIONS.filter(s => coveredSections.has(s.key));
   if (hits.length) {
     hits.forEach(s => {
-      paragraph(`✓ ${s.label}`);
-      s.subs.filter(sub => coveredSections.has(sub.key)).forEach(sub => paragraph(`    · ${sub.label}`, { size: 9 }));
+      paragraph(`- ${s.label}`);
+      s.subs.filter(sub => coveredSections.has(sub.key)).forEach(sub => paragraph(`    - ${sub.label}`, { size: 9 }));
     });
   } else {
     paragraph('None yet');
@@ -1591,7 +1610,7 @@ function generatePdfReport() {
     heading('AI Feedback');
     reviewResult.querySelectorAll('h4, li').forEach(el => {
       if (el.tagName === 'H4') { spacer(2); paragraph(el.textContent, { bold: true, size: 11 }); }
-      else paragraph(`• ${el.textContent}`, { size: 10 });
+      else paragraph(`- ${el.textContent}`, { size: 10 });
     });
     spacer(10);
   }
