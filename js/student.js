@@ -36,7 +36,7 @@ function classifyQuestion(text) {
 function closedQuestionStreak(conversation) {
   let streak = 0;
   let scanned = 0;
-  for (let i = conversation.length - 1; i >= 0 && scanned < 8; i--) {
+  for (let i = conversation.length - 1; i >= 0 && scanned < 12; i--) {
     const m = conversation[i];
     if (m.role !== 'user') continue;
     scanned++;
@@ -61,13 +61,16 @@ function computeQuestionBalance(conversation) {
   return { open, closed, total: open + closed };
 }
 
-// Chatty patients get a longer leash — reining in a chatty patient with a
-// couple of closed questions is a legitimate clinical skill, not a penalty case.
+// Real history-taking legitimately runs several closed screening questions
+// in a row within one topic (most of the hint bank is "Have you…"/"Do you…"
+// style) — that's appropriate drilling, not interrogation, and shouldn't
+// trip this. Only a genuinely long, unbroken run should. Chatty patients
+// get an even longer leash since reining them in takes more closed questions.
 function buildDynamicDirective(conversation, patient) {
   const streak = closedQuestionStreak(conversation);
-  const threshold = (patient?.chattiness >= 4) ? 4 : 3;
+  const threshold = (patient?.chattiness >= 4) ? 8 : 7;
   if (streak < threshold) return '';
-  return `\n\nCURRENT CONVERSATION DYNAMIC: The student has just asked ${streak} closed (yes/no style) questions in a row without giving you room to open up on any of them. Real patients start to feel interrogated by this and shut down. For your NEXT reply only: answer in the shortest natural way possible — a brief "yes"/"no"/one short phrase — and do NOT volunteer any extra detail, even facts you would normally add for a question like this. This resets back to your normal chattiness the moment they ask an open-ended question (a "what"/"how"/"why"/"tell me about" style question).`;
+  return `\n\nCURRENT CONVERSATION DYNAMIC: The student has now asked ${streak} closed (yes/no style) questions in a row without a single open question giving you room to elaborate. Real patients start to feel interrogated by a run this long and shut down a little. For your NEXT reply only: answer more briefly than usual and hold back detail you'd normally volunteer — but you don't need to go fully monosyllabic, a short, slightly clipped answer is enough. This resets back to your normal chattiness the moment they ask an open-ended question (a "what"/"how"/"why"/"tell me about" style question).`;
 }
 
 // ── Session timer ──
