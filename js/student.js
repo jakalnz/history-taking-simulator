@@ -677,22 +677,137 @@ const ADULT_COVERAGE_SECTIONS = [
 // Paediatric coverage areas — used instead of ADULT_COVERAGE_SECTIONS when
 // the active case has a paediatricHistory block. See docs/paediatric_extension_spec.md §3.
 const PAEDIATRIC_COVERAGE_SECTIONS = [
-  { key: 'presenting_concern', label: 'Presenting concern', keywords: ['hear','concern','today','appointment','refer','why'], subs: [] },
-  { key: 'caregiver_concern',  label: "Caregiver's view of hearing", keywords: ['think','notice','worry','problem','hear','behave'], subs: [] },
-  { key: 'onset_course',       label: 'Onset and time course', keywords: ['when','start','sudden','gradual','always','worse','better'], subs: [] },
-  { key: 'previous_tests',     label: 'Previous hearing tests', keywords: ['test','before','result','audiology','screen'], subs: [] },
-  { key: 'newborn_screening',  label: 'Newborn hearing screening', keywords: ['newborn','birth','hospital','aabr','oae','screen','pass','refer'], subs: [] },
-  { key: 'b4_school_check',    label: 'B4 School Check', keywords: ['b4','school check','plunket','4 year','preschool check'], subs: [] },
-  { key: 'birth_history',      label: 'Pregnancy and birth history', keywords: ['born','birth','pregnan','week','premature','nicu','weight','labour'], subs: [] },
-  { key: 'perinatal_risk',     label: 'Perinatal risk factors', keywords: ['nicu','intensive care','jaundice','oxygen','transfusion','antibiotic','infection'], subs: [] },
-  { key: 'ear_health',         label: 'Ear health and infections', keywords: ['ear','infection','glue','otitis','grommets','fluid','pain','discharge'], subs: [] },
-  { key: 'speech_language',    label: 'Speech and language development', keywords: ['speak','word','sentence','babble','talk','say','speech','language','communicate'], subs: [] },
-  { key: 'milestones',         label: 'Developmental milestones', keywords: ['walk','sit','develop','milestone','motor','crawl','grow'], subs: [] },
-  { key: 'school_function',    label: 'Preschool or school function', keywords: ['school','preschool','teacher','classroom','group','instruction','learn'], subs: [] },
-  { key: 'home_function',      label: 'Listening at home', keywords: ['home','tv','distance','room','respond','name','call'], subs: [] },
-  { key: 'family_history',     label: 'Family history of hearing loss', keywords: ['family','relative','parent','sibling','grandpar','uncle','aunt','cousin','genetic'], subs: [] },
-  { key: 'noise_exposure',     label: 'Noise exposure', keywords: ['noise','loud','concert','headphone','protect'], subs: [] },
-  { key: 'other_concerns',     label: 'Other concerns', keywords: ['worry','question','aids','support','future','what happens'], subs: [] },
+  {
+    key: 'presenting_concern', label: 'Presenting concern',
+    keywords: ['hear','concern','today','appointment','refer','why'],
+    subs: []
+  },
+  {
+    key: 'caregiver_concern', label: "Caregiver's view of hearing",
+    keywords: ['think','notice','worry','problem','hear','behave'],
+    subs: [
+      { key: 'cc_earSide',  label: 'One ear or both',           keywords: ['one ear','both ears','left','right','equally','one side'] },
+      { key: 'cc_constant', label: 'Constant or comes and goes', keywords: ['constant','come and go','on and off','always','intermittent'] },
+    ]
+  },
+  {
+    key: 'onset_course', label: 'Onset and time course',
+    keywords: ['when','start','sudden','gradual','always','worse','better'],
+    subs: [
+      { key: 'oc_when',   label: 'When first noticed', keywords: ['when','notice','start','began','first'] },
+      { key: 'oc_change', label: 'Changed over time',  keywords: ['change','worse','better','same','progress'] },
+    ]
+  },
+  {
+    key: 'previous_tests', label: 'Previous hearing tests',
+    keywords: ['test','before','result','audiology','screen'],
+    subs: [
+      { key: 'pt_where',  label: 'Where / when tested', keywords: ['where','when','which hospital','clinic'] },
+      { key: 'pt_result', label: 'Results',              keywords: ['result','pass','refer','told','outcome'] },
+    ]
+  },
+  {
+    key: 'newborn_screening', label: 'Newborn hearing screening',
+    keywords: ['newborn','birth','hospital','aabr','oae','screen','pass','refer'],
+    subs: [
+      { key: 'ns_result',     label: 'Pass or refer, which ear', keywords: ['pass','refer','which ear','left','right','both'] },
+      { key: 'ns_technology', label: 'Type of test used',        keywords: ['aabr','oae','teoae','type of test','technology'] },
+    ]
+  },
+  {
+    key: 'b4_school_check', label: 'B4 School Check',
+    keywords: ['b4','school check','plunket','4 year','preschool check'],
+    subs: [
+      { key: 'b4_result',       label: 'Result',                        keywords: ['pass','refer','result'] },
+      { key: 'b4_other_checks', label: 'Other checks (school/Well Child)', keywords: ['well child','school check','plunket','other check'] },
+    ]
+  },
+  {
+    key: 'birth_history', label: 'Pregnancy and birth history',
+    keywords: ['born','birth','pregnan','week','premature','nicu','weight','labour'],
+    subs: [
+      { key: 'bh_gestation',     label: 'Gestational age / weeks', keywords: ['weeks','gestation','premature','term','early'] },
+      { key: 'bh_weight',        label: 'Birth weight',            keywords: ['weight','kg','grams','birth weight'] },
+      { key: 'bh_complications', label: 'Pregnancy complications', keywords: ['complication','infection','illness','medication','pregnancy'] },
+    ]
+  },
+  {
+    key: 'perinatal_risk', label: 'Perinatal risk factors',
+    keywords: ['nicu','intensive care','jaundice','oxygen','transfusion','antibiotic','infection'],
+    subs: [
+      { key: 'pr_nicu',     label: 'NICU admission',           keywords: ['nicu','intensive care','ventilator','admitted'] },
+      { key: 'pr_jaundice', label: 'Jaundice / treatment',     keywords: ['jaundice','phototherapy','transfusion','yellow'] },
+      { key: 'pr_hypoxia',  label: 'Breathing / oxygen issues', keywords: ['breathing','oxygen','apgar','hypoxia'] },
+    ]
+  },
+  {
+    key: 'ear_health', label: 'Ear health and infections',
+    keywords: ['ear','infection','glue','otitis','grommets','fluid','pain','discharge'],
+    subs: [
+      { key: 'eh_infections', label: 'Ear infections / glue ear',   keywords: ['infection','glue ear','otitis','fluid'] },
+      { key: 'eh_surgery',    label: 'Grommets / ear surgery',      keywords: ['grommet','surgery','tubes','operation'] },
+      { key: 'eh_symptoms',   label: 'Pain, discharge, symptoms now', keywords: ['pain','discharge','blocked','ringing','dizzy'] },
+    ]
+  },
+  {
+    key: 'speech_language', label: 'Speech and language development',
+    keywords: ['speak','word','sentence','babble','talk','say','speech','language','communicate'],
+    subs: [
+      { key: 'sl_milestones',     label: 'Babble / first word / two-word', keywords: ['babble','first word','two word','milestone'] },
+      { key: 'sl_current',        label: 'Current vocabulary / sentences', keywords: ['words','vocabulary','sentence','how many words'] },
+      { key: 'sl_intelligibility',label: 'How clearly they speak',        keywords: ['clear','understand','intelligib','clarity'] },
+      { key: 'sl_language',       label: 'Language(s) spoken at home',    keywords: ['language','bilingual','speak at home'] },
+    ]
+  },
+  {
+    key: 'milestones', label: 'Developmental milestones',
+    keywords: ['walk','sit','develop','milestone','motor','crawl','grow'],
+    subs: [
+      { key: 'm_motor',        label: 'Motor milestones',              keywords: ['walk','sit','crawl','motor'] },
+      { key: 'm_general',      label: 'General development / play',    keywords: ['develop','play','social','think','problem solv'] },
+      { key: 'm_intervention', label: 'Early intervention / diagnoses',keywords: ['early intervention','diagnos','autism','adhd','disability'] },
+    ]
+  },
+  {
+    key: 'school_function', label: 'Preschool or school function',
+    keywords: ['school','preschool','teacher','classroom','group','instruction','learn'],
+    subs: [
+      { key: 'sf_teacher',      label: 'Teacher concerns',                   keywords: ['teacher','concern','classroom'] },
+      { key: 'sf_instructions', label: 'Following instructions in class',    keywords: ['instruction','follow','group','classroom'] },
+    ]
+  },
+  {
+    key: 'home_function', label: 'Listening at home',
+    keywords: ['home','tv','distance','room','respond','name','call'],
+    subs: [
+      { key: 'hf_tv',   label: 'TV volume / hearing from another room', keywords: ['tv','volume','another room','distance'] },
+      { key: 'hf_name', label: 'Responding to name / face-to-face',     keywords: ['name','face to face','respond','call'] },
+    ]
+  },
+  {
+    key: 'family_history', label: 'Family history of hearing loss',
+    keywords: ['family','relative','parent','sibling','grandpar','uncle','aunt','cousin','genetic'],
+    subs: [
+      { key: 'fh_relative', label: 'Which relative / type of loss',   keywords: ['who','which','relative','uncle','parent','sibling'] },
+      { key: 'fh_genetic',  label: 'Genetic testing / syndromes',     keywords: ['genetic','syndrome','testing','consanguin'] },
+    ]
+  },
+  {
+    key: 'noise_exposure', label: 'Noise exposure',
+    keywords: ['noise','loud','concert','headphone','protect'],
+    subs: [
+      { key: 'ne_type',       label: 'Type of exposure',     keywords: ['concert','headphone','loud','noise'] },
+      { key: 'ne_protection', label: 'Hearing protection',   keywords: ['protect','earmuff','earplug'] },
+    ]
+  },
+  {
+    key: 'other_concerns', label: 'Other concerns',
+    keywords: ['worry','question','aids','support','future','what happens'],
+    subs: [
+      { key: 'oc2_support',   label: 'Support currently in place',   keywords: ['support','resource teacher','fm system','rtlb'] },
+      { key: 'oc2_questions', label: 'Questions about next steps',   keywords: ['what happens','next','future','aids'] },
+    ]
+  },
 ];
 
 // Active set for the current session — swapped between the two arrays above
