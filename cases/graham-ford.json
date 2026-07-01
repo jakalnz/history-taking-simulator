@@ -1,0 +1,72 @@
+{
+  "id": "case-graham-ford-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "patient": {
+    "name": "Graham Ford",
+    "age": "51",
+    "occupation": "Long-haul truck driver",
+    "pronoun": "he/him",
+    "medicalKnowledge": "none",
+    "personality": "relaxed",
+    "chattiness": 2,
+    "additionalNotes": "Graham is easy-going and not the type to make a fuss. He tends to normalise things ('probably nothing') and needs gentle, specific questioning to draw details out — he won't connect his symptoms together himself. He is a bit worried about his driving job if anything is found wrong with his balance, so he may underplay dizziness unless asked directly and sensitively."
+  },
+  "history": {
+    "reasonForAppointment": "Booked in after his partner nagged him about turning the TV up too loud. He mentions this as the main reason and doesn't initially bring up anything else unless asked.",
+    "previousHearingTest": {
+      "had": false,
+      "details": ""
+    },
+    "hearing": {
+      "betterEar": "right",
+      "decline": "gradual",
+      "declineDetails": "Over the last few months, feels his left ear has been 'a bit off' — sometimes worse than others, which he finds confusing. Struggles more on the left when on the phone. He describes it as coming and going rather than being the same every day, though he hasn't tracked it closely."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "left",
+      "details": "A low humming or roaring sound in the left ear, comes and goes over the last few months. He mostly only notices it when it's quiet, like when he's parked up for the night. Doesn't think much of it."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "vertigo",
+      "details": "If asked directly and given time, he'll describe a few episodes over the past 2–3 months of feeling like the world briefly tilts or spins, lasting somewhere between 20 minutes and a couple of hours. Usually comes with feeling a bit sick and needing to sit still. He has generally pulled over or waited it out rather than telling anyone, including his employer. He often has a sense of fullness or pressure in the left ear just before or during these episodes, though he wouldn't describe it that way unprompted — he'd say his ear 'feels blocked' or 'full' beforehand. Episodes are unpredictable and he hasn't noticed a clear trigger. Between episodes he feels essentially normal."
+    },
+    "earHealth": {
+      "experiences": ["auralPressure"],
+      "details": "Intermittent feeling of fullness or pressure in the left ear, usually associated with the dizzy spells and the hearing changes. No pain, discharge, or infections."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "Mild hypertension, diagnosed a couple of years ago, not on medication — advised to watch his diet. Otherwise well.",
+      "medications": "None regularly. Occasional paracetamol."
+    },
+    "noiseHistory": {
+      "type": ["occupational"],
+      "details": "Years of truck cab noise, moderate rather than extreme. Doesn't use hearing protection as it's not been suggested to him for driving."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": ""
+    },
+    "otherConcerns": "Graham is worried about what any diagnosis might mean for his commercial driving licence, and is reluctant to raise the dizziness with his GP or employer for that reason. He hasn't connected the hearing changes, the ringing, the ear fullness and the dizzy spells together as being related — he thinks of them as separate minor annoyances if asked about each individually."
+  }
+}

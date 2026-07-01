@@ -1,0 +1,72 @@
+{
+  "id": "case-susan-mitchell-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "patient": {
+    "name": "Susan Mitchell",
+    "age": "45",
+    "occupation": "Pharmacist",
+    "pronoun": "she/her",
+    "medicalKnowledge": "moderate",
+    "personality": "neutral",
+    "chattiness": 3,
+    "additionalNotes": "Susan is composed and articulate, and describes things in a fairly organised way given her pharmacy background, but she does not have specialist ENT/audiology knowledge — clinical terms like 'otosclerosis' or 'conductive' mean nothing to her beyond what she's been told in passing. She mentions her mother had a 'hearing operation' at some point but doesn't know the details. She is mildly self-conscious that her voice sounds different to her lately."
+  },
+  "history": {
+    "reasonForAppointment": "Self-referred after several months of feeling her hearing has gradually gotten worse, particularly on the left side. She first put it down to earwax and tried over-the-counter ear drops with no improvement.",
+    "previousHearingTest": {
+      "had": false,
+      "details": ""
+    },
+    "hearing": {
+      "betterEar": "right",
+      "decline": "gradual",
+      "declineDetails": "Noticed gradual worsening over the past 18 months to 2 years, left ear more than right. Started around her early 40s. She finds she has to turn her phone up louder on the left, and struggles to hear low, quiet sounds like a whisper or someone talking softly from that side. Oddly, she feels she hears better in noisy places than in quiet ones, which she finds strange and hasn't mentioned to anyone before. She also feels her own voice sounds 'boomy' or louder in her head than it used to."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "left",
+      "details": "Occasional low, faint humming in the left ear, comes and goes. Doesn't really bother her — she'd only rate it a nuisance if directly asked, and doesn't think about it day to day."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": ["noConcerns"],
+      "details": "No pain, drainage, or infections. Tried OTC olive oil ear drops assuming it was wax build-up, no change in hearing."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "Caesarean section, 2012. Uneventful.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "Generally healthy. Two pregnancies, both otherwise uncomplicated — though she recalls that during her second pregnancy her hearing felt distinctly worse for a while, which she put down to tiredness at the time and never had checked.",
+      "medications": "Occasional antihistamine for seasonal hay fever. No regular medications."
+    },
+    "noiseHistory": {
+      "type": ["none"],
+      "details": "Works in a pharmacy — quiet environment. No occupational or recreational noise exposure of note."
+    },
+    "familyHistory": {
+      "has": true,
+      "details": "Her mother had a 'hearing operation' on one ear in her 50s, which Susan believes helped — she doesn't know the name of the procedure or diagnosis, just that it was something to do with a small bone in the ear. Susan has never asked for details. She isn't aware of any other family members with hearing problems."
+    },
+    "otherConcerns": "Susan wonders if she just has 'early menopause-related hearing loss' or if it's connected to her pregnancies, since she recalls it feeling different back then. She wants to know if there's anything that can be done, and whether it will keep getting worse."
+  }
+}

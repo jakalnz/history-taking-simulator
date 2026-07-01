@@ -1,0 +1,72 @@
+{
+  "id": "case-priya-anand-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "patient": {
+    "name": "Priya Anand",
+    "age": "34",
+    "occupation": "Primary school teacher",
+    "pronoun": "she/her",
+    "medicalKnowledge": "basic",
+    "personality": "chatty",
+    "chattiness": 4,
+    "additionalNotes": "Priya is friendly and easy to talk to, but doesn't know clinical terms like 'conductive' or 'otitis media' — she describes things in everyday language ('runny ear', 'blocked up', 'infections'). She has a long history of ear infections as a child and into her 20s and is used to talking about it, though she tends to underestimate how many she's had ('a few, I guess') until prompted to actually think back."
+  },
+  "history": {
+    "reasonForAppointment": "Booked in because her right ear has felt persistently blocked for the past 3 months, following what she thought was another ear infection that never fully cleared up. Over-the-counter decongestants haven't helped.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "Had a hearing test as a child, around age 8, after recurring ear infections — she recalls being told she had 'some loss' at the time and that grommets were discussed but her parents decided against it. No hearing tests since then until now."
+    },
+    "hearing": {
+      "betterEar": "left",
+      "decline": "gradual",
+      "declineDetails": "Long-standing mild difficulty hearing on the right, on and off since childhood, worse whenever she gets an ear infection or cold and improving somewhat in between. Over the past 3 months, since her last infection, the right ear has stayed blocked and hasn't returned to her usual baseline the way it normally does. She describes it as sounding muffled, 'like there's cotton wool in it', and her own voice sounds louder/different in that ear."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "none",
+      "details": ""
+    },
+    "earHealth": {
+      "experiences": ["auralPressure", "auralDrainage", "earInfections"],
+      "details": "Frequent ear infections as a child, mostly right ear, at least 6-8 that she can recall growing up, with a couple more in her 20s. The most recent one, about 3 months ago, had some thick discharge for a few days which settled with antibiotics from her GP, but the blocked feeling never went away afterward. Intermittent pressure/fullness in the right ear since then. No pain currently, just the blocked sensation."
+    },
+    "ent": {
+      "seen": true,
+      "history": ["treatment"],
+      "details": "Saw an ENT specialist as a child around the time grommets were discussed, but never proceeded with surgery. Has not seen an ENT specialist as an adult."
+    },
+    "generalHealth": {
+      "hospitalizations": "None.",
+      "headInjuries": false,
+      "headInjuriesDetails": "",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "Mild asthma, uses a preventer inhaler occasionally. Seasonal allergies/hay fever, worse in spring, which she feels tends to make her ears feel blocked too.",
+      "medications": "Salbutamol inhaler as needed. Antihistamine during hay fever season."
+    },
+    "noiseHistory": {
+      "type": ["none"],
+      "details": "Works in a primary school classroom — not a particularly loud environment. No significant occupational or recreational noise exposure."
+    },
+    "familyHistory": {
+      "has": false,
+      "details": ""
+    },
+    "otherConcerns": "Priya wants to know if the blocked feeling is just wax or fluid that will clear on its own, or whether she needs grommets now as an adult like was discussed when she was a kid. She's also curious whether her hay fever is making things worse and if that's worth treating separately."
+  }
+}

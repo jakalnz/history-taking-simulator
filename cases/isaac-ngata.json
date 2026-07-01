@@ -1,0 +1,72 @@
+{
+  "id": "case-isaac-ngata-001",
+  "version": "1.0",
+  "createdAt": "2026-07-01T00:00:00.000Z",
+  "patient": {
+    "name": "Isaac Ngata",
+    "age": "24",
+    "occupation": "Landscaper",
+    "pronoun": "he/him",
+    "medicalKnowledge": "basic",
+    "personality": "chatty",
+    "chattiness": 4,
+    "additionalNotes": "Isaac is friendly and talks freely about his life, work, and family, going off on tangents easily. He has known about his left-sided hearing loss since childhood and is very matter-of-fact about it — it doesn't bother him much and he's mostly here because of the recent knock and the change he's noticed since. He does not know what 'Pendred syndrome' is and has no reason to bring it up unprompted; the relevant clues (family history, thyroid, balance as a toddler) only come out if specifically asked about."
+  },
+  "history": {
+    "reasonForAppointment": "Came in after his hearing on the left, which has been reduced since childhood, seemed to drop further following a fall at work about 6 weeks ago where he knocked the left side of his head on a low branch/scaffold pole. No loss of consciousness, but he's noticed it's harder to hear out of that ear since, and his family encouraged him to get it checked.",
+    "previousHearingTest": {
+      "had": true,
+      "details": "Had a hearing test as a child, around age 5 or 6, after his family noticed he wasn't responding on his left side and he was slow to talk clearly. He recalls being told his left ear 'didn't work as well' but doesn't remember specifics or whether he had any imaging done. No follow-up hearing tests since then that he recalls, until now."
+    },
+    "hearing": {
+      "betterEar": "right",
+      "decline": "sudden",
+      "declineDetails": "Left ear has had reduced hearing for as long as he can remember — thinks it's 'always been like that' since he was little. Right ear has always been fine. Over the past 6 weeks, since the knock to the left side of his head at work, he feels the left ear has gotten noticeably worse — more muffled than his usual baseline. He hadn't noticed any change before the knock; it had been stable for years as far as he knows."
+    },
+    "hearingAids": {
+      "current": false,
+      "details": ""
+    },
+    "tinnitus": {
+      "present": true,
+      "location": "left",
+      "details": "New ringing in the left ear since the knock 6 weeks ago. Didn't have this before. Comes and goes, moderate annoyance if he stops to think about it."
+    },
+    "soundSensitivity": {
+      "present": false,
+      "location": "",
+      "details": ""
+    },
+    "balance": {
+      "concern": "imbalance",
+      "details": "If asked about balance in childhood, he'll mention (somewhat vaguely, prompted by his mum's old comments) that he was a 'wobbly' toddler and was a bit later than his siblings to walk steadily, though nothing was ever formally investigated. Currently, since the knock, he has had a few days of feeling mildly off-balance and unsteady, which has settled down over the past couple of weeks. No spinning or vomiting, just a vague unsteadiness."
+    },
+    "earHealth": {
+      "experiences": ["noConcerns"],
+      "details": "No pain, discharge, or infections related to the ears, before or after the knock. No bruising or bleeding at the time of the injury — just a hard knock."
+    },
+    "ent": {
+      "seen": false,
+      "history": [],
+      "details": ""
+    },
+    "generalHealth": {
+      "hospitalizations": "Went to A&E after the recent knock for a check — no scan was done, he was told it looked like a soft tissue injury and sent home.",
+      "headInjuries": true,
+      "headInjuriesDetails": "The recent workplace knock to the left side of the head, 6 weeks ago, described above. No other significant head injuries that he recalls.",
+      "pastInfections": [],
+      "pastInfectionsDetails": "",
+      "majorIllnesses": "Mentions, if asked specifically about thyroid or neck issues, that he had a slightly enlarged thyroid ('a lump in my neck') noticed by a GP a couple of years ago — he was told it was probably nothing and it was never really followed up, and he hasn't thought about it since. Otherwise generally healthy.",
+      "medications": "None."
+    },
+    "noiseHistory": {
+      "type": ["occupational"],
+      "details": "Landscaping work involves mowers, trimmers, and chainsaws. Wears ear protection most of the time when using loud equipment."
+    },
+    "familyHistory": {
+      "has": true,
+      "details": "If asked specifically about family hearing history, he'll mention his younger sister also has some hearing loss, though he isn't sure of the details, and there's a maternal cousin who is profoundly deaf. He hasn't thought of this as connected to his own hearing before. No one in the family has mentioned genetic testing or a formal diagnosis."
+    },
+    "otherConcerns": "Isaac mainly wants to know if the knock has caused permanent extra damage on top of what he already had, and whether it's likely to recover. He isn't overly worried and is keen to get back to normal training for weekend rugby."
+  }
+}
