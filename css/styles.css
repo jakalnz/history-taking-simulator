@@ -840,6 +840,39 @@ body {
 .report-item.hit { color: var(--green-600); }
 .report-item.miss { color: var(--slate-400); }
 
+/* Full transcript (collapsible on screen, forced open in print/PDF) */
+.report-transcript-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: .5rem .1rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--slate-200);
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--slate-700);
+  cursor: pointer;
+  font-family: inherit;
+}
+.report-transcript-toggle .hint-chevron { transition: transform .15s; color: var(--slate-400); }
+.report-transcript-toggle.open .hint-chevron { transform: rotate(180deg); }
+.report-transcript {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: .75rem .25rem;
+  font-size: .82rem;
+}
+.report-transcript-item { display: flex; gap: .5rem; }
+.report-transcript-role { flex-shrink: 0; font-weight: 700; width: 60px; }
+.report-transcript-item.student .report-transcript-role { color: var(--teal-600); }
+.report-transcript-item.patient .report-transcript-role { color: var(--navy-600, #1d4ed8); }
+.report-transcript-text { color: var(--slate-700); line-height: 1.4; }
+
 /* ── AUTH MODAL ── */
 .auth-overlay {
   position: fixed; inset: 0;
@@ -1045,6 +1078,9 @@ body {
   .btn-group, #btnAiReview { display: none !important; }
   /* Show AI review result if present */
   #aiReviewResult { display: block !important; }
+  /* Transcript is collapsed by default on screen — always expand it for print/PDF */
+  .report-transcript-toggle { display: none !important; }
+  .report-transcript { display: flex !important; max-height: none !important; overflow: visible !important; }
   /* Ensure colour prints reasonably */
   .report-item.hit { color: #16a34a !important; }
   .report-item.miss { color: #64748b !important; }

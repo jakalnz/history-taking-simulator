@@ -257,9 +257,18 @@
       <div id="aiReviewResult" class="hidden" style="margin-top:1rem"></div>
     </div>
 
+    <!-- Full transcript — collapsed on screen, always expanded when printed/exported -->
+    <div class="report-section" style="margin-top:1.5rem">
+      <button class="report-transcript-toggle" id="btnToggleTranscript">
+        <span>Full Transcript</span>
+        <svg class="hint-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="report-transcript hidden" id="reportTranscript"></div>
+    </div>
+
     <div class="btn-group" style="margin-top:1.5rem">
       <button class="btn btn-secondary" id="btnCloseReport">Continue Session</button>
-      <button class="btn btn-secondary" id="btnSavePdf" onclick="window.print()">⬇ Save PDF</button>
+      <button class="btn btn-secondary" id="btnSavePdf">⬇ Save PDF</button>
       <button class="btn btn-primary" id="btnNewSession">New Patient →</button>
     </div>
   </div>
@@ -288,6 +297,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <script type="module" src="js/student.js"></script>
 </body>
 </html>

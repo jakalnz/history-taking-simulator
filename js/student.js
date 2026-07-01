@@ -984,6 +984,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   document.getElementById('btnAiReview')?.addEventListener('click', handleAiReview);
   document.getElementById('btnSaveToken')?.addEventListener('click', saveSettings);
+  document.getElementById('btnToggleTranscript')?.addEventListener('click', () => {
+    const btn = document.getElementById('btnToggleTranscript');
+    const el = document.getElementById('reportTranscript');
+    const open = el.classList.toggle('hidden') === false;
+    btn.classList.toggle('open', open);
+  });
+  document.getElementById('btnSavePdf')?.addEventListener('click', generatePdfReport);
 
   // Sidebar toggle (mobile)
   const sidebarToggle = document.getElementById('sidebarToggle');
@@ -1469,7 +1476,133 @@ function endSession() {
     }
   }
 
+  // Full transcript — always populated (used for print/PDF export), collapsed
+  // on screen by default via .hidden on the container.
+  const transcriptEl = document.getElementById('reportTranscript');
+  if (transcriptEl) {
+    transcriptEl.innerHTML = conversation.map(m => `
+      <div class="report-transcript-item ${m.role === 'user' ? 'student' : 'patient'}">
+        <span class="report-transcript-role">${m.role === 'user' ? 'You' : esc(activeCase?.patient?.name || 'Patient')}</span>
+        <span class="report-transcript-text">${esc(m.content)}</span>
+      </div>`).join('') || '<p class="text-sm text-muted">No messages exchanged.</p>';
+  }
+
   overlay.classList.add('visible');
+}
+
+// ── PDF export ──
+// Generates the report as a standalone PDF (score, coverage, question style,
+// learning supports, AI feedback if generated, and the full transcript) via
+// jsPDF, rather than relying on the browser's print-to-PDF dialog — gives a
+// consistent one-click download regardless of the student's browser/OS.
+function generatePdfReport() {
+  if (!window.jspdf) {
+    toast('PDF library unavailable — opening browser print instead.', '');
+    window.print();
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+  const marginX = 40;
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const maxWidth = doc.internal.pageSize.getWidth() - marginX * 2;
+  let y = 50;
+
+  function ensureSpace(need = 14) {
+    if (y + need > pageHeight - 40) { doc.addPage(); y = 50; }
+  }
+  function heading(text, size = 13) {
+    ensureSpace(size + 12);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(size);
+    doc.text(text, marginX, y);
+    y += size + 6;
+  }
+  function paragraph(text, { size = 10, bold = false } = {}) {
+    doc.setFont('helvetica', bold ? 'bold' : 'normal');
+    doc.setFontSize(size);
+    const lines = doc.splitTextToSize(text, maxWidth);
+    lines.forEach(line => {
+      ensureSpace(size * 1.4);
+      doc.text(line, marginX, y);
+      y += size * 1.4;
+    });
+  }
+  function spacer(h = 10) { y += h; }
+
+  const patientName = activeCase?.patient?.name || 'Patient';
+  const total = COVERAGE_SECTIONS.length;
+  const covered = COVERAGE_SECTIONS.filter(s => coveredSections.has(s.key)).length;
+  const percent = total ? Math.round((covered / total) * 100) : 0;
+  const mins = Math.floor(timerSeconds / 60);
+  const secs = String(timerSeconds % 60).padStart(2, '0');
+  const duration = mins > 0 ? `${mins}m ${secs}s` : `${timerSeconds}s`;
+
+  heading(`Session Report — ${patientName}`, 18);
+  paragraph(`${covered} of ${total} areas explored · ${percent}% coverage · ${duration} · ${new Date().toLocaleDateString()}`);
+  spacer(12);
+
+  heading('Areas Covered');
+  const hits = COVERAGE_SECTIONS.filter(s => coveredSections.has(s.key));
+  if (hits.length) {
+    hits.forEach(s => {
+      paragraph(`✓ ${s.label}`);
+      s.subs.filter(sub => coveredSections.has(sub.key)).forEach(sub => paragraph(`    · ${sub.label}`, { size: 9 }));
+    });
+  } else {
+    paragraph('None yet');
+  }
+  spacer(10);
+
+  heading('Areas Not Explored');
+  const misses = COVERAGE_SECTIONS.filter(s => !coveredSections.has(s.key));
+  paragraph(misses.length ? misses.map(s => s.label).join(', ') : 'All areas covered!');
+  spacer(10);
+
+  const qb = computeQuestionBalance(conversation);
+  if (qb.total >= 3) {
+    heading('Question Style');
+    paragraph(`${qb.open} open question${qb.open !== 1 ? 's' : ''} · ${qb.closed} closed question${qb.closed !== 1 ? 's' : ''}`);
+    spacer(10);
+  }
+
+  if (hintsViewed.size > 0 || mcTurns > 0) {
+    heading('Learning Supports Used');
+    if (hintsViewed.size > 0) {
+      const labels = COVERAGE_SECTIONS.filter(s => hintsViewed.has(s.key)).map(s => s.label);
+      paragraph(`Hints viewed for: ${labels.join(', ')}`);
+    }
+    if (mcTurns > 0) {
+      const totalMcTurns = mcTurns + freeTurns;
+      paragraph(`Guided questions used for ${mcTurns} of ${totalMcTurns} turn${totalMcTurns !== 1 ? 's' : ''}`);
+    }
+    spacer(10);
+  }
+
+  const reviewResult = document.getElementById('aiReviewResult');
+  if (reviewResult && !reviewResult.classList.contains('hidden') && reviewResult.textContent.trim()) {
+    heading('AI Feedback');
+    reviewResult.querySelectorAll('h4, li').forEach(el => {
+      if (el.tagName === 'H4') { spacer(2); paragraph(el.textContent, { bold: true, size: 11 }); }
+      else paragraph(`• ${el.textContent}`, { size: 10 });
+    });
+    spacer(10);
+  }
+
+  heading('Full Transcript');
+  if (conversation.length) {
+    conversation.forEach(m => {
+      const role = m.role === 'user' ? 'You' : patientName;
+      paragraph(`${role}: ${m.content}`);
+      spacer(4);
+    });
+  } else {
+    paragraph('No messages exchanged.');
+  }
+
+  const filenameSafe = patientName.replace(/\s+/g, '-').toLowerCase() || 'session';
+  doc.save(`session-report-${filenameSafe}-${new Date().toISOString().slice(0, 10)}.pdf`);
 }
 
 // ── AI Review ──

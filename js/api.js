@@ -77,12 +77,15 @@ export async function getAiReview(patientName, conversation, covered, missed) {
 
   const system = `You are a clinical educator reviewing an audiology student's history-taking practice session.
 Provide concise, constructive feedback. Be specific and reference actual exchanges from the transcript where possible.
-Format your response with exactly these four sections using these exact headings:
+Format your response with exactly these five sections using these exact headings:
 **Strengths**
 **Areas to Improve**
 **Questioning Technique**
+**Missed Follow-ups**
 **Tips for Next Time**
-Keep each section to 2-4 bullet points. Be encouraging but honest.`;
+Keep each section to 2-4 bullet points. Be encouraging but honest.
+
+For the "Missed Follow-ups" section specifically: scan the transcript for moments where the patient/caregiver mentioned something clinically significant (a symptom, a worry, an odd detail, something implying more depth) that the student did not pick up on or ask about further before moving to a different topic. Quote the patient's actual words briefly for each one, and note what a good follow-up question would have been. If there are genuinely none, say so briefly rather than inventing one — do not manufacture a miss just to fill the section.`;
 
   const prompt = `The student just completed a history-taking session with a simulated patient called ${patientName}.
 
@@ -102,7 +105,7 @@ Please review this session and provide feedback.`;
     headers: { 'Content-Type': 'application/json', 'X-Session-Token': sessionToken },
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
-      max_tokens: 1024,
+      max_tokens: 1400,
       system,
       messages: [{ role: 'user', content: prompt }]
     })
