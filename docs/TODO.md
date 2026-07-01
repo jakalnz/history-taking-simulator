@@ -17,10 +17,10 @@
 ## Assessment & Feedback
 
 - [ ] **Student self-rating** — Star rating + free-text reflection box in the end-of-session report ("How did you feel this went?").
-- [ ] **Downloadable session report (PDF)** — Export the full report (coverage checklist + AI feedback + transcript) as a PDF for portfolio evidence or submission.
+- [x] **Downloadable session report (PDF)** — One-click PDF export (jsPDF, not just browser print) including score, coverage hit/miss, question style, learning supports, AI feedback, and the full transcript.
 - [ ] **Shareable report link** — Generate a summary that can be copied/emailed to a supervisor without needing them to access the app.
-- [x] **Questioning style analysis** — Live "Q Balance" indicator + end-of-session "Question style" breakdown (open vs. closed counts, neutral presentation) plus a closed-question-fatigue mechanic where the patient gets noticeably briefer after a long unbroken closed-question run. Not yet folded into the free-text AI feedback narrative itself ("you used 3 closed questions in a row here") — that's still open.
-- [ ] **Missed follow-up detection** — AI identifies moments where the patient signalled something important but the student didn't follow up (e.g. patient mentioned dizziness but student moved on).
+- [x] **Questioning style analysis** — Live "Q Balance" indicator + end-of-session "Question style" breakdown (open vs. closed counts, neutral presentation) plus a closed-question-fatigue mechanic where the patient gets noticeably briefer after a long unbroken closed-question run.
+- [x] **Missed follow-up detection** — AI feedback now includes a "Missed Follow-ups" section quoting specific moments the patient/caregiver signalled something significant that wasn't followed up on, with a suggested question — instructed not to manufacture a miss if there isn't one.
 - [ ] **Benchmark comparison** — Show how this session's coverage % compares to the student's own previous sessions (stored locally).
 - [ ] **Supervisor review mode** — Clinician can load a saved transcript and add inline comments for debrief.
 
@@ -86,6 +86,7 @@
 - [x] **31 bundled practice cases** (up from 2) — 20 adult, 11 paediatric, spanning beginner to advanced, including deliberate "trap" cases (functional hearing loss, situational mutism, bilingual speech-delay misattribution) that reward not over-medicalising every referral.
 - [x] **Open/Closed hint tagging** — every hint question is labelled, with at least one open "opener" added per topic to model the open-then-closed funnel technique.
 - [x] **Professionalism modelling** — patient pushes back on rudeness in-character; repeated or severe unprofessional conduct ends the session automatically and routes to the report screen.
+- [x] **On-screen transcript view** — collapsible "Full Transcript" section in the end-of-session report, in addition to the scrollback chat itself.
 
 ---
 

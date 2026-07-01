@@ -29,7 +29,8 @@ A web app for practising audiological history-taking with an AI-simulated patien
   - Coverage score and breakdown of areas covered vs. missed (with sub-items).
   - Question style (open/closed) breakdown.
   - Learning supports used (hints viewed, guided-question usage) — framed as normal, not a penalty.
-  - **AI-generated feedback** on questioning technique, referencing the actual transcript, with strengths / areas to improve / questioning technique / tips sections.
+  - **AI-generated feedback** on questioning technique, referencing the actual transcript, with five sections: strengths / areas to improve / questioning technique / **missed follow-ups** (specific moments the patient signalled something significant that wasn't picked up on, quoted directly) / tips for next time.
+  - Collapsible full transcript, and a **one-click PDF export** (score, coverage, question style, AI feedback, and the full transcript in a single downloadable file) for portfolio evidence or submission.
 - **Mobile-friendly** — responsive layout, and the on-screen keyboard is kept from popping up unnecessarily (e.g. after each patient reply) so students can read responses without the keyboard covering the chat.
 
 ## Paediatric case support
