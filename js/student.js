@@ -1060,15 +1060,21 @@ async function populateCaseList() {
 
   let cases = getCases();
 
-  // Try loading bundled cases if none exist
-  if (cases.length === 0) {
-    const bundled = await loadBundledCases();
-    bundled.forEach(saveCase);
+  // Auto-sync bundled sample cases the student doesn't have yet (matched by
+  // id) — runs every visit, not just when the library is empty, so newly
+  // added bundled cases show up without needing a trip through the
+  // clinician view's "Load Sample Cases" button. Never touches cases that
+  // aren't in the bundle (imported/custom ones are left alone).
+  const bundled = await loadBundledCases();
+  const existingIds = new Set(cases.map(c => c.id));
+  const newBundledCases = bundled.filter(c => !existingIds.has(c.id));
+  if (newBundledCases.length) {
+    newBundledCases.forEach(saveCase);
     cases = getCases();
   }
 
   if (cases.length === 0) {
-    list.innerHTML = `<p class="text-muted text-sm" style="padding:.75rem">No cases available. Ask your teacher to share a case file, or load sample cases.</p>`;
+    list.innerHTML = `<p class="text-muted text-sm" style="padding:.75rem">No cases available. Ask your teacher to share a case file.</p>`;
     return;
   }
 
