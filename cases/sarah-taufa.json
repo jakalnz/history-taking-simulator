@@ -5,7 +5,7 @@
   "meta": {
     "category": ["Conductive/Otitis media", "Congenital/Genetic"],
     "difficulty": "moderate",
-    "clinicianNotes": "Paediatric case (caregiver-respondent) to practise developmental and perinatal history taking alongside the standard audiological domains. The key diagnostic issues are: (1) recurrent OME driving a mild-moderate conductive loss in the right ear; (2) speech delay that is likely multifactorial — OME plus possible mild bilateral SNHL (left ear borderline on screening). Students should ask about newborn screening (passed AABR bilaterally but borderline on later screening), B4 School Check (referred right ear), developmental milestones (speech at the lower end of normal, motor on track), family history (maternal uncle with childhood hearing loss of unknown cause), and NICU history (nil — normal birth). The trap is anchoring too early on OME and not exploring the genetic/SNHL angle. JCIH risk factors present: caregiver concern, family history, B4 School Check referral. No NICU history, no prenatal infections."
+    "clinicianNotes": "Paediatric case (caregiver-respondent) to practise developmental and perinatal history taking alongside the standard audiological domains. The key diagnostic issues are: (1) recurrent OME driving a mild-moderate conductive loss in the right ear; (2) speech delay that is likely multifactorial — OME plus possible mild bilateral SNHL (left ear borderline on screening). Students should ask about newborn screening (passed AABR bilaterally but borderline on later screening), B4 School Check (referred right ear), developmental milestones (speech at the lower end of normal, motor on track), family history (maternal uncle with childhood hearing loss of unknown cause), and NICU history (nil — normal birth). The trap is anchoring too early on OME and not exploring the genetic/SNHL angle. JCIH risk factors present: caregiver concern, family history of childhood hearing loss. (The B4 School Check referral is a screening outcome rather than a JCIH risk factor itself, but is an important clue in its own right.) No NICU history, no prenatal infections."
   },
   "patient": {
     "name": "Sarah Taufa",
@@ -70,9 +70,8 @@
       "existingSupport": "None currently in place. Preschool is awaiting audiology results before applying for RTLB support."
     },
     "jcihRiskFactors": [
-      "Caregiver concern about hearing and speech",
-      "Family history of childhood hearing loss (maternal uncle)",
-      "B4 School Check referral (right ear)"
+      "Caregiver concern about hearing, speech, language, or development",
+      "Family history of permanent childhood hearing loss"
     ]
   },
   "history": {
