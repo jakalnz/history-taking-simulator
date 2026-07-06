@@ -1367,6 +1367,20 @@ body {
 }
 .theme-toggle-btn:hover { transform: scale(1.06); }
 .theme-toggle-btn svg { width: 22px; height: 22px; display: block; }
+
+/* ── ATTRIBUTION (floating footer text) ── */
+.attribution {
+  position: fixed;
+  z-index: 500;
+  bottom: 1.65rem;
+  right: 3.75rem;
+  font-size: .72rem;
+  color: var(--slate-400);
+  pointer-events: none;
+  user-select: none;
+}
+[data-theme="dark"] .attribution,
+[data-theme="high-contrast"] .attribution { color: var(--slate-500); }
 .theme-menu {
   position: absolute;
   bottom: calc(100% + .5rem);
