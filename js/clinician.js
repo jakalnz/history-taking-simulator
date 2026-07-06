@@ -1,6 +1,21 @@
 import { getCases, saveCase, deleteCase, exportCase, exportAllCases, importCasesFromFile, loadBundledCases, newCaseTemplate, cloneCase, newPaediatricHistoryTemplate, isPaediatricCase } from './cases.js';
 import { getProxyUrl, setProxyUrl } from './api.js';
 
+// ── Beta placeholder gate ──
+// Not real security — just keeps casual visitors out during beta testing.
+const CLINICIAN_PASSWORD = '1234';
+if (sessionStorage.getItem('clinicianAuthed') !== 'true') {
+  let entered = null;
+  while (entered !== CLINICIAN_PASSWORD) {
+    entered = window.prompt('Clinician mode is in beta. Enter the access password:');
+    if (entered === null) {
+      window.location.href = 'index.html';
+      throw new Error('Clinician access cancelled');
+    }
+  }
+  sessionStorage.setItem('clinicianAuthed', 'true');
+}
+
 // ── Toast ──
 function toast(msg, type = '') {
   const el = document.createElement('div');
