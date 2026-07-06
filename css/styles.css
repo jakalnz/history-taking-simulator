@@ -1381,6 +1381,7 @@ body {
 }
 [data-theme="dark"] .attribution,
 [data-theme="high-contrast"] .attribution { color: var(--slate-500); }
+#sessionScreen:not(.hidden) ~ .attribution { display: none; }
 .theme-menu {
   position: absolute;
   bottom: calc(100% + .5rem);
