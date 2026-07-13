@@ -99,9 +99,11 @@ function stopTimer() {
 
 // ── Text to speech ──
 let ttsEnabled = false;
-let ttsVoice = null;
+let ttsVoiceMale = null;
+let ttsVoiceFemale = null;
 let ttsRate = 0.95;
-const TTS_VOICE_KEY = 'audiology-sim-tts-voice';
+const TTS_VOICE_MALE_KEY   = 'audiology-sim-tts-voice-male';
+const TTS_VOICE_FEMALE_KEY = 'audiology-sim-tts-voice-female';
 const TTS_RATE_KEY  = 'audiology-sim-tts-rate';
 
 function initTTS() {
@@ -112,10 +114,29 @@ function initTTS() {
 
   function getVoices() { return speechSynthesis.getVoices().filter(v => v.lang.startsWith('en')); }
 
-  function pickDefaultVoice(voices) {
+  function pickDefaultMaleVoice(voices) {
+    const preferred = [
+      v => v.name.includes('Daniel'),
+      v => v.name.includes('David'),
+      v => v.name.includes('Fred'),
+      v => v.name.includes('Alex'),
+      v => v.lang === 'en-AU' && !v.name.includes('Google'),
+      v => v.lang === 'en-GB' && !v.name.includes('Google'),
+      v => v.lang.startsWith('en-AU'),
+      v => v.lang.startsWith('en-GB'),
+    ];
+    for (const match of preferred) {
+      const found = voices.find(match);
+      if (found) return found;
+    }
+    return voices[0];
+  }
+
+  function pickDefaultFemaleVoice(voices) {
     const preferred = [
       v => v.name.includes('Karen'),
       v => v.name.includes('Samantha'),
+      v => v.name.includes('Zira'),
       v => v.lang === 'en-AU' && !v.name.includes('Google'),
       v => v.lang === 'en-GB' && !v.name.includes('Google'),
       v => v.lang.startsWith('en-AU'),
@@ -129,19 +150,23 @@ function initTTS() {
   }
 
   function applyVoice(voices) {
-    const saved = localStorage.getItem(TTS_VOICE_KEY);
-    ttsVoice = (saved && voices.find(v => v.name === saved)) || pickDefaultVoice(voices);
-    populateVoiceDropdown(voices);
+    const savedMale = localStorage.getItem(TTS_VOICE_MALE_KEY);
+    ttsVoiceMale = (savedMale && voices.find(v => v.name === savedMale)) || pickDefaultMaleVoice(voices);
+
+    const savedFemale = localStorage.getItem(TTS_VOICE_FEMALE_KEY);
+    ttsVoiceFemale = (savedFemale && voices.find(v => v.name === savedFemale)) || pickDefaultFemaleVoice(voices);
+
+    populateVoiceDropdown(voices, document.getElementById('voiceSelectMale'), document.getElementById('voiceSelectMaleField'), TTS_VOICE_MALE_KEY, () => ttsVoiceMale, v => ttsVoiceMale = v);
+    populateVoiceDropdown(voices, document.getElementById('voiceSelectFemale'), document.getElementById('voiceSelectFemaleField'), TTS_VOICE_FEMALE_KEY, () => ttsVoiceFemale, v => ttsVoiceFemale = v);
   }
 
-  function populateVoiceDropdown(voices) {
-    const select = document.getElementById('voiceSelect');
-    const field = document.getElementById('voiceSelectorField');
+  function populateVoiceDropdown(voices, select, field, storageKey, getCurrent, setCurrent) {
     if (!select || !voices.length) return;
     field.style.display = 'block';
 
+    const current = getCurrent();
     select.innerHTML = voices.map(v =>
-      `<option value="${esc(v.name)}" ${ttsVoice?.name === v.name ? 'selected' : ''}>
+      `<option value="${esc(v.name)}" ${current?.name === v.name ? 'selected' : ''}>
         ${esc(v.name)} (${v.lang})
        </option>`
     ).join('');
@@ -149,8 +174,8 @@ function initTTS() {
     select.onchange = () => {
       const chosen = voices.find(v => v.name === select.value);
       if (chosen) {
-        ttsVoice = chosen;
-        localStorage.setItem(TTS_VOICE_KEY, chosen.name);
+        setCurrent(chosen);
+        localStorage.setItem(storageKey, chosen.name);
         // Preview the selected voice
         speechSynthesis.cancel();
         const utter = new SpeechSynthesisUtterance('Hello, I am your patient today.');
@@ -199,7 +224,8 @@ function speakPatient(text) {
   if (!clean) return;
   speechSynthesis.cancel();
   const utter = new SpeechSynthesisUtterance(clean);
-  if (ttsVoice) utter.voice = ttsVoice;
+  const voice = activeCase?.patient?.pronoun === 'he/him' ? ttsVoiceMale : ttsVoiceFemale;
+  if (voice) utter.voice = voice;
   utter.rate = ttsRate;
   utter.pitch = 1.05;
   speechSynthesis.speak(utter);
