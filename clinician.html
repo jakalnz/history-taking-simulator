@@ -411,6 +411,11 @@
 
     <!-- ── REASON FOR APPOINTMENT ── -->
     <div class="card">
+      <div class="card-title">Gating information with [ASK: topic] tags</div>
+      <p class="text-sm text-muted" style="margin-bottom:.5rem">By default the AI patient already withholds detail until asked about the general topic. To stop it bundling a specific fact into an unrelated answer, start that sentence with a tag naming the exact question that must be asked first — e.g. <code>[ASK: what caused it] The ENT specialist thought she had a perilymph fistula.</code> The patient will never mention that fact until a question matching that topic is asked, and never reads the tag aloud. Give each gated fact its own sentence and its own tag rather than combining several facts in one paragraph.</p>
+    </div>
+
+    <div class="card">
       <div class="card-title">Reason for Appointment</div>
       <div class="field">
         <label for="reasonForAppointment">Why is this patient attending today?</label>
